@@ -1,5 +1,4 @@
 import { withSocialMetadata } from '../../../lib/seo';
-import { InternationalServiceLinks } from '../../../components/international/InternationalServiceLinks';
 import { ServiceStructuredData } from '../../../components/international/ServiceStructuredData';
 import { Header } from '../../../components/common/Header';
 import { Footer } from '../../../components/common/Footer';
@@ -46,7 +45,6 @@ export default function MobileAppDevelopmentPage() {
           <MobileServiceWhyUsSection />
           <TestimonialsSection />
           <MobileServiceFaqSection />
-          <InternationalServiceLinks />
           <CtaSection />
         </main>
         <Footer />

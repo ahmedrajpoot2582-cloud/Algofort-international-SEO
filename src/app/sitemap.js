@@ -22,7 +22,7 @@ const pages = [
 
 export default function sitemap() {
   if (!SITE_INDEXABLE) return [];
-  const regionalPaths = ['/international', ...markets.map(marketPath)];
+  const regionalPaths = markets.map(marketPath);
   const allPages = [...pages, ...regionalPaths, '/insights', ...insights.map((insight) => `/insights/${insight.slug}`)];
   return allPages.map((path) => ({
     url: absoluteUrl(path),

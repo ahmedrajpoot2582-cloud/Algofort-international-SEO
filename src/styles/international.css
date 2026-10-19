@@ -23,14 +23,6 @@
 .sec-international .sec-international__button .button-text { color: #05080c; }
 .sec-international .sec-international__button .main-button-block { display: block; }
 .sec-international .sec-international__note { margin-block: 1.5rem; max-width: 900px; opacity: .75; font-size: .9rem; }
-.sec-international .sec-international__search-label { display: block; margin-bottom: .75rem; font-weight: 600; }
-.sec-international .sec-international__search { width: 100%; max-width: 650px; padding: 1rem 1.25rem; border: 1px solid #05080c50; background: #fff; border-radius: 12px; font: inherit; color: #05080c; }
-.sec-international .sec-international__result-count { margin-block: 1rem; }
-.sec-international .sec-international__country-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .5rem; max-height: 480px; overflow-y: auto; list-style: none; padding: .4rem; border: 1px solid #05080c20; border-radius: 24px; }
-.sec-international .sec-international__country-list a { display: flex; gap: .75rem; align-items: center; padding: 1rem; height: 100%; border-radius: 12px; color: inherit; }
-.sec-international .sec-international__country-list a:hover { background: #fff; }
-.sec-international .sec-international__country-list a span:last-child { margin-left: auto; }
-.sec-international .sec-international__country-code { font-size: .75rem; font-weight: 700; min-width: 1.5rem; color: #b94c00; }
 .sec-international .sec-international__brief { list-style: decimal; padding-left: 1.5rem; margin-bottom: 2rem; }
 .sec-international .sec-international__brief li { padding-block: .65rem; }
 .sec-international .sec-international__faq { max-width: 1000px; }
@@ -49,6 +41,6 @@
 .sec-international .sec-international__article p + p { margin-top: 1rem; }
 .sec-international .sec-international__article ul { list-style: disc; padding-left: 1.25rem; margin-top: 1rem; }
 @media (max-width: 1100px) { .sec-international .sec-international__grid--markets { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 991px) { .sec-international .sec-international__padding { padding-block: 5rem; } .sec-international .sec-international__grid--three { grid-template-columns: 1fr; } .sec-international .sec-international__country-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 600px) { .sec-international .sec-international__padding { padding-block: 4rem; } .sec-international .sec-international__grid--services, .sec-international .sec-international__grid--markets, .sec-international .sec-international__country-list { grid-template-columns: 1fr; } .sec-international .sec-international__card, .sec-international .sec-international__market { padding: 1.75rem 1.5rem; } .sec-international .sec-international__actions { align-items: flex-start; flex-direction: column; } }
+@media (max-width: 991px) { .sec-international .sec-international__padding { padding-block: 5rem; } .sec-international .sec-international__grid--three { grid-template-columns: 1fr; } }
+@media (max-width: 600px) { .sec-international .sec-international__padding { padding-block: 4rem; } .sec-international .sec-international__grid--services, .sec-international .sec-international__grid--markets { grid-template-columns: 1fr; } .sec-international .sec-international__card, .sec-international .sec-international__market { padding: 1.75rem 1.5rem; } .sec-international .sec-international__actions { align-items: flex-start; flex-direction: column; } }
 @media (prefers-reduced-motion: reduce) { .sec-international .sec-international__market { transition: none; } }

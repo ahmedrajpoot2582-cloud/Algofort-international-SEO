@@ -125,6 +125,6 @@ The main hero starts its letter animation in CSS from server HTML. Process illus
 Verify mobile/desktop PageSpeed Insights on deployed URLs after a release. Local Lighthouse depends on the development machine and does not prove public scores. Targets are 85+, LCP 1-2 s, Speed Index 1-3 s; report them as achieved only when deployed tests confirm them.
 # International SEO edition
 
-Adds worldwide discovery, eight English-language market guides, a 249-country/territory directory, three planning guides, regional alternates, configurable canonicals, sitemap updates and Service structured data. See [international SEO and deployment notes](docs/international-seo.md).
+Adds a focused UAE service landing page, regional metadata, configurable canonicals and Service/FAQ structured data. Priority is UAE, then UK, then USA; the worldwide directory has been removed. See [international SEO and deployment notes](docs/international-seo.md).
 
 Run `npm run check:seo` to validate the international setup. Configure `NEXT_PUBLIC_SITE_URL` for the final production origin; set `NEXT_PUBLIC_SITE_INDEXABLE=false` on staging copies. The source is prepared for Vercel or the existing Node/cPanel host; GitHub Pages cannot run its server features.

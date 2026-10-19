@@ -58,6 +58,7 @@ export function PageBanner({
   breadcrumbs,
   showBottomBar = true,
   className = '',
+  children,
 }) {
   const containerRef = useRef(null);
 
@@ -268,6 +269,7 @@ export function PageBanner({
               </ol>
             </nav>
           </div>
+          {children}
         </div>
 
         {/* Bottom Social Links & Service Marquee */}

@@ -1,82 +1,33 @@
-# International SEO implementation
+# Algofort country landing pages
 
-## Source and destination
+## Current scope
 
-Source: https://github.com/algofort/algofort at commit `8f04c25d853cb30c11bd6fb96f4955845d1b0ab3`.
+Country priority: UAE, then UK, then USA. Build and review the UAE page first. The worldwide directory, country search and generic market guides have been removed.
 
-Destination requested by the owner: https://github.com/ahmedrajpoot2582-cloud/Algofort-international-SEO.
+- /uae is a service landing page with web design/development, four core services, existing portfolio work, UAE customer-journey considerations, process, FAQs and an inline enquiry form.
+- /international and /international/united-arab-emirates permanently redirect to /uae.
+- Other retired market-guide URLs return 404 and are excluded from the sitemap.
+- UK and USA pages follow the UAE review; no placeholder pages are published.
 
-The original Git history transfer stalled. The initial commit imports the pinned source snapshot; original assets were downloaded from the same revision. `scripts/verify-source-assets.mjs` verifies original asset Git hashes, excluding rebuilt `public/lp` outputs. No source history was rewritten or pushed back to the original repository.
+The page reuses Header, Footer, PageBanner, SmoothScroll, Cursor, BackToTop and ContactSection. PageBanner accepts optional content for the UAE hero. Other pages retain their existing banner layout. Portfolio assets come from the repository; no UAE client relationship, local office or numerical result is invented.
 
-## Available routes
+## SEO and validation
 
-- `/international`: worldwide service overview, eight linked market guides, and a searchable directory of 249 ISO countries/territories.
-- `/international/united-states`
-- `/international/united-kingdom`
-- `/international/united-arab-emirates`
-- `/international/canada`
-- `/international/australia`
-- `/international/germany`
-- `/international/singapore`
-- `/international/saudi-arabia`
-- `/insights` and three practical project-planning/localization guides.
+The UAE page has a distinct title, description, canonical URL, English/UAE alternate, Open Graph metadata and Service/FAQ structured data. Its service area is United Arab Emirates; the studio remains Karachi. The production sitemap source now has 20 canonical page URLs. Country configuration is in src/data/markets.js.
 
-The existing four service pages remain the global commercial destinations. Each now links to the international section and includes Service structured data. Footer links connect the new hubs to the rest of the website. Selecting a country without a separate guide opens `/contact?country=...` and prefills the enquiry message; it does not manufacture an empty country page.
+Run npm run check:seo, npm run lint and npm run build. For a running indexable local build, run node scripts/check-rendered-seo.mjs. Checks cover UAE-first scope, metadata, directory removal, inline form, legacy redirects and unknown-route 404s. Browser QA covers desktop/mobile layouts, anchor navigation, FAQs and enquiry context.
 
-## International targeting
+## Repository and hosting
 
-All pages are currently English. Market guides contain distinct regional project-planning details. `en`, `en-US`, `en-GB`, `en-AE`, `en-CA`, `en-AU`, `en-DE`, `en-SG`, `en-SA` and `x-default` are reciprocal alternates between the corresponding overview pages, included in HTML and the sitemap. Country codes do not imply translated language versions. No German, Arabic or French translation is claimed.
+Source snapshot: https://github.com/algofort/algofort at 8f04c25d853cb30c11bd6fb96f4955845d1b0ab3.
+Destination: https://github.com/ahmedrajpoot2582-cloud/Algofort-international-SEO.
+Vercel project: addiztech/algofort-international-seo.
+Live preview: https://algofort-international-seo.vercel.app/uae.
 
-Country guides use self canonicals. Global service pages use generic English/fallback alternates and can serve visitors worldwide. There are no forced country/IP redirects. A directory entry does not represent a local office, established customer relationship or contractual availability. Project scope and requirements must be agreed with the client.
+GitHub is connected to Vercel. Main pushes run build/SEO checks and create preview deployments. The mirror remains noindex through NEXT_PUBLIC_SITE_INDEXABLE=false in the Vercel Production environment. Canonicals identify algofort.com. The original domain has not been repointed.
 
-## Deployment
+For main-domain launch, connect and verify algofort.com, configure DNS through the owner, retain NEXT_PUBLIC_SITE_URL=https://algofort.com, set NEXT_PUBLIC_SITE_INDEXABLE=true and redeploy. Verify redirects and forms before submitting the sitemap.
 
-This repository is a Next.js server application. GitHub stores its code; GitHub Pages cannot run its API routes, Firebase admin features, forms or email delivery.
+Firebase admin, SMTP, reCAPTCHA and other private settings must be configured through hosting to verify form submission, admin access and email. These secrets were absent from the repository and have not been copied from other projects. The UAE form uses the existing submission flow and prefills the project country.
 
-### Vercel
-
-Import the destination GitHub repository into an authorised Vercel account. The checked-in `vercel.json` selects Next.js and the existing build command. Set the production branch to `main`. Add the private server settings described in README.md to the hosting environment. A new deployment does not inherit private values from the original host.
-
-Configure `NEXT_PUBLIC_SITE_URL` to the final canonical origin. It defaults to `https://algofort.com`. Configure `NEXT_PUBLIC_SITE_INDEXABLE=false` for a staging mirror. Vercel preview deployments also disable indexing. Rebuild after changing these public variables.
-
-### Existing cPanel / Node hosting
-
-The original standalone deployment workflow is retained as **manual** dispatch so a source import does not try to publish using missing or unrelated account secrets. Configure `NAMECHEAP_SSH_KEY`, `NAMECHEAP_HOST` and `CPANEL_USERNAME` in the destination repository. Configure `NEXT_PUBLIC_SITE_URL` and `NEXT_PUBLIC_SITE_INDEXABLE` as repository variables. Then run the workflow intentionally for that host. Preserve the private server environment on the hosting account.
-
-The automatic `check.yml` workflow runs SEO checks, lint and a production build on main pushes and pull requests.
-
-### Domain migration
-
-Keep one indexable canonical production copy. If the new host is a preview for algofort.com, keep it noindex and retain algofort.com canonicals until domain cutover. Connecting the domain requires access to its hosting/DNS. If a different domain is the permanent destination, update the public origin, map old URLs and configure permanent redirects on the old host. Do not redirect the source domain until the new deployment is verified.
-
-Static advertising LPs under `/lp` retain their existing source metadata. If changing the permanent brand domain, review those LPs and existing absolute marketing/email links too. The dynamic main-site SEO origin is centralised in `src/lib/site.js`.
-
-## Validation and ongoing work
-
-Run `npm ci`, `npm run check:seo`, `npm run lint`, and `npm run build`. The SEO check verifies directory completeness, sitemap uniqueness, self/reciprocal alternate coverage, deployment-origin configuration and preview indexing protection. Browser QA should include country filtering, country-to-enquiry context, desktop/mobile layouts, a market page and a planning guide. Production forms/email require the existing private server configuration and must be verified after deployment.
-
-This is the on-site foundation, not a claim of rankings in every country. Search-volume research, competitor analysis in each market, translated content, market-specific case studies, earned references/backlinks and Search Console monitoring remain ongoing work. No traffic/ranking uplift or performance score is asserted without measured evidence.
-
-After production deployment, inspect canonical URLs, submit `/sitemap.xml` in Search Console, and review indexed pages, queries, clicks and qualified enquiries by country. Add more country pages only when distinct customer information and a maintainable proposition are available.
-
-## Local validation completed
-
-- Production build passed on 19 October 2026, with all market and guide pages prerendered.
-- SEO configuration checks passed for 249 directory entries, eight market guides and 28 sitemap URLs.
-- Rendered HTTP checks passed for all 28 sitemap pages and 24 internal destinations, including JSON-LD parsing, canonical URLs, regional alternates and real 404s for unknown market/guide slugs.
-- Original asset integrity passed for all 467 non-generated assets at the pinned source revision.
-- Browser checks covered mobile and desktop rendering, no horizontal overflow at 390px, country filtering and country-to-enquiry prefill. No new browser errors were captured in the final navigation check.
-- Lint completed with zero errors; warnings remain, including existing project warnings and Next metadata-export warnings. The warnings have not been suppressed.
-- Public deployment is verified below. Search Console access, live form/email delivery and public performance scores have not been verified.
-
-## Vercel deployment — 19 October 2026
-
-Live preview: https://algofort-international-seo.vercel.app
-
-Project: `addiztech/algofort-international-seo`. The destination GitHub repository is connected to Vercel. The first deployment built successfully on Vercel and reached `READY`. All 28 public sitemap-source routes returned HTTP 200 without authentication; unknown market/guide routes returned 404. The live country-to-enquiry flow was checked in the browser.
-
-This is a staging mirror for the existing algofort.com site. `NEXT_PUBLIC_SITE_INDEXABLE=false` is saved in the project's Production environment, and the deployment was built with that value. Main-page robots metadata and HTTP headers contain `noindex`; robots.txt disallows crawling and the staging sitemap contains no indexed URLs. Canonicals continue to identify algofort.com. This prevents accidental indexing of the mirror; it does not activate the new SEO pages on the existing main domain.
-
-To launch on algofort.com: connect and verify the domain in Vercel, configure the required DNS records through the domain owner, retain `NEXT_PUBLIC_SITE_URL=https://algofort.com`, then change `NEXT_PUBLIC_SITE_INDEXABLE` to `true` and redeploy. Verify DNS/domain cutover, redirects, forms and email before submitting the production sitemap. The original domain has not been repointed by this work.
-
-Private Firebase admin, SMTP, reCAPTCHA and other server configuration must be added through the hosting settings to enable and verify the existing forms/admin/email integrations. These secrets were not present in the source repository and have not been copied from another project.
+Market keyword research, translated content, market-specific case studies, earned links and Search Console monitoring remain ongoing work; no ranking uplift is asserted.

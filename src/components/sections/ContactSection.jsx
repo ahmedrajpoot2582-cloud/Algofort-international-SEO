@@ -21,7 +21,7 @@ const availableServices = [
   'UI/UX Design',
 ];
 
-export function ContactSection() {
+export function ContactSection({ country: defaultCountry = '', plainBadge = false, serviceOptions = availableServices } = {}) {
   const containerRef = useRef(null);
 
   const [formData, setFormData] = useState({
@@ -39,14 +39,14 @@ export function ContactSection() {
   const [recaptchaResetKey, setRecaptchaResetKey] = useState(0);
 
   useEffect(() => {
-    const country = new URLSearchParams(window.location.search).get('country');
+    const country = new URLSearchParams(window.location.search).get('country') || defaultCountry;
     if (country && country.length <= 80) {
       const frame = requestAnimationFrame(() => {
         setFormData((previous) => previous.message ? previous : { ...previous, message: `Project country or region: ${country}\n\nProject details: ` });
       });
       return () => cancelAnimationFrame(frame);
     }
-  }, []);
+  }, [defaultCountry]);
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -134,7 +134,7 @@ export function ContactSection() {
               {/* Header matching homepage subtitle marquee & heading style */}
               <div className="alg-contact-header section-header sec-contact__header" style={{ marginBottom: 0 }}>
                 <div className="alg-contact-badge section-badge sec-contact__badge" style={{ marginBottom: 0 }}>
-                  <SubtitleMarquee text="Get In Touch ✦ " variant="dark" />
+                  {plainBadge ? <span className="sec-contact__eyebrow">Start your project</span> : <SubtitleMarquee text="Get In Touch ✦ " variant="dark" />}
                 </div>
                 <h2
                   className="alg-contact-title heading-style-h2 section-title sec-contact__title"
@@ -283,7 +283,7 @@ export function ContactSection() {
                     <div className="alg-contact-form-group">
                       <label>SERVICE</label>
                       <div className="alg-contact-pills-row">
-                        {availableServices.map((service) => {
+                        {serviceOptions.map((service) => {
                           const isSelected = formData.selectedServices.includes(service);
                           return (
                             <button

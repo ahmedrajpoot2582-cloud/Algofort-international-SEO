@@ -6,7 +6,7 @@ import { absoluteUrl } from '../src/lib/site.js';
 
 const origin = process.argv[2] || 'http://127.0.0.1:3010';
 const paths = sitemap().map((entry) => new URL(entry.url).pathname);
-const newPaths = ['/international', ...markets.map(marketPath), '/insights', ...insights.map((insight) => `/insights/${insight.slug}`)];
+const newPaths = [...markets.map(marketPath), '/insights', ...insights.map((insight) => `/insights/${insight.slug}`)];
 const internalTargets = new Set();
 for (const path of paths) {
   const response = await fetch(new URL(path, origin));
@@ -20,10 +20,14 @@ for (const path of paths) {
   assert.equal(canonical ? new URL(canonical).toString() : undefined, absoluteUrl(path), `${path}: canonical`);
   assert.equal((html.match(/<h1[\s>]/g) || []).length, 1, `${path}: one server-rendered H1`);
   for (const [, content] of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) JSON.parse(content);
-  if (path === '/international' || markets.some((market) => marketPath(market) === path)) {
+  if (markets.some((market) => marketPath(market) === path)) {
     for (const [locale, target] of Object.entries(internationalAlternates())) {
       assert.ok(links.some((link) => link.hreflang === locale && new URL(link.href).toString() === absoluteUrl(target)), `${path}: ${locale} alternate`);
     }
+  }
+  if (path === '/uae') {
+    assert.ok(!html.includes('Find your location') && !html.includes('country-directory'), 'No unwanted directory section');
+    assert.ok(html.includes('name="message"') && html.includes('id="sec-contact"'), 'Inline project enquiry form');
   }
   if (newPaths.includes(path)) {
     for (const [, href] of html.matchAll(/<a\b[^>]*href="(\/[^"#]*)"/g)) internalTargets.add(new URL(href.replaceAll('&amp;', '&'), origin).pathname);
@@ -38,5 +42,11 @@ for (const invalidPath of ['/international/not-a-market', '/insights/not-a-guide
 }
 const sitemapXml = await (await fetch(new URL('/sitemap.xml', origin))).text();
 assert.equal((sitemapXml.match(/<loc>/g) || []).length, paths.length);
-assert.ok(sitemapXml.includes('hreflang="en-GB"'));
+assert.ok(sitemapXml.includes('hreflang="en-AE"'));
+for (const legacyPath of ['/international', '/international/united-arab-emirates']) {
+  const response = await fetch(new URL(legacyPath, origin), { redirect: 'manual' });
+  assert.equal(response.status, 308, `${legacyPath}: permanent redirect`);
+  assert.equal(new URL(response.headers.get('location'), origin).pathname, '/uae');
+}
+assert.equal((await fetch(new URL('/international/canada', origin))).status, 404, 'Retired market guide');
 console.log(`Rendered SEO checks passed: ${paths.length} pages, ${internalTargets.size} internal destinations, valid JSON-LD, regional alternates and unknown-route 404s.`);
