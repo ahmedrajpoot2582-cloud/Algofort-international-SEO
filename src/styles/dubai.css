@@ -4,82 +4,79 @@
   color: #05080c;
 }
 
-/* FAQ Minimal Accordion - Matching Home Page Aesthetic */
-.sec-dubai-faq__wrapper {
-  max-width: 1080px;
-  margin-inline: auto;
-  border-top: 1px solid rgba(5, 8, 12, 0.1);
+/* Service Row Descriptions without bloated images */
+.dubai-service-desc {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(5, 8, 12, 0.7);
+  margin-top: 0.75rem;
+  max-width: 650px;
 }
 
-.sec-dubai-faq__item {
-  border-bottom: 1px solid rgba(5, 8, 12, 0.1);
-  padding-block: 1.75rem;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.sec-dubai-faq__trigger {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: none;
-  border: none;
-  padding: 0;
-  text-align: left;
-  cursor: pointer;
+/* Regional Engineering Pillars Grid */
+.dubai-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 1.5rem;
+  margin-top: 1.5rem;
 }
 
-.sec-dubai-faq__trigger-text {
+.dubai-pillar-card {
+  background: #ffffff;
+  border: 1px solid rgba(5, 8, 12, 0.08);
+  border-radius: 20px;
+  padding: 2.25rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.dubai-pillar-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(244, 122, 31, 0.4);
+  box-shadow: 0 16px 36px rgba(5, 8, 12, 0.06);
+}
+
+.pillar-num {
   font-family: 'Mona Sans Narrow', sans-serif;
-  font-size: 1.25rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--brand-orange, #f47a1f);
+  margin-bottom: 1.25rem;
+  letter-spacing: 0.05em;
+}
+
+.pillar-title {
+  font-family: 'Mona Sans Narrow', sans-serif;
+  font-size: 1.35rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.02em;
   color: #05080c;
   line-height: 1.25;
+  margin-bottom: 0.85rem;
+  letter-spacing: 0.02em;
 }
 
-.sec-dubai-faq__trigger-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: rgba(5, 8, 12, 0.05);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.15rem;
-  font-weight: 600;
-  color: #05080c;
-  flex-shrink: 0;
-  transition: transform 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+.pillar-text {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(5, 8, 12, 0.72);
+  margin: 0;
 }
 
-.sec-dubai-faq__item.is-open .sec-dubai-faq__trigger-icon {
-  background: var(--brand-orange, #f47a1f);
-  color: #ffffff;
-}
-
-.sec-dubai-faq__body {
-  padding-top: 1.25rem;
-  padding-right: 3rem;
-  animation: fadeIn 0.3s ease-in-out;
-}
-
-.sec-dubai-faq__body .alg-text {
-  font-size: 1rem;
-  line-height: 1.65;
-  color: rgba(5, 8, 12, 0.75);
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-4px);
+@media (max-width: 1024px) {
+  .dubai-pillars-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+}
+
+@media (max-width: 640px) {
+  .dubai-pillars-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .dubai-pillar-card {
+    padding: 1.75rem 1.25rem;
   }
 }
