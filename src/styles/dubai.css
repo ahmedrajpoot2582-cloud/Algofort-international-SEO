@@ -1,0 +1,85 @@
+/* Algofort Minimal Symmetrical Styling - Dubai Subpage */
+.page-dubai {
+  background-color: #f4f4f2;
+  color: #05080c;
+}
+
+/* FAQ Minimal Accordion - Matching Home Page Aesthetic */
+.sec-dubai-faq__wrapper {
+  max-width: 1080px;
+  margin-inline: auto;
+  border-top: 1px solid rgba(5, 8, 12, 0.1);
+}
+
+.sec-dubai-faq__item {
+  border-bottom: 1px solid rgba(5, 8, 12, 0.1);
+  padding-block: 1.75rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.sec-dubai-faq__trigger {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: none;
+  border: none;
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+  gap: 1.5rem;
+}
+
+.sec-dubai-faq__trigger-text {
+  font-family: 'Mona Sans Narrow', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: #05080c;
+  line-height: 1.25;
+}
+
+.sec-dubai-faq__trigger-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(5, 8, 12, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #05080c;
+  flex-shrink: 0;
+  transition: transform 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+}
+
+.sec-dubai-faq__item.is-open .sec-dubai-faq__trigger-icon {
+  background: var(--brand-orange, #f47a1f);
+  color: #ffffff;
+}
+
+.sec-dubai-faq__body {
+  padding-top: 1.25rem;
+  padding-right: 3rem;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.sec-dubai-faq__body .alg-text {
+  font-size: 1rem;
+  line-height: 1.65;
+  color: rgba(5, 8, 12, 0.75);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
