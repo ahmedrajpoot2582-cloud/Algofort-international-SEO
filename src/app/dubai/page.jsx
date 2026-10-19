@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import Link from 'next/link';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -16,75 +16,62 @@ import { SmoothScroll } from '../../components/common/SmoothScroll';
 import { SubtitleMarquee } from '../../components/common/SubtitleMarquee';
 import { ProcessSection } from '../../components/sections/ProcessSection';
 import { ContactSection } from '../../components/sections/ContactSection';
+import { DubaiFaqSection } from '../../components/sections/DubaiFaqSection';
 import { initTitleAnimation } from '../../utils/titleAnimation';
+import '../../styles/faq-section.css';
 import '../../styles/dubai.css';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
 }
 
+// 6 Core Focused Digital Engineering Services for Dubai & GCC
 const dubaiServices = [
   {
     num: '(01)',
-    title: 'Web & E-Commerce Engineering',
+    title: 'High-Performance Web & E-Commerce',
     link: '/services/web-development',
-    image: 'https://res.cloudinary.com/vfsp1egd/image/upload/w_800,c_limit,q_auto:good,f_auto/v1792146016/algofort/assets/services/service-web-development',
-    tags: ['Next.js', 'Headless Shopify Plus', 'Bilingual EN/AR', 'High-Speed SEO'],
+    desc: 'Bespoke Next.js web applications, headless Shopify Plus architectures, and blazing-fast marketing platforms built for conversion and ultra-low bounce rates.',
+    tags: ['Next.js 15', 'Shopify Plus', 'Bilingual EN/AR', 'High-Speed SEO', 'Headless CMS'],
   },
   {
     num: '(02)',
-    title: 'Brand Identity & Strategy',
+    title: 'Brand Identity & Visual Systems',
     link: '/services/brand-identity',
-    image: 'https://res.cloudinary.com/vfsp1egd/image/upload/w_800,c_limit,q_auto:good,f_auto/v1792146014/algofort/assets/services/service-brand-identity',
-    tags: ['Brand Guidelines', 'Logo Design', 'Luxury Packaging', 'Visual Systems'],
+    desc: 'Distinctive brand strategy, premium logo design, luxury packaging, and complete design guideline systems calibrated for prestigious UAE ventures.',
+    tags: ['Brand Strategy', 'Visual Identity', 'Typography Systems', 'Luxury Packaging', 'Guidelines'],
   },
   {
     num: '(03)',
-    title: 'SaaS & Enterprise Cloud Portals',
+    title: 'Custom SaaS & Cloud Platforms',
     link: '/services/saas-app-development',
-    image: 'https://res.cloudinary.com/vfsp1egd/image/upload/w_800,c_limit,q_auto:good,f_auto/v1792146015/algofort/assets/services/service-saas-app',
-    tags: ['Multi-Tenant Systems', 'CRM & ERP Software', 'Fintech APIs', 'Dashboards'],
+    desc: 'Multi-tenant cloud applications, real-time analytics portals, automated CRM & ERP systems, and secure API microservices engineered to scale gracefully.',
+    tags: ['Multi-Tenant SaaS', 'Enterprise Dashboards', 'Fintech APIs', 'Cloud Microservices'],
   },
   {
     num: '(04)',
-    title: 'Mobile App Engineering',
+    title: 'Mobile App Engineering (iOS & Android)',
     link: '/services/mobile-app-development',
-    image: 'https://res.cloudinary.com/vfsp1egd/image/upload/w_800,c_limit,q_auto:good,f_auto/v1792146015/algofort/assets/services/service-mobile-app',
-    tags: ['iOS & Android Apps', 'React Native & Flutter', 'Biometrics', 'Real-Time Sync'],
+    desc: 'Intuitive, native and cross-platform mobile apps built with React Native and Flutter, featuring biometric security and offline-first data sync.',
+    tags: ['React Native', 'Flutter', 'Biometric Auth', 'Push Workflows', 'App Store SEO'],
   },
   {
     num: '(05)',
-    title: 'AI Automation & Intelligent Agents',
+    title: 'AI Automation & Intelligent Agent Systems',
     link: '/services/web-development',
-    image: 'https://res.cloudinary.com/vfsp1egd/image/upload/w_800,c_limit,q_auto:good,f_auto/v1792146016/algofort/assets/services/service-web-development',
-    tags: ['Autonomous AI Agents', 'Real Estate Lead Scoring', 'WhatsApp Bots', 'n8n Pipelines'],
+    desc: 'Autonomous AI agents, customer support bot pipelines, automated lead scoring, and customized workflow automation to streamline UAE business operations.',
+    tags: ['Autonomous AI', 'Lead Qualification', 'n8n Pipelines', 'WhatsApp Business API'],
+  },
+  {
+    num: '(06)',
+    title: 'Enterprise Technical SEO & Web Vitals',
+    link: '/services/web-development',
+    desc: 'Technical search optimization, schema architecture, multilingual hreflang implementation, and sub-second Core Web Vitals to dominate Google UAE rankings.',
+    tags: ['Technical SEO', 'Schema.org', 'Sub-Second Speeds', 'Hreflang Multi-Region'],
   },
 ];
 
-const dubaiFaqs = [
-  {
-    q: 'How does Algofort partner with businesses and startups across Dubai?',
-    a: 'We operate with dedicated agile engineering teams from our PECHS Karachi studio. Dubai (GST, UTC+4) and Karachi (PKT, UTC+5) have only a 1-hour time difference, ensuring over 7 hours of daily live synchronous communication via Slack, Teams, and weekly video sprint reviews.',
-  },
-  {
-    q: 'Can you develop bilingual websites and applications (English and Arabic)?',
-    a: 'Yes. Every digital experience we engineer for the Dubai and GCC market supports native Right-to-Left (RTL) Arabic typography, bidirectional CSS, and headless multi-language CMS integration (Sanity, Strapi, or Headless WordPress).',
-  },
-  {
-    q: 'What is your code ownership and NDA confidentiality guarantee?',
-    a: 'We offer 100% intellectual property (IP) and source code ownership. From day one, all repositories, cloud architecture blueprints, and design systems belong entirely to your company, protected by international Non-Disclosure Agreements (NDAs).',
-  },
-  {
-    q: 'How are development milestones, project deliverables, and payments structured?',
-    a: 'Our engagements follow predictable two-week sprint cycles: Discovery & Architecture, UI/UX Wireframing, Full-Stack Development, QA Testing, and Cloud Deployment. Payments are strictly milestone-based upon deliverable approval.',
-  },
-  {
-    q: 'Do you provide SLA-backed maintenance and ongoing technical support in Dubai?',
-    a: 'Yes. We offer continuous Service Level Agreement (SLA) support covering cloud infrastructure monitoring, automated security patches, Core Web Vitals maintenance, and ongoing feature expansion.',
-  },
-];
-
-// Helper to split text into words and chars for magnetic hover effect
+// Helper to split text into words and chars for magnetic title hover
 function splitTextIntoSpans(el) {
   if (!el || el.dataset.splitDone) return el.querySelectorAll('.char');
 
@@ -121,22 +108,16 @@ function splitTextIntoSpans(el) {
 }
 
 export default function DubaiPage() {
-  const [openFaq, setOpenFaq] = useState(null);
-
-  const toggleFaq = (index) => {
-    setOpenFaq(openFaq === index ? null : index);
-  };
-
   const pageRef = useRef(null);
   const aboutSectionRef = useRef(null);
   const aboutTextRef = useRef(null);
   const servicesSectionRef = useRef(null);
-  const faqSectionRef = useRef(null);
+  const whyUsSectionRef = useRef(null);
 
   // GSAP Animations Engine
   useGSAP(
     () => {
-      // 1. Kinetic Scrub on Dubai Intro Text (Chars light up as user scrolls)
+      // 1. Kinetic Scrub on Dubai Intro Text (Chars light up on scroll)
       if (aboutTextRef.current) {
         const pElement = aboutTextRef.current.querySelector('p');
         if (pElement) {
@@ -195,18 +176,17 @@ export default function DubaiPage() {
         }
       }
 
-      if (faqSectionRef.current) {
-        const faqTitle = faqSectionRef.current.querySelector('.sec-faq__title');
-        if (faqTitle) {
-          initTitleAnimation(faqTitle, { start: 'top 85%', stagger: 0.02 });
+      if (whyUsSectionRef.current) {
+        const whyTitle = whyUsSectionRef.current.querySelector('.section-title');
+        if (whyTitle) {
+          initTitleAnimation(whyTitle, { start: 'top 85%', stagger: 0.02 });
         }
       }
 
-      // 4. Interactive 3D Cursor Hover & Floating Image Follow on Service Grids
+      // 4. Interactive Character Flip Hover on Service Rows (Clean & Minimal, zero bloated images)
       if (servicesSectionRef.current) {
         const serviceGrids = servicesSectionRef.current.querySelectorAll('.service-content-grid');
         serviceGrids.forEach((grid) => {
-          const imageWrap = grid.querySelector('.service-image-wrap');
           const titles = grid.querySelectorAll('.service-title');
           const numberText = grid.querySelector('.service-text.is-number');
 
@@ -215,19 +195,6 @@ export default function DubaiPage() {
             const chars = splitTextIntoSpans(titleEl);
             allChars.push(chars);
           });
-
-          if (imageWrap) {
-            gsap.set(imageWrap, {
-              opacity: 0,
-              scale: 0.6,
-              pointerEvents: 'none',
-            });
-          }
-
-          let xTo = imageWrap ? gsap.quickTo(imageWrap, 'x', { duration: 0.35, ease: 'power2.out' }) : null;
-          let yTo = imageWrap ? gsap.quickTo(imageWrap, 'y', { duration: 0.35, ease: 'power2.out' }) : null;
-          let rotateYTo = imageWrap ? gsap.quickTo(imageWrap, 'rotationY', { duration: 0.35, ease: 'power2.out' }) : null;
-          let rotateZTo = imageWrap ? gsap.quickTo(imageWrap, 'rotation', { duration: 0.35, ease: 'power2.out' }) : null;
 
           const onMouseEnter = () => {
             allChars.forEach((chars) => {
@@ -244,16 +211,6 @@ export default function DubaiPage() {
 
             if (numberText) {
               gsap.to(numberText, { color: '#f47a1f', duration: 0.3, overwrite: 'auto' });
-            }
-
-            if (imageWrap) {
-              gsap.to(imageWrap, {
-                opacity: 1,
-                scale: 1,
-                duration: 0.45,
-                ease: 'power3.out',
-                overwrite: 'auto',
-              });
             }
           };
 
@@ -273,51 +230,28 @@ export default function DubaiPage() {
             if (numberText) {
               gsap.to(numberText, { color: '#05080c', duration: 0.3, overwrite: 'auto' });
             }
-
-            if (imageWrap) {
-              gsap.to(imageWrap, {
-                opacity: 0,
-                scale: 0.6,
-                duration: 0.35,
-                ease: 'power2.in',
-                overwrite: 'auto',
-              });
-            }
-          };
-
-          const onMouseMove = (e) => {
-            if (!imageWrap) return;
-            const rect = grid.getBoundingClientRect();
-            const relX = e.clientX - rect.left - rect.width / 2;
-            const relY = e.clientY - rect.top - rect.height / 2;
-
-            if (xTo) xTo(relX * 0.4);
-            if (yTo) yTo(relY * 0.4);
-            if (rotateYTo) rotateYTo(relX * 0.03);
-            if (rotateZTo) rotateZTo(relX * 0.02);
           };
 
           grid.addEventListener('mouseenter', onMouseEnter);
           grid.addEventListener('mouseleave', onMouseLeave);
-          grid.addEventListener('mousemove', onMouseMove);
         });
       }
 
-      // 5. Minimalist FAQ Accordions Stagger Reveal
-      if (faqSectionRef.current) {
-        const faqItems = faqSectionRef.current.querySelectorAll('.sec-dubai-faq__item');
-        if (faqItems.length > 0) {
+      // 5. Why Choose Us Pillar Cards Stagger Animation
+      if (whyUsSectionRef.current) {
+        const pillars = whyUsSectionRef.current.querySelectorAll('.dubai-pillar-card');
+        if (pillars.length > 0) {
           gsap.fromTo(
-            faqItems,
-            { opacity: 0, y: 25 },
+            pillars,
+            { opacity: 0, y: 35 },
             {
               opacity: 1,
               y: 0,
-              duration: 0.6,
-              stagger: 0.1,
-              ease: 'power2.out',
+              duration: 0.7,
+              stagger: 0.12,
+              ease: 'power3.out',
               scrollTrigger: {
-                trigger: faqSectionRef.current.querySelector('.sec-dubai-faq__wrapper'),
+                trigger: whyUsSectionRef.current.querySelector('.dubai-pillars-grid'),
                 start: 'top 85%',
                 once: true,
               },
@@ -332,7 +266,7 @@ export default function DubaiPage() {
   return (
     <SmoothScroll>
       <div ref={pageRef} className="page-wrapper page-dubai min-h-screen" id="top">
-        {/* International SEO Structured Data Schema */}
+        {/* Comprehensive International SEO Structured Data Schema */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -343,9 +277,9 @@ export default function DubaiPage() {
                   '@type': 'WebPage',
                   '@id': 'https://algofort.com/dubai/#webpage',
                   url: 'https://algofort.com/dubai',
-                  name: 'Algofort Dubai | Software Engineering, AI & Digital Products',
+                  name: 'Algofort Dubai | Software Engineering, AI & Digital Solutions Agency',
                   description:
-                    'Algofort partners with businesses and ventures in Dubai, DIFC, and Business Bay to engineer high-performance web applications, custom SaaS platforms, and AI automation systems.',
+                    'Algofort partners with businesses and ventures across Downtown Dubai, DIFC, and Business Bay to engineer high-converting web applications, custom SaaS platforms, and AI automation systems.',
                   inLanguage: 'en',
                 },
                 {
@@ -354,9 +288,15 @@ export default function DubaiPage() {
                   name: 'Algofort',
                   url: 'https://algofort.com',
                   logo: 'https://res.cloudinary.com/vfsp1egd/image/upload/f_auto,q_auto:best/v1792145914/algofort/assets/logo.png',
+                  address: {
+                    '@type': 'PostalAddress',
+                    streetAddress: '84j Ghazali Rd, Block 2 PECHS',
+                    addressLocality: 'Karachi',
+                    addressCountry: 'PK',
+                  },
                   areaServed: [
                     {
-                      '@type': 'AdministrativeArea',
+                      '@type': 'City',
                       name: 'Dubai',
                     },
                     {
@@ -367,9 +307,48 @@ export default function DubaiPage() {
                   knowsAbout: [
                     'Web Development',
                     'SaaS Engineering',
-                    'AI Agent Development',
+                    'AI Automation',
                     'Brand Identity',
                     'Mobile App Development',
+                    'Technical International SEO',
+                  ],
+                },
+                {
+                  '@type': 'FAQPage',
+                  '@id': 'https://algofort.com/dubai/#faq',
+                  mainEntity: [
+                    {
+                      '@type': 'Question',
+                      name: 'How does Algofort partner with businesses and startups across Dubai & GCC?',
+                      acceptedAnswer: {
+                        '@type': 'Answer',
+                        text: 'We operate with dedicated agile engineering squads from our PECHS Karachi studio. Dubai (GST, UTC+4) and Karachi (PKT, UTC+5) have only a 1-hour time offset, ensuring over 7 hours of daily live synchronous collaboration via Slack, Microsoft Teams, and weekly video sprint reviews with zero friction.',
+                      },
+                    },
+                    {
+                      '@type': 'Question',
+                      name: 'Can you engineer native bilingual platforms (English & Right-to-Left Arabic)?',
+                      acceptedAnswer: {
+                        '@type': 'Answer',
+                        text: 'Yes. Every digital experience we engineer for the Dubai and UAE market natively supports Right-to-Left (RTL) Arabic typography, bidirectional CSS architecture, and headless multi-language CMS integration ensuring high conversions across local Emirati and international audiences.',
+                      },
+                    },
+                    {
+                      '@type': 'Question',
+                      name: 'What is your code ownership, NDA confidentiality, and intellectual property policy?',
+                      acceptedAnswer: {
+                        '@type': 'Answer',
+                        text: 'We offer 100% intellectual property (IP) and source code ownership. From day one, all Git repositories, cloud architecture blueprints, and design systems belong entirely to your company, fully protected by international Non-Disclosure Agreements (NDAs).',
+                      },
+                    },
+                    {
+                      '@type': 'Question',
+                      name: 'How are development milestones, project deliverables, and payments structured?',
+                      acceptedAnswer: {
+                        '@type': 'Answer',
+                        text: 'Our engagements follow predictable two-week sprint cycles: Discovery & Architecture, UI/UX Wireframing, Full-Stack Development, QA Testing, and Cloud Deployment. Payments are strictly milestone-based upon deliverable approval.',
+                      },
+                    },
                   ],
                 },
               ],
@@ -391,7 +370,7 @@ export default function DubaiPage() {
             ]}
           />
 
-          {/* Section 1: Overview & Fact Cards with Scroll Scrub Typography */}
+          {/* Section 1: Regional Hub Overview & Fact Cards with Scroll Scrub Typography */}
           <section
             ref={aboutSectionRef}
             id="sec-about"
@@ -450,7 +429,7 @@ export default function DubaiPage() {
             </div>
           </section>
 
-          {/* Section 2: Services Section with Character Stagger & 3D Interactive Cursor Follow */}
+          {/* Section 2: Detailed Capabilities List (Clean, Minimal, Rich Data, No Image Bloat) */}
           <section
             ref={servicesSectionRef}
             id="sec-services"
@@ -489,7 +468,7 @@ export default function DubaiPage() {
 
                   <div className="service-component">
                     {dubaiServices.map((service) => (
-                      <div key={service.num} className="w-layout-grid service-content-grid">
+                      <div key={service.num} className="w-layout-grid service-content-grid dubai-service-row">
                         <div className="service-content-item">
                           <div className="service-text is-number">{service.num}</div>
                         </div>
@@ -501,14 +480,7 @@ export default function DubaiPage() {
                               <h3 className="service-title is-bottom">{service.title}</h3>
                             </div>
                           </Link>
-                          <div className="service-image-wrap">
-                            <img
-                              src={service.image}
-                              loading="lazy"
-                              alt={`Image - ${service.title}`}
-                              className="service-image"
-                            />
-                          </div>
+                          <p className="dubai-service-desc alg-text">{service.desc}</p>
                         </div>
 
                         <div className="service-content-item">
@@ -531,46 +503,63 @@ export default function DubaiPage() {
             </div>
           </section>
 
-          {/* Section 3: Interactive Process Section (Exact Home Page DotLottie Scroll Component) */}
-          <ProcessSection />
-
-          {/* Section 4: Minimalist FAQ Section with Character Heading Reveal & Smooth Expand */}
-          <section ref={faqSectionRef} id="sec-faq" className="site-section sec-faq">
-            <div className="site-container sec-faq__container container-large padding-global">
-              <div className="padding-section-large">
-                <div className="section-header sec-faq__header">
-                  <div className="section-badge sec-faq__badge">
-                    <SubtitleMarquee text="Dubai FAQs ✦ " variant="dark" />
+          {/* Section 3: Engineering Pillars for Dubai & GCC (Comprehensive Market Data) */}
+          <section ref={whyUsSectionRef} id="sec-pillars" className="site-section sec-pillars padding-global">
+            <div className="container-large">
+              <div className="padding-section-large" style={{ paddingTop: 0 }}>
+                <div className="section-header" style={{ marginBottom: '3rem' }}>
+                  <div className="section-badge">
+                    <SubtitleMarquee text="Why Algofort for Dubai ✦ " variant="dark" />
                   </div>
-                  <h2 className="heading-style-h2 section-title sec-faq__title">
-                    Answers for <span className="text-color-secondary">Dubai Clients</span>
+                  <h2 className="heading-style-h2 section-title">
+                    Engineered for <span className="text-color-secondary">Regional Excellence</span>
                   </h2>
                 </div>
 
-                <div className="sec-dubai-faq__wrapper">
-                  {dubaiFaqs.map((faq, i) => (
-                    <div
-                      key={i}
-                      className={`sec-dubai-faq__item ${openFaq === i ? 'is-open' : ''}`}
-                      onClick={() => toggleFaq(i)}
-                    >
-                      <button type="button" className="sec-dubai-faq__trigger" aria-expanded={openFaq === i}>
-                        <span className="sec-dubai-faq__trigger-text">{faq.q}</span>
-                        <span className="sec-dubai-faq__trigger-icon">{openFaq === i ? '−' : '+'}</span>
-                      </button>
-                      {openFaq === i && (
-                        <div className="sec-dubai-faq__body">
-                          <p className="alg-text">{faq.a}</p>
-                        </div>
-                      )}
-                    </div>
-                  ))}
+                <div className="dubai-pillars-grid">
+                  <div className="dubai-pillar-card">
+                    <span className="pillar-num">01</span>
+                    <h3 className="pillar-title">Synchronous Collaboration</h3>
+                    <p className="alg-text pillar-text">
+                      Only 1 hour time offset between Dubai (GST) and Karachi (PKT). Live real-time Slack channels, immediate support turnarounds, and aligned office hours throughout the work week.
+                    </p>
+                  </div>
+
+                  <div className="dubai-pillar-card">
+                    <span className="pillar-num">02</span>
+                    <h3 className="pillar-title">Arabic RTL &amp; Localization</h3>
+                    <p className="alg-text pillar-text">
+                      Flawless Right-to-Left bidirectional layouts, localized Arabic typographic scales, and multi-currency UAE payment integrations that preserve brand prestige.
+                    </p>
+                  </div>
+
+                  <div className="dubai-pillar-card">
+                    <span className="pillar-num">03</span>
+                    <h3 className="pillar-title">Silicon-Grade Tech Stack</h3>
+                    <p className="alg-text pillar-text">
+                      We never cut corners with slow pre-made themes. Every application is custom-engineered on Next.js, Node.js, and modern headless APIs for sub-second Core Web Vitals.
+                    </p>
+                  </div>
+
+                  <div className="dubai-pillar-card">
+                    <span className="pillar-num">04</span>
+                    <h3 className="pillar-title">Full IP &amp; Code Ownership</h3>
+                    <p className="alg-text pillar-text">
+                      Complete source code ownership transfer, production deployment on your own enterprise cloud accounts (AWS, Vercel, GCP), and international NDA protection.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
           </section>
 
-          {/* Section 5: Signature Contact Section */}
+          {/* Section 4: Interactive Process Section (Exact Home Page DotLottie Component) */}
+          <ProcessSection />
+
+          {/* Section 5: Exact Home Page FAQ Section with Elastic Magnetic Dividers */}
+          <DubaiFaqSection />
+
+          {/* Section 6: Signature Contact Section */}
           <ContactSection country="Dubai, UAE" />
         </main>
 
