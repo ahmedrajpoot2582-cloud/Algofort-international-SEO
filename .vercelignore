@@ -1,0 +1,12 @@
+.git
+.next
+node_modules
+.private
+.env*
+Animation
+docs
+AGENTS.md
+CLAUDE.md
+design.md
+instructions.md
+Single service page conetnt
