@@ -66,5 +66,5 @@ After production deployment, inspect canonical URLs, submit `/sitemap.xml` in Se
 - Rendered HTTP checks passed for all 28 sitemap pages and 24 internal destinations, including JSON-LD parsing, canonical URLs, regional alternates and real 404s for unknown market/guide slugs.
 - Original asset integrity passed for all 467 non-generated assets at the pinned source revision.
 - Browser checks covered mobile and desktop rendering, no horizontal overflow at 390px, country filtering and country-to-enquiry prefill. No new browser errors were captured in the final navigation check.
-- Lint completed with zero errors and warnings, including existing project warnings and Next metadata-export warnings. The warnings have not been suppressed.
+- Lint completed with zero errors; warnings remain, including existing project warnings and Next metadata-export warnings. The warnings have not been suppressed.
 - Public deployment, Search Console access, live form/email delivery and public performance scores have not been verified.
