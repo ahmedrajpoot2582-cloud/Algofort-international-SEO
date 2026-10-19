@@ -13,6 +13,13 @@ import { markets, internationalAlternates } from '../../data/markets';
 import '../../styles/uae.css';
 
 const market = markets[0];
+
+// The same paired diagonal arrow used on the existing portfolio cards.
+function UaeArrow() {
+  return <span className="sec-uae__arrow-wrap" aria-hidden="true"><span className="sec-uae__arrow-inner">{[1, 2].map((index) => <svg key={index} className={`sec-uae__arrow sec-uae__arrow--${index}`} width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><line x1="7" y1="17" x2="17" y2="7" /><polyline points="7 7 17 7 17 17" /></svg>)}</span></span>;
+}
+
+const serviceImages = ['service-web-development.webp', 'service-brand-identity.webp', 'service-saas-app.webp', 'service-mobile-app.webp'];
 export const metadata = withSocialMetadata({
   title: market.title, description: market.description,
   alternates: { canonical: '/uae', languages: internationalAlternates() },
@@ -45,26 +52,28 @@ export default function UaePage() {
         <Header /><Cursor /><BackToTop />
         <main id="main-content">
           <script type="application/ld+json">{JSON.stringify(schema).replace(/</g, '\\u003c')}</script>
-          <PageBanner title="Web Design & Development for the UAE" className="sec-page-banner--uae" showBottomBar={false} breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'UAE Services', href: '/uae', active: true }]}>
-            <div className="sec-uae__hero-copy">
-              <p className="alg-text sec-uae__hero-description">A better website for your next stage of business. We design and build websites, brands and digital products for businesses serving the UAE.</p>
-              <div className="sec-uae__actions"><InternationalButton href="#sec-contact">Discuss your UAE project</InternationalButton><Link href="#uae-work" className="sec-uae__text-link">Explore our work <span aria-hidden="true">↗</span></Link></div>
-              <p className="alg-text sec-uae__hero-note">Custom design. Clear project scope. A launch plan you can follow.</p>
-            </div>
-            <div className="sec-uae__hero-visual" aria-label="Selected website and brand work from the Algofort portfolio">
-              <div className="sec-uae__browser"><div className="sec-uae__browser-bar"><span aria-hidden="true">● ● ●</span><span>Website / Selected work</span><span aria-hidden="true">↗</span></div><div className="sec-uae__browser-image"><img src="/assets/portfolio/animation/project-1.jpg" alt="Website design from the Algofort portfolio" width="768" height="1797" fetchPriority="high" /></div></div>
-              <div className="sec-uae__identity"><img src="/assets/projects_3.webp" alt="Forvex visual identity from the Algofort portfolio" width="560" height="420" /><span>Brand to browser.<br /><strong>One clear identity.</strong></span></div>
-            </div>
-          </PageBanner>
+          <PageBanner title="Web Design & Development for the UAE" showBottomBar={false} breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'UAE Services', href: '/uae', active: true }]} />
 
-          <nav className="sec-uae__page-nav" aria-label="On this page"><Link href="#uae-services">Services</Link><Link href="#uae-work">Selected work</Link><Link href="#uae-delivery">How we work</Link><Link href="#uae-faq">FAQs</Link><Link href="#sec-contact">Start your project ↗</Link></nav>
+          <section className="site-section sec-uae-intro" id="uae-intro">
+            <div className="site-container container-large padding-global">
+              <div className="padding-section-large sec-uae__intro-grid">
+                <div className="section-header sec-uae__intro-copy">
+                  <div className="section-badge"><span className="sec-international__label">Digital services for the UAE</span></div>
+                  <h2 className="heading-style-h2 section-title">Built for your<br /><span className="text-color-secondary">next chapter.</span></h2>
+                  <p className="alg-text section-description">A better website for your next stage of business. We design and build websites, brands and digital products for businesses serving the UAE.</p>
+                  <div className="sec-uae__actions"><InternationalButton href="#sec-contact">Discuss your UAE project</InternationalButton><Link href="#uae-work" className="sec-uae__text-link">Explore our work <UaeArrow /></Link></div>
+                </div>
+                <figure className="sec-uae__intro-image"><img src="/assets/services/service-web-development.webp" alt="A website design displayed on a desktop screen" width="1200" height="1200" fetchPriority="high" /></figure>
+              </div>
+            </div>
+          </section>
 
           <InternationalSection plainBadge id="uae-services" badge="What we do" title={<>The right digital tools.<br /><span className="text-color-secondary">For your business.</span></>} description="Launch a service website, refresh your brand or develop the platform behind your next idea. Start with the service you need; we’ll shape the delivery around your brief.">
-            <div className="sec-uae__service-grid">{services.map((service, index) => <article className="content-card sec-uae__service" key={service.path}><span className="sec-uae__number">0{index + 1}</span><h3 className="heading-style-h3 sec-uae__subtitle"><Link href={`/services/${service.path}`}>{service.name}<span aria-hidden="true">↗</span></Link></h3><p className="alg-text">{service.text}</p><ul className="alg-text sec-uae__deliverables">{service.items.map((item) => <li key={item}>{item}</li>)}</ul></article>)}</div>
+            <div className="sec-uae__service-grid">{services.map((service, index) => <article className="content-card sec-uae__service" key={service.path}><Link href={`/services/${service.path}`} className="sec-uae__service-image" tabIndex={-1} aria-hidden="true"><img src={`/assets/services/${serviceImages[index]}`} alt="" width="1200" height="1200" loading="lazy" /></Link><div className="content-card__inner sec-uae__service-body"><span className="sec-uae__number">(0{index + 1})</span><h3 className="heading-style-h3 sec-uae__subtitle"><Link href={`/services/${service.path}`}>{service.name}<UaeArrow /></Link></h3><p className="alg-text">{service.text}</p><ul className="alg-text sec-uae__deliverables">{service.items.map((item) => <li key={item}>{item}</li>)}</ul></div></article>)}</div>
           </InternationalSection>
 
           <InternationalSection plainBadge id="uae-work" badge="Selected work" dark title={<>See the thinking.<br /><span className="text-color-secondary">Explore the work.</span></>} description="Website and brand examples from our wider portfolio.">
-            <div className="sec-uae__work-grid"><Link href="/portfolio" className="sec-uae__project"><div className="sec-uae__project-image sec-uae__project-image--website"><img src="/assets/portfolio/animation/project-1.jpg" alt="Selected website design" width="768" height="1797" loading="lazy" /></div><div className="sec-uae__project-caption"><h3 className="heading-style-h3 sec-uae__subtitle">Website experience</h3><span>Website / View portfolio ↗</span></div></Link><Link href="/portfolio" className="sec-uae__project"><div className="sec-uae__project-image"><img src="/assets/projects_3.webp" alt="Forvex brand identity presentation" width="560" height="420" loading="lazy" /></div><div className="sec-uae__project-caption"><h3 className="heading-style-h3 sec-uae__subtitle">Forvex</h3><span>Brand identity / View portfolio ↗</span></div></Link></div>
+            <div className="sec-uae__work-grid"><Link href="/portfolio" className="sec-uae__project"><div className="sec-uae__project-image sec-uae__project-image--website"><img src="/assets/portfolio/animation/project-1.jpg" alt="Selected website design" width="768" height="1797" loading="lazy" /></div><div className="sec-uae__project-caption"><div><h3 className="heading-style-h3 sec-uae__subtitle">Website experience</h3><span>Website / View portfolio</span></div><UaeArrow /></div></Link><Link href="/portfolio" className="sec-uae__project"><div className="sec-uae__project-image"><img src="/assets/projects_3.webp" alt="Forvex brand identity presentation" width="736" height="736" loading="lazy" /></div><div className="sec-uae__project-caption"><div><h3 className="heading-style-h3 sec-uae__subtitle">Forvex</h3><span>Brand identity / View portfolio</span></div><UaeArrow /></div></Link></div>
           </InternationalSection>
 
           <InternationalSection plainBadge id="uae-customer-journey" badge="Built around your customers" title={<>Make the next step<br /><span className="text-color-secondary">easy to take.</span></>} description="For businesses serving Dubai, Abu Dhabi and the wider UAE, we plan the details around the people who will actually use your website.">
