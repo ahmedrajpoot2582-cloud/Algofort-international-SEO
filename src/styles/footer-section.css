@@ -1,0 +1,594 @@
+/* ==========================================================================
+   FOOTER SECTION STYLES - Modern Light-Themed Reference Design
+   - Light background scheme (#F4F4F2 outside, #ffffff card with border radius)
+   - Background Calligraphic "Letter G" Watermark SVG on the right side
+   - 2-Pane Unified Architecture:
+     * Left Pane: Stay Connected (Newsletter) + Social Media Rows
+     * Right Pane: Main Links (left) + Get in Touch & Offline (Right-Aligned) on Top,
+                   Giant ALGOFORT Wordmark (spanning exact width of Main Links to Get in Touch) on Bottom
+   - Bottom Bar: Copyright on Left, Legal & Privacy on Right
+   ========================================================================== */
+
+footer,
+.footer {
+  padding-top: 0 !important;
+  padding-bottom: 0.75rem;
+  background-color: #F4F4F2 !important;
+  color: #05080C;
+  position: relative;
+  width: 100%;
+}
+
+.footer_wrap {
+  position: relative !important;
+  z-index: 1;
+  border-radius: 1.5rem !important;
+  background-color: #ffffff !important;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  padding: 4.5rem 3.5rem 2.25rem 3.5rem;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.02);
+}
+
+/* Background Calligraphic "Letter G" Watermark on Right */
+.footer_watermark {
+  position: absolute;
+  top: -8%;
+  right: -5%;
+  width: 620px;
+  max-width: 52%;
+  height: 120%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.015;
+  color: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  user-select: none;
+}
+
+.footer_watermark img,
+.footer_watermark svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: right center;
+}
+
+/* Footer Inner Content Container */
+.footer_content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ==========================================================================
+   MAIN 2-PANE LAYOUT
+   ========================================================================== */
+.footer_main_layout {
+  display: grid;
+  grid-template-columns: 1fr 1.65fr;
+  gap: 4.5rem;
+  width: 100%;
+  align-items: stretch;
+}
+
+/* ==========================================================================
+   LEFT PANE: Newsletter (Top) & Social Media Rows (Bottom)
+   ========================================================================== */
+.footer_left_pane {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 3.5rem;
+}
+
+.footer_col_newsletter {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer_heading {
+  font-family: var(--font-family-primary);
+  font-size: clamp(2rem, 2.5vw, 2.75rem);
+  font-weight: 700;
+  color: #05080C;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  margin: 0 0 0.85rem 0;
+}
+
+.footer_subtext {
+  color: #6B7280;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  max-width: 100%;
+  margin: 0 0 1.75rem 0;
+}
+
+.footer_newsletter_form {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f4f4f2 !important;
+  border: 1px solid transparent !important;
+  border-radius: 9999px;
+  padding: 0.35rem 0.35rem 0.35rem 1.25rem;
+  max-width: 100% !important;
+  width: 100% !important;
+  transition: border-color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.footer_newsletter_form:focus-within {
+  background-color: #eeeeec !important;
+  box-shadow: none !important;
+  border-color: rgba(5, 8, 12, 0.35) !important;
+}
+
+.footer_newsletter_input {
+  background: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 0.925rem;
+  color: #05080C;
+  font-family: var(--font-family-primary);
+}
+
+.footer_newsletter_input::placeholder {
+  color: #9CA3AF;
+  font-weight: 400;
+}
+
+.footer_newsletter_btn {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background-color: #05080C;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.footer_newsletter_btn:hover {
+  background-color: var(--brand-orange) !important;
+  transform: scale(1.05);
+}
+
+.footer_form_success {
+  margin-top: 0.85rem;
+  font-size: 0.875rem;
+  color: #10B981;
+  font-weight: 500;
+}
+
+/* Social Media Rows in Left Pane */
+.footer_social_list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.footer_social_row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.15rem 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  text-decoration: none;
+  color: #05080C;
+  transition: color 0.25s ease, padding-left 0.25s ease;
+}
+
+.footer_social_row:last-child {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.footer_social_left {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.footer_social_icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+  color: #05080C;
+  transition: color 0.25s ease;
+}
+
+.footer_social_arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #05080C;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease;
+}
+
+.footer_social_arrow svg {
+  display: block;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.footer_social_left .nav-text-wrap {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 1.35em !important;
+  overflow: hidden !important;
+  position: relative !important;
+}
+
+.footer_social_left .nav-text {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease !important;
+  display: block !important;
+  line-height: 1.35em !important;
+  white-space: nowrap !important;
+  color: #05080C !important;
+}
+
+.footer_social_row:hover {
+  color: var(--brand-orange);
+}
+
+.footer_social_row:hover .footer_social_icon,
+.footer_social_row:hover .footer_social_arrow {
+  color: var(--brand-orange);
+}
+
+.footer_social_row:hover .footer_social_left .nav-text {
+  transform: translateY(-100%) !important;
+  color: var(--brand-orange) !important;
+}
+
+.footer_social_row:hover .footer_social_arrow {
+  transform: translateX(4px);
+}
+
+/* ==========================================================================
+   RIGHT PANE: Main Links + Get in Touch (Right-Aligned) + ALGOFORT (Bottom)
+   ========================================================================== */
+.footer_right_pane {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 3.5rem;
+  width: 100%;
+}
+
+.footer_right_top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  width: 100%;
+}
+
+/* Main Links (Left of Right Pane) */
+.footer_col_links {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer_label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #9CA3AF;
+  margin-bottom: 1.25rem;
+  text-transform: capitalize;
+}
+
+.footer_links_grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.footer_links_col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.footer_links_col .footer_label {
+  margin-bottom: 0.4rem;
+}
+
+/* Dual-Text Swipe Hover on Navigation Links */
+.footer_nav_link,
+.footer_nav_link.nav-link {
+  display: inline-flex !important;
+  align-items: center !important;
+  overflow: hidden !important;
+  text-decoration: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  color: #1F2937 !important;
+  font-size: 0.95rem !important;
+  font-weight: 500 !important;
+  cursor: pointer;
+  border-radius: 0 !important;
+}
+
+.footer_nav_link .nav-text-wrap {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 1.35em !important;
+  overflow: hidden !important;
+  position: relative !important;
+}
+
+.footer_nav_link .nav-text {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease !important;
+  display: block !important;
+  line-height: 1.35em !important;
+  white-space: nowrap !important;
+  color: #1F2937 !important;
+}
+
+.footer_nav_link:hover .nav-text {
+  transform: translateY(-100%) !important;
+  color: var(--brand-orange) !important;
+}
+
+/* Get in touch & Offline (Right-Aligned in Right Pane) */
+.footer_col_contact {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.footer_contact_section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-bottom: 2rem;
+  text-align: right;
+  width: 100%;
+}
+
+.footer_phone_link {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #05080C;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+.footer_phone_link .nav-text-wrap,
+.footer_email_link .nav-text-wrap {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-end !important;
+  height: 1.35em !important;
+  overflow: hidden !important;
+  position: relative !important;
+}
+
+.footer_phone_link .nav-text,
+.footer_email_link .nav-text {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease !important;
+  display: block !important;
+  line-height: 1.35em !important;
+  white-space: nowrap !important;
+  color: #05080C !important;
+  text-align: right !important;
+}
+
+.footer_phone_link:hover .nav-text,
+.footer_email_link:hover .nav-text {
+  transform: translateY(-100%) !important;
+  color: var(--brand-orange) !important;
+}
+
+.footer_email_link {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #05080C;
+  text-decoration: none;
+  display: block;
+  text-transform: none !important;
+}
+
+.footer_email_link .nav-text {
+  text-transform: none !important;
+}
+
+.footer_offline_section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  width: 100%;
+}
+
+.footer_studio_title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #05080C;
+  margin-bottom: 0.35rem;
+}
+
+.footer_address_text {
+  font-size: 0.9rem;
+  color: #6B7280;
+  line-height: 1.55;
+  max-width: 22rem;
+  margin: 0;
+  text-align: right;
+}
+
+/* ==========================================================================
+   GIANT BRAND WORDMARK (ALGOFORT in Clash Display SVG)
+   100% width, height fit-content, zero gap on left & right
+   ========================================================================== */
+.footer_brand_display {
+  display: block;
+  width: 100%;
+  height: fit-content;
+  margin-top: auto;
+  padding-top: 1.5rem;
+  line-height: 0;
+}
+
+.footer_brand_img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.footer_brand_svg {
+  width: 100% !important;
+  height: auto !important;
+  max-height: fit-content;
+  display: block;
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+}
+
+.footer_brand_svg .fit-text {
+  font-family: 'Clash Display', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-size: 96px;
+  font-weight: 700;
+  fill: #05080c !important;
+}
+
+/* ==========================================================================
+   BOTTOM BAR: Divider & Copyright / Legal
+   ========================================================================== */
+.footer_bottom_bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  margin-top: 3.5rem;
+  padding-top: 1.75rem;
+  font-size: 0.875rem;
+  color: #6B7280;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer_bottom_left {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+}
+
+.footer_bottom_right {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.footer_bottom_dot {
+  opacity: 0.5;
+}
+
+.footer_legal_link {
+  color: #6B7280;
+  text-decoration: none;
+  display: inline-flex !important;
+  align-items: center !important;
+}
+
+.footer_legal_link .nav-text-wrap {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 1.35em !important;
+  overflow: hidden !important;
+  position: relative !important;
+}
+
+.footer_legal_link .nav-text {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease !important;
+  display: block !important;
+  line-height: 1.35em !important;
+  white-space: nowrap !important;
+  color: #6B7280 !important;
+}
+
+.footer_legal_link:hover .nav-text {
+  transform: translateY(-100%) !important;
+  color: var(--brand-orange) !important;
+}
+
+/* ==========================================================================
+   RESPONSIVENESS
+   ========================================================================== */
+@media screen and (max-width: 1024px) {
+  .footer_wrap {
+    padding: 3.5rem 2.5rem 2rem 2.5rem;
+  }
+
+  .footer_main_layout {
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+  }
+
+  .footer_left_pane {
+    gap: 2.5rem;
+  }
+
+  .footer_right_pane {
+    gap: 2.5rem;
+  }
+
+  .footer_watermark {
+    width: 450px;
+    max-width: 60%;
+    opacity: 0.035;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .footer_wrap {
+    padding: 2.75rem 1.5rem 1.75rem 1.5rem;
+    border-radius: 1.25rem !important;
+  }
+
+  .footer_right_top {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .footer_col_contact,
+  .footer_contact_section,
+  .footer_offline_section,
+  .footer_address_text {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .footer_bottom_bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .footer_watermark {
+    display: none;
+  }
+}

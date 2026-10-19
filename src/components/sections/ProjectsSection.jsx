@@ -1,0 +1,170 @@
+'use client';
+
+import React, { useRef } from 'react';
+import Link from 'next/link';
+import { usePortfolioData } from '../../lib/usePortfolioData';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
+import { SubtitleMarquee } from '../common/SubtitleMarquee';
+import { initTitleAnimation } from '../../utils/titleAnimation';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
+
+
+export function ProjectsSection() {
+  const { homeProjects: projectsData } = usePortfolioData();
+  const containerRef = useRef(null);
+
+  useGSAP(() => {
+    if (!containerRef.current) return;
+
+    const mainTitle = containerRef.current.querySelector('.sec-projects__title');
+    if (mainTitle) {
+      initTitleAnimation(mainTitle, { start: 'top 85%', stagger: 0.02 });
+    }
+
+    // Button swipe hover animation
+    const buttons = containerRef.current.querySelectorAll('.main-button');
+    buttons.forEach((btn) => {
+      const texts = btn.querySelectorAll('.button-text');
+      const icon = btn.querySelector('.button-icon');
+
+      const onMouseEnter = () => {
+        if (texts.length >= 2) {
+          gsap.to(texts, { yPercent: -100, duration: 0.35, ease: 'power2.out' });
+        }
+        if (icon) {
+          gsap.to(icon, { rotate: 90, duration: 0.35, ease: 'power2.out' });
+        }
+      };
+
+      const onMouseLeave = () => {
+        if (texts.length) {
+          gsap.to(texts, { yPercent: 0, duration: 0.35, ease: 'power2.out' });
+        }
+        if (icon) {
+          gsap.to(icon, { rotate: 0, duration: 0.35, ease: 'power2.out' });
+        }
+      };
+
+      btn.addEventListener('mouseenter', onMouseEnter);
+      btn.addEventListener('mouseleave', onMouseLeave);
+    });
+
+    // Scroll reveal animation for each project item
+    const projectItems = containerRef.current.querySelectorAll('.projects-item');
+    projectItems.forEach((item) => {
+      gsap.fromTo(
+        item,
+        { opacity: 0, y: 50 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: 'sine.out',
+          scrollTrigger: {
+            trigger: item,
+            start: 'top 85%',
+            toggleActions: 'play none none reverse',
+          },
+        }
+      );
+
+      // Parallax effect on image inside preview frame
+      const img = item.querySelector('.projects-item-img');
+      if (img) {
+        gsap.fromTo(
+          img,
+          { yPercent: -8, scale: 1.1 },
+          {
+            yPercent: 8,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: item,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: true,
+            },
+          }
+        );
+      }
+    });
+  }, { scope: containerRef, dependencies: [projectsData], revertOnUpdate: true });
+
+  return (
+    <section ref={containerRef} id="sec-projects" className="alg-projects site-section sec-projects projects-section">
+      <div className="alg-projects-container site-container sec-projects__container projects-container">
+        <div className="alg-projects-grid projects-grid">
+          {/* Left Column: Sticky Title & Description */}
+          <div className="alg-projects-header section-header sec-projects__header projects-static-col">
+            <div className="projects-static-inner">
+              <div className="alg-projects-badge section-badge sec-projects__badge">
+                <SubtitleMarquee text="Featured Projects — " variant="dark" />
+              </div>
+              <h2 className="alg-projects-title heading-style-h2 section-title sec-projects__title projects-title">
+                Featured <br />
+                <span className="text-color-secondary">Projects</span>
+              </h2>
+              <p className="alg-projects-desc section-description sec-projects__desc projects-descr alg-text">
+                Explore our portfolio of digital products, software solutions, and technology experiences built by Algofort.
+              </p>
+              <div className="alg-projects-btn-wrap projects-btn-wrap">
+                <Link href="/portfolio" className="main-button footer-submit-btn w-inline-block">
+                  <div className="main-button-block">
+                    <div className="button-text">All Works</div>
+                    <div className="button-text">All Works</div>
+                  </div>
+                  <img
+                    loading="lazy"
+                    src="https://res.cloudinary.com/vfsp1egd/image/upload/v1792145872/algofort/assets/68f287b26ff74f4a3003bac1_white-star-icon.svg"
+                    alt="Star Icon"
+                    className="button-icon"
+                  />
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: Scrollable Projects */}
+          <div className="alg-projects-scroll-col projects-scroll-col">
+            <div className="alg-projects-list projects-items-list">
+              {projectsData.map((project) => (
+                <div key={project.id} className="alg-projects-item projects-item">
+                  <Link href={project.liveUrl || "/portfolio"} className="alg-projects-item-media projects-item-media">
+                    <div className="alg-projects-item-img-wrap projects-item-img-wrap">
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="alg-projects-item-img projects-item-img"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div className="alg-projects-item-tags projects-item-tags">
+                      {project.tags.map((tag, idx) => (
+                        <span key={idx} className="alg-projects-tag projects-tag">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </Link>
+                  <div className="projects-item-promo">
+                    <div className="projects-item-name">
+                      <Link href={project.liveUrl || "/projects"}>
+                        <span className="projects-item-title-bold">{project.title}</span>{' '}
+                        <span className="projects-item-desc">{project.description}</span>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

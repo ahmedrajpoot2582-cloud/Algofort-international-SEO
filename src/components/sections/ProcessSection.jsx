@@ -1,0 +1,161 @@
+'use client';
+
+import { useEffect, useRef } from 'react';
+import { DeferredLottie } from '../common/DeferredLottie';
+import { SubtitleMarquee } from '../common/SubtitleMarquee';
+
+const processSteps = [
+  {
+    step: '01',
+    title: 'Ideate',
+    lottieSrc: '/lottie/process-ideate.lottie',
+    description: 'Collaborate with our team to define your idea, project scope, goals, requirements, timeline, and estimated budget.',
+  },
+  {
+    step: '02',
+    title: 'Design',
+    lottieSrc: '/lottie/process-design.lottie',
+    description: 'We create wireframes and interactive UI/UX prototypes to visualize the user journey and overall product experience.',
+  },
+  {
+    step: '03',
+    title: 'Develop',
+    lottieSrc: '/lottie/process-develop.lottie',
+    description: 'Our developers turn the approved designs into a secure, scalable, responsive, and high-performance digital product.',
+  },
+  {
+    step: '04',
+    title: 'Test',
+    lottieSrc: '/lottie/process-test.lottie',
+    description: 'We rigorously test the product across devices and scenarios, identifying and resolving bugs before launch.',
+  },
+  {
+    step: '05',
+    title: 'Launch',
+    lottieSrc: '/lottie/process-launch.lottie',
+    description: 'Once everything is ready, we deploy your product and monitor its performance to ensure a smooth launch and rollout.',
+  },
+  {
+    step: '06',
+    title: 'Support',
+    lottieSrc: '/lottie/process-support.lottie',
+    description: 'We provide ongoing maintenance, updates, bug fixes, and performance optimization to help your product grow and scale.',
+  },
+];
+
+export function ProcessSection() {
+  const sectionRef = useRef(null);
+  const titleLeftRef = useRef(null);
+  const titleRightRef = useRef(null);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    const titleLeft = titleLeftRef.current;
+    const titleRight = titleRightRef.current;
+
+    const START_OFFSET_X = 235;
+
+    function clamp(v, min, max) {
+      return Math.max(min, Math.min(max, v));
+    }
+
+    function onScroll() {
+      if (!section || !titleLeft || !titleRight) return;
+
+      if (window.innerWidth <= 900) {
+        titleLeft.style.transform = 'none';
+        titleRight.style.transform = 'none';
+        return;
+      }
+
+      const rect = section.getBoundingClientRect();
+
+      // Trigger point when sticky section hits viewport top
+      const triggerPoint = 40;
+      const scrollDistance = 380;
+      const progressPx = clamp(triggerPoint - rect.top, 0, scrollDistance);
+      const progress = progressPx / scrollDistance; // 0 to 1
+
+      // Left title: translateX goes from +235px -> 0px
+      const leftTranslate = START_OFFSET_X * (1 - progress);
+      // Right title: translateX goes from -235px -> 0px
+      const rightTranslate = -START_OFFSET_X * (1 - progress);
+
+      titleLeft.style.transform = `translateX(${leftTranslate}px)`;
+      titleRight.style.transform = `translateX(${rightTranslate}px)`;
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    onScroll();
+
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, []);
+
+  return (
+    <>
+
+      <section className="alg-process site-section sec-process step-process-section" id="sec-process" ref={sectionRef}>
+        <div className="alg-process-container site-container sec-process__container step-container">
+          <div className="alg-process-wrap step-wrap">
+            {/* Pre-Title Sticky Badge */}
+            <div className="alg-process-header section-header sec-process__header step-header" style={{ marginBottom: 0 }}>
+              <div className="alg-process-badge section-badge sec-process__badge" style={{ marginBottom: 0 }}>
+                <SubtitleMarquee text="From Concept to Launch ✦ " />
+              </div>
+            </div>
+
+            {/* 3-Column Step Content Layout */}
+            <div className="alg-process-content step-content">
+              {/* Left Column Sticky Title */}
+              <div className="alg-process-title-col alg-process-title-left section-title sec-process__title title-column title-left" id="titleLeft" ref={titleLeftRef}>
+                <h3 className="alg-process-heading-text heading-text">Your ideas</h3>
+                <h3 className="alg-process-heading-text heading-text">
+                  into <span className="alg-process-brand-script brand-script">Brand</span>
+                </h3>
+              </div>
+
+              {/* Middle Column: Cards List */}
+              <div className="alg-process-cards-col cards-column">
+                <div className="alg-process-cards-spacer cards-empty-space"></div>
+
+                {processSteps.map((item, index) => (
+                  <div key={item.step} className="alg-process-card process-card" data-step={index + 1}>
+                    <div className="alg-process-card-inner process-card-inner">
+                      <div className="alg-process-card-head card-head">
+                        <h3 className="alg-process-card-title card-title">{item.title}</h3>
+                        <div className="alg-process-card-count card-count-icon">
+                          <span className="alg-process-step-num step-num">{item.step}</span>
+                        </div>
+                      </div>
+                      <div className="alg-process-card-illustration card-illustration">
+                        <DeferredLottie
+                          src={item.lottieSrc}
+                          background="transparent"
+                          speed="1"
+                          style={{ width: '280px', height: '280px' }}
+                          loop
+                          autoplay
+                        ></DeferredLottie>
+                      </div>
+                      <p className="alg-process-card-desc card-desc alg-text">{item.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Right Column Sticky Title */}
+              <div className="alg-process-title-col alg-process-title-right title-column title-right" id="titleRight" ref={titleRightRef}>
+                <h3 className="alg-process-heading-text heading-text">transform</h3>
+                <h3 className="alg-process-heading-text heading-text">stories</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}

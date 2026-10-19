@@ -1,0 +1,236 @@
+/* === Projects Section Styles (Light Theme - #F4F4F2) === */
+.alg-projects,\n.projects-section {
+  background-color: #F4F4F2;
+  color: #05080C;
+  padding: 8rem 0;
+  position: relative;
+}
+
+.alg-projects-container,\n.projects-container {
+  width: 100%;
+  max-width: var(--site-container-max-w, 1600px);
+  margin: 0 auto;
+  padding: 0 var(--site-container-padding-x, 2rem);
+}
+
+@media (max-width: 1024px) {
+  .projects-container {
+    padding: 0 var(--site-container-padding-tablet, 1.5rem);
+  }
+}
+
+@media (max-width: 768px) {
+  .projects-container {
+    padding: 0 var(--site-container-padding-mobile, 1.25rem);
+  }
+}
+
+.alg-projects-grid,\n.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+@media (min-width: 1024px) {
+  .projects-grid {
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 5rem;
+  }
+}
+
+@media (min-width: 1400px) {
+  .projects-grid {
+    grid-template-columns: 0.75fr 1.25fr;
+    gap: 7rem;
+  }
+}
+
+/* Left Column Sticky Title */
+.projects-static-col {
+  position: relative;
+  height: 100%;
+}
+
+.projects-static-inner {
+  text-align: left;
+}
+
+@media (min-width: 1024px) {
+  .projects-static-inner {
+    position: sticky;
+    top: 8rem;
+    padding-top: 0.5rem;
+  }
+}
+
+.projects-title {
+  color: #05080C !important;
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.projects-descr {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #555555;
+  max-width: 28rem;
+  margin-bottom: 2.5rem;
+}
+
+.projects-btn-wrap {
+  display: flex;
+  align-items: center;
+}
+
+/* Right Column Projects List */
+.projects-scroll-col {
+  width: 100%;
+}
+
+.projects-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+}
+
+@media (min-width: 768px) {
+  .projects-items-list {
+    gap: 6rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .projects-items-list {
+    gap: 8rem;
+  }
+}
+
+/* Individual Project Item */
+.alg-projects-item,\n.projects-item {
+  width: 100%;
+}
+
+.projects-item-media {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 280px;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .projects-item-media {
+    height: 380px;
+    margin-bottom: 2rem;
+    border-radius: 2rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .projects-item-media {
+    height: 480px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .projects-item-media {
+    height: 620px;
+  }
+}
+
+.projects-item-img-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.projects-item-img {
+  width: 100%;
+  height: 120%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.projects-item-media:hover .projects-item-img {
+  transform: scale(1.08) translateY(0) !important;
+}
+
+/* Overlay Tags */
+.projects-item-tags {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  z-index: 2;
+}
+
+@media (min-width: 768px) {
+  .projects-item-tags {
+    padding: 2.5rem;
+    gap: 0.75rem;
+  }
+}
+
+.projects-tag {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #05080C;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.45rem 1.1rem;
+  border-radius: 100px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.projects-item-media:hover .projects-tag {
+  background: rgba(255, 255, 255, 0.98);
+}
+
+/* Item Promo / Title Text */
+.projects-item-promo {
+  padding: 0 0.5rem;
+}
+
+.projects-item-name a {
+  display: inline;
+  font-size: 1.6rem;
+  line-height: 1.4;
+  color: #666666;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+@media (min-width: 768px) {
+  .projects-item-name a {
+    font-size: 2.2rem;
+  }
+}
+
+.projects-item-title-bold {
+  font-weight: 700;
+  color: #05080C;
+  letter-spacing: -0.01em;
+  transition: color 0.3s ease;
+}
+
+.projects-item-name a:hover .projects-item-title-bold {
+  color: var(--brand-orange);
+}
+
+.projects-item-name a:hover {
+  color: #333333;
+}

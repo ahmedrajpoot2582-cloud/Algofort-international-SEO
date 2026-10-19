@@ -1,0 +1,549 @@
+/* ==========================================================================
+   ContactSection Stylesheet - Matching Attached Visual Reference
+   Follows design.md, instructions.md, and exact user-specified visual layout.
+   Left: Star badge line, Bold Heading, Paragraph, 2-Column Contact Info Grid
+   Right: Elevated White Card with Full Name, Phone, Email, Service Pills, Message, Submit Button
+   Bottom: Google Maps Embed
+   Ambient: Soft warm canvas with subtle glowing orange gradient wave ribbons
+   ========================================================================== */
+
+.alg-contact,
+.sec-contact {
+  position: relative;
+  width: 100%;
+  background: transparent !important;
+  color: #05080c;
+  overflow: hidden;
+  font-family: var(--font-family-primary, 'Mona Sans', sans-serif) !important;
+}
+
+/* Ambient Decorative Curved Wave Ribbons */
+.alg-contact-bg-wave {
+  display: none !important;
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.alg-contact-bg-wave--top-right {
+  top: -80px;
+  right: -80px;
+  width: 600px;
+  height: 600px;
+}
+
+.alg-contact-bg-wave--bottom-left {
+  bottom: -60px;
+  left: -80px;
+  width: 700px;
+  height: 400px;
+}
+
+.alg-contact-inner {
+  position: relative;
+  z-index: 1;
+  padding-top: 5rem;
+  padding-bottom: 7rem;
+}
+
+@media screen and (max-width: 991px) {
+  .alg-contact-inner {
+    padding-top: 3.5rem;
+    padding-bottom: 5rem;
+  }
+}
+
+/* ==========================================================================
+   2-Column Main Layout Grid
+   ========================================================================== */
+.alg-contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.05fr;
+  align-items: stretch;
+  gap: 4.5rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 1200px) {
+  .alg-contact-grid {
+    gap: 3rem;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .alg-contact-grid {
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+  }
+
+  .alg-contact-left-col,
+  .alg-contact-right-col,
+  .alg-contact-form-card,
+  .alg-contact-form {
+    height: auto;
+  }
+
+  .alg-contact-left-col {
+    justify-content: flex-start;
+  }
+
+  .alg-contact-info-grid {
+    margin-top: 0;
+  }
+
+  .alg-contact-form-group--message textarea,
+  .alg-contact-form-group textarea {
+    min-height: 120px;
+    height: auto;
+  }
+}
+
+/* ==========================================================================
+   Left Column: Badge Line, Heading, Paragraph, 2-Col Contact Info
+   ========================================================================== */
+.alg-contact-left-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+}
+
+/* Header & Badge (Matching Homepage Subtitle Marquee & Heading Style) */
+.alg-contact-header,
+.sec-contact__header {
+  margin: 0 0 1.25rem 0 !important;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  width: 100%;
+}
+
+.alg-contact-badge,
+.sec-contact__badge,
+.sec-contact .section-badge {
+  margin-bottom: 0 !important;
+}
+
+/* Heading: LET’S BUILD SOMETHING GREAT (Inherits .heading-style-h2 for identical font, size and brand aesthetics) */
+.sec-contact .heading-style-h2,
+.sec-contact .alg-contact-title,
+.alg-contact-title,
+.sec-contact__title {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  color: #05080c !important;
+  text-align: left !important;
+  font-family: var(--font-family-heading, 'Mona Sans Narrow', sans-serif) !important;
+  text-transform: uppercase !important;
+  word-break: keep-all !important;
+  overflow-wrap: normal !important;
+  hyphens: none !important;
+}
+
+.alg-contact-desc {
+  color: #555555 !important;
+  font-family: var(--font-family-primary, 'Mona Sans', sans-serif) !important;
+  font-size: 1.025rem;
+  line-height: 1.65;
+  max-width: 530px;
+  margin: 0 0 2.75rem 0 !important;
+}
+
+@media screen and (max-width: 640px) {
+  .alg-contact-desc {
+    font-size: 0.95rem;
+    margin-bottom: 2rem !important;
+  }
+}
+
+/* 2-Column Contact Info Grid */
+.alg-contact-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.25rem 2rem;
+  width: 100%;
+  margin-top: auto;
+}
+
+@media screen and (max-width: 540px) {
+  .alg-contact-info-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+.alg-contact-info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.15rem;
+  text-decoration: none;
+  color: inherit;
+  transition: none !important;
+}
+
+.alg-contact-info-item:hover {
+  transform: none !important;
+}
+
+.alg-contact-info-icon-circle {
+  width: 54px;
+  height: 54px;
+  min-width: 54px;
+  border-radius: 50%;
+  background: #ffffff !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--brand-orange, #f47a1f) !important;
+  transition: none !important;
+  margin-top: 2px;
+}
+
+.alg-contact-info-item:hover .alg-contact-info-icon-circle {
+  background: #ffffff !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  color: var(--brand-orange, #f47a1f) !important;
+  transform: none !important;
+}
+
+.alg-contact-info-icon-circle svg {
+  width: 24px;
+  height: 24px;
+}
+
+.alg-contact-info-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.alg-contact-info-label {
+  font-family: var(--font-family-heading, 'Mona Sans Narrow', sans-serif) !important;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #111111;
+  line-height: 1.35;
+  text-transform: uppercase !important;
+  word-break: normal;
+  overflow-wrap: normal;
+}
+
+.alg-contact-info-value,
+.alg-contact-info-timing {
+  font-family: var(--font-family-primary, 'Mona Sans', sans-serif) !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  color: #555555 !important;
+  line-height: 1.45 !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+  margin: 0 !important;
+}
+
+/* ==========================================================================
+   Right Column: Elevated White Floating Card
+   ========================================================================== */
+.alg-contact-right-col {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.alg-contact-form-card {
+  background: #ffffff;
+  border-radius: 28px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 3rem;
+  box-shadow: none !important;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  position: relative;
+}
+
+@media screen and (max-width: 640px) {
+  .alg-contact-form-card {
+    padding: 1.75rem 1.25rem;
+    border-radius: 20px;
+  }
+}
+
+/* Form Styles */
+.alg-contact-form,
+.alg-contact .alg-cta-form,
+.alg-contact .cta_form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;
+  height: 100%;
+  flex: 1;
+}
+
+.alg-contact-form-row.two-cols,
+.alg-contact .alg-cta-form-row.two-cols,
+.alg-contact .form_row.two-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  flex: 0 0 auto !important;
+}
+
+@media screen and (max-width: 640px) {
+  .alg-contact-form-row.two-cols,
+  .alg-contact .alg-cta-form-row.two-cols,
+  .alg-contact .form_row.two-cols {
+    grid-template-columns: 1fr;
+    gap: 1.35rem;
+  }
+}
+
+.alg-contact-form-group,
+.alg-contact .alg-cta-form-group,
+.alg-contact .form_group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  flex: 0 0 auto !important;
+}
+
+.alg-contact-form-group label,
+.alg-contact .alg-cta-form-group label,
+.alg-contact .form_group label {
+  font-family: var(--font-family-primary, 'Mona Sans', sans-serif) !important;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #111111;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.alg-contact-form-group input,
+.alg-contact-form-group textarea,
+.alg-contact .alg-cta-form-group input,
+.alg-contact .alg-cta-form-group textarea,
+.alg-contact .form_group input,
+.alg-contact .form_group textarea {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 0.85rem 1.15rem;
+  font-size: 0.95rem;
+  color: #111111;
+  font-family: var(--font-family-primary, 'Mona Sans', sans-serif) !important;
+  box-sizing: border-box;
+  width: 100%;
+  transition: all 0.2s ease;
+  outline: none;
+  box-shadow: none;
+}
+
+.alg-contact-form-group input::placeholder,
+.alg-contact-form-group textarea::placeholder,
+.alg-contact .alg-cta-form-group input::placeholder,
+.alg-contact .alg-cta-form-group textarea::placeholder,
+.alg-contact .form_group input::placeholder,
+.alg-contact .form_group textarea::placeholder {
+  color: #9ca3af;
+  font-family: var(--font-family-primary, 'Mona Sans', sans-serif) !important;
+  font-weight: 400;
+}
+
+.alg-contact-form-group input:focus,
+.alg-contact-form-group textarea:focus,
+.alg-contact-form-group input:hover,
+.alg-contact-form-group textarea:hover,
+.alg-contact .alg-contact-form input:focus,
+.alg-contact .alg-contact-form textarea:focus,
+.alg-contact .alg-contact-form input:hover,
+.alg-contact .alg-contact-form textarea:hover,
+.alg-contact .alg-cta-form-group input:focus,
+.alg-contact .alg-cta-form-group textarea:focus,
+.alg-contact .form_group input:focus,
+.alg-contact .form_group textarea:focus {
+  border-color: #e5e7eb !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.alg-contact-form-group--message {
+  flex: 1 1 auto !important;
+  display: flex;
+  flex-direction: column;
+}
+
+.alg-contact-form-group--message textarea,
+.alg-contact-form-group textarea,
+.alg-contact .alg-cta-form-group textarea,
+.alg-contact .form_group textarea {
+  flex: 1;
+  min-height: 140px;
+  resize: vertical;
+}
+
+/* Service Pills Matching Attached Image */
+.alg-contact-pills-row,
+.alg-contact .alg-cta-pills-row,
+.alg-contact .service-pills-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: 0.25rem;
+}
+
+.alg-contact-pill-btn,
+.alg-contact .alg-cta-pill-btn,
+.alg-contact .service-pill-btn {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  color: #4b5563;
+  padding: 0.55rem 1.2rem;
+  border-radius: 50px;
+  font-size: 0.825rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font-family-primary, 'Mona Sans', sans-serif) !important;
+  box-shadow: none !important;
+}
+
+.alg-contact-pill-btn:hover,
+.alg-contact-pill-btn:focus,
+.alg-contact .alg-cta-pill-btn:hover,
+.alg-contact .alg-cta-pill-btn:focus,
+.alg-contact .service-pill-btn:hover,
+.alg-contact .service-pill-btn:focus {
+  border-color: #e5e7eb !important;
+  color: #111111;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.alg-contact-pill-btn.active,
+.alg-contact .alg-cta-pill-btn.active,
+.alg-contact .service-pill-btn.active {
+  background: var(--brand-orange, #f47a1f);
+  color: #ffffff;
+  border-color: var(--brand-orange, #f47a1f);
+  font-weight: 600;
+}
+
+.alg-contact-pill-btn.active:hover,
+.alg-contact-pill-btn.active:focus {
+  border-color: var(--brand-orange, #f47a1f) !important;
+}
+
+/* Contact Form Submit Button: main-button alternate-button matching Webflow template */
+.alg-contact .main-button.alternate-button {
+  background-color: #ffffff !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: none !important;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: transform 0.25s ease;
+  font-family: var(--font-family-primary, 'Mona Sans', sans-serif) !important;
+}
+
+.alg-contact .main-button-block,
+.alg-contact .button-text {
+  font-family: var(--font-family-primary, 'Mona Sans', sans-serif) !important;
+}
+
+.alg-contact .main-button.alternate-button:hover {
+  transform: translateY(-2px);
+  box-shadow: none !important;
+}
+
+/* Success Message */
+.alg-contact-success {
+  text-align: center;
+  padding: 3.5rem 1.5rem;
+  color: #111111;
+}
+
+.alg-contact-success-icon-wrap {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(34, 197, 94, 0.15);
+  color: #16a34a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem auto;
+}
+
+.alg-contact-success-icon-wrap svg {
+  width: 32px;
+  height: 32px;
+}
+
+.alg-contact-success-title {
+  font-family: var(--font-family-heading, 'Mona Sans Narrow', sans-serif) !important;
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: #111111;
+  margin-bottom: 0.65rem;
+  text-transform: uppercase !important;
+}
+
+.alg-contact-success-desc {
+  font-family: var(--font-family-primary, 'Mona Sans', sans-serif) !important;
+  color: #666666;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   Subsay nichay map: Google Maps Embed Wrapper
+   ========================================================================== */
+.alg-contact-map-wrapper {
+  margin-top: 4.5rem;
+  width: 100%;
+  border-radius: 28px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: #ffffff;
+  line-height: 0;
+  box-sizing: border-box;
+  box-shadow: none !important;
+}
+
+.alg-contact-map-iframe {
+  width: 100%;
+  height: 450px;
+  display: block;
+  border: 0;
+}
+
+@media screen and (max-width: 767px) {
+  .alg-contact-map-wrapper {
+    margin-top: 3rem;
+    border-radius: 20px;
+  }
+  .alg-contact-map-iframe {
+    height: 350px;
+  }
+}
+
+/* Universal shadow removal for all contact elements */
+.alg-contact,
+.sec-contact,
+.alg-contact *,
+.sec-contact * {
+  box-shadow: none !important;
+  text-shadow: none !important;
+}

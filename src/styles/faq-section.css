@@ -1,0 +1,239 @@
+/* FAQ Section Styles (Standardized alg-faq) */
+
+.alg-faq,
+.sec-faq,
+.cb-faq,
+.cb-faq.-inverse {
+  color: #05080C;
+  background: #F4F4F2;
+  padding: 0 20px 8rem 20px !important;
+  padding-top: 0 !important;
+}
+
+.alg-faq-header,
+.cb-faq-header,
+.sec-faq__header {
+  margin-bottom: 4rem !important;
+}
+
+.alg-faq h2,
+.alg-faq-title,
+.cb-faq h2,
+.cb-faq-header h2,
+.sec-faq__title {
+  color: #05080C !important;
+  margin-bottom: 0 !important;
+}
+
+.alg-faq-container,
+.cb-faq-container,
+.cb-faq-container.-lg,
+.sec-faq .sec-faq__container,
+.sec-faq .cb-faq-container {
+  width: 100%;
+  max-width: var(--site-container-max-w, 1600px);
+  margin: 0 auto;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+@media (max-width: 768px) {
+  .alg-faq,
+  .sec-faq,
+  .cb-faq,
+  .cb-faq.-inverse {
+    padding: 0 20px 4rem 20px !important;
+    padding-top: 0 !important;
+  }
+}
+
+/* === Divider === */
+.alg-faq-divider-line,
+.cb-divider {
+  position: relative;
+  height: 1px;
+  width: 100%;
+}
+
+.alg-faq-divider-line:before,
+.cb-divider:before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: -40px;
+  bottom: -40px;
+  left: 0;
+  right: 0;
+  z-index: 15;
+  cursor: pointer;
+}
+
+.alg-faq-divider-line svg,
+.cb-divider svg {
+  position: absolute;
+  top: -99px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 200px;
+  pointer-events: none;
+  touch-action: none;
+  overflow: visible;
+}
+
+.alg-faq-divider-line svg path,
+.cb-divider svg path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1;
+  shape-rendering: crispEdges;
+}
+
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
+  .alg-faq-divider-line svg path,
+  .cb-divider svg path {
+    shape-rendering: auto;
+  }
+}
+
+.alg-faq-item,
+.cb-faq-item {
+  position: relative;
+  padding: 1.5rem 0;
+}
+
+.alg-faq-item-toggle,
+.cb-faq-item-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.6rem;
+  cursor: pointer;
+  font-size: 1.8rem;
+  line-height: 120%;
+  letter-spacing: .02em;
+  list-style: none;
+  user-select: none;
+}
+
+.alg-faq-item-toggle::-webkit-details-marker,
+.cb-faq-item-toggle::-webkit-details-marker {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .alg-faq-item-toggle,
+  .cb-faq-item-toggle {
+    align-items: center;
+    font-size: 1.8rem;
+  }
+}
+
+.alg-faq-item-toggle:before,
+.cb-faq-item-toggle:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+[open] .alg-faq-item-toggle:before,
+[open] .cb-faq-item-toggle:before {
+  display: none;
+}
+
+.alg-faq-item-arrow,
+.cb-faq-item-arr {
+  position: relative;
+  width: 2rem;
+  height: 2rem;
+  margin: 1rem 0 0 0;
+  flex-shrink: 0;
+  transition: transform .5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (min-width: 768px) {
+  .alg-faq-item-arrow,
+  .cb-faq-item-arr {
+    margin: 0;
+  }
+}
+
+.alg-faq-item-title,
+.cb-faq-item-title {
+  color: #05080C !important;
+}
+
+[open] .alg-faq-item-arrow,
+[open] .cb-faq-item-arr {
+  color: #05080C !important;
+  transform: rotate(135deg);
+}
+
+.alg-faq-item-arrow:before,
+.cb-faq-item-arr:before {
+  content: "";
+  position: absolute;
+  top: calc(50% - 1px);
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #05080C;
+}
+
+.alg-faq-item-arrow:after,
+.cb-faq-item-arr:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: calc(50% - 1px);
+  bottom: 0;
+  width: 2px;
+  background: #05080C;
+}
+
+.alg-faq-item-content,
+.cb-faq-item-content {
+  overflow: hidden;
+}
+
+.alg-faq-item-text,
+.cb-faq-item-text {
+  padding-top: 1.6rem;
+  color: rgba(5, 8, 12, 0.7) !important;
+  font-size: 1.6rem;
+  line-height: 150%;
+}
+
+@media (min-width: 768px) {
+  .alg-faq-item-text,
+  .cb-faq-item-text {
+    padding-top: 3rem;
+    font-size: 1.4rem;
+  }
+}
+
+.alg-faq-item-text p:not(:first-child),
+.cb-faq-item-text p:not(:first-child) {
+  margin-top: 1em;
+}
+
+/* === details animation === */
+details::details-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  align-items: start;
+  opacity: 0;
+  content-visibility: visible;
+  pointer-events: none;
+  transition: grid-template-rows .3s ease-out, opacity .4s ease-out, content-visibility .3s allow-discrete;
+}
+
+details[open]::details-content {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  pointer-events: auto;
+}

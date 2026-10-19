@@ -1,0 +1,181 @@
+'use client';
+
+import React, { useRef, useEffect } from 'react';
+import Link from 'next/link';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { SubtitleMarquee } from '../../common/SubtitleMarquee';
+import { ViewportVideo } from '../../common/ViewportVideo';
+import { pageVideoSources } from '../../../utils/videoAssets';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
+/**
+ * About CTA — 1:1 rebuild of unusually.webflow.io/about `.call-to-action`.
+ * Tall scroll track (300vh) with a sticky 100vh video stage. As the user scrolls:
+ *  1. Subtitle + giant title words rise in from their masks.
+ *  2. The rolling button rises in.
+ *  3. Light canvas overlay panels close in from top & bottom to hand off to the footer.
+ */
+export function AboutCtaSection() {
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const title01 = section.querySelector('.cta-title._01');
+    const title02 = section.querySelector('.cta-title._02');
+    const title03 = section.querySelector('.cta-title._03');
+    const title04 = section.querySelector('.cta-title._04');
+    const subtitle = section.querySelector('.sec-about-cta__badge');
+    const button = section.querySelector('.cta-button-block');
+    const overlayTop = section.querySelector('.cta-overlay.top');
+    const overlayBottom = section.querySelector('.cta-overlay.bottom');
+    const topContent = section.querySelector('.cta-top-content');
+
+    if (prefersReduced) {
+      gsap.set([title01, title02, title03, title04, subtitle, button], { yPercent: 0, opacity: 1 });
+      gsap.set([overlayTop, overlayBottom], { display: 'none' });
+      return undefined;
+    }
+
+    const ctx = gsap.context(() => {
+      // Keyframe 0 (0%): Initial state matching unusually.webflow.io a-24
+      // Overlays start 100% CLOSED covering the video background
+      gsap.set(topContent, { opacity: 1 });
+      gsap.set([title01, title02], { yPercent: 110, y: 0 });
+      gsap.set([title03, title04], { yPercent: -110, y: 0 });
+      gsap.set(subtitle, { opacity: 0 });
+      gsap.set(button, { yPercent: 100, y: 0 });
+      gsap.set(overlayTop, { yPercent: 0, y: 0 });
+      gsap.set(overlayBottom, { yPercent: 0, y: 0 });
+
+      // Continuous scrubbed timeline over the scroll track matching Webflow a-24 (smoothing: 100)
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: 0.8,
+        },
+      });
+
+      // Keyframe 0% -> 20%: curtains open (-100% / 110%), words _01 & _04 reveal, hint fades out
+      tl.to(topContent, { opacity: 0, duration: 0.15, ease: 'none' }, 0)
+        .to(overlayTop, { yPercent: -100, duration: 0.20, ease: 'none' }, 0)
+        .to(overlayBottom, { yPercent: 110, duration: 0.20, ease: 'none' }, 0)
+        .to(title01, { yPercent: 0, duration: 0.20, ease: 'none' }, 0)
+        .to(title04, { yPercent: 0, duration: 0.20, ease: 'none' }, 0)
+
+      // Keyframe 20% -> 40%: words _02 & _03 reveal, subtitle fades in
+        .to(title02, { yPercent: 0, duration: 0.20, ease: 'none' }, 0.20)
+        .to(title03, { yPercent: 0, duration: 0.20, ease: 'none' }, 0.20)
+        .to(subtitle, { opacity: 1, duration: 0.20, ease: 'none' }, 0.20)
+
+      // Keyframe 20% -> 50%: button slides into place
+        .to(button, { yPercent: 0, duration: 0.30, ease: 'none' }, 0.20)
+
+      // Keyframe 50% -> 100%: Section holds completely in view as footer approaches
+        .to({}, { duration: 0.50 }, 0.50);
+    }, section);
+
+    const t = setTimeout(() => {
+      try {
+        ScrollTrigger.refresh();
+      } catch {
+        // ignore
+      }
+    }, 200);
+    return () => {
+      clearTimeout(t);
+      ctx.revert();
+    };
+  }, []);
+
+  return (
+    <section ref={sectionRef} id="sec-about-cta" className="site-section sec-about-cta call-to-action">
+      <div className="cta-container sec-about-cta__container">
+
+        {/* Top hint */}
+        <div className="cta-top-content">
+          <div className="detail-text">Keep scrolling</div>
+        </div>
+
+        {/* Ambient video background (matches home page banner video) */}
+        <div className="cta-video-wrap alg-hero-video-wrap background-video-wrap">
+          <div className="alg-hero-video background-video w-background-video w-background-video-atom">
+            <ViewportVideo
+              sources={pageVideoSources}
+              data-object-fit="cover"
+              poster="https://res.cloudinary.com/vfsp1egd/image/upload/w_1920,c_limit,q_auto:best,f_auto/v1792145856/algofort/assets/68ee74b7102caefef6ce7890_2F68f23d0b14d2158ab1fa8dea_14471915_3840_2160_30fps_20_281_29-poster-00001"
+              style={{
+                backgroundImage:
+                  'url("https://res.cloudinary.com/vfsp1egd/image/upload/w_1920,c_limit,q_auto:best,f_auto/v1792145856/algofort/assets/68ee74b7102caefef6ce7890_2F68f23d0b14d2158ab1fa8dea_14471915_3840_2160_30fps_20_281_29-poster-00001")',
+              }}
+            />
+          </div>
+          <div className="alg-hero-video-overlay video-overlay"></div>
+        </div>
+
+        {/* Content */}
+        <div className="cta-content-wrap">
+          <div className="cta-content sec-about-cta__content">
+            <div className="cta-subtitle">
+              <div className="section-badge sec-about-cta__badge">
+                <SubtitleMarquee
+                  text="Bring Ideas To Life — "
+                  variant="light"
+                  icon="https://res.cloudinary.com/vfsp1egd/image/upload/v1792145875/algofort/assets/68f7cadfd454c94c5b5251cb_grey-asterisk-icon.svg"
+                />
+              </div>
+            </div>
+
+            <div className="cta-title-wrap">
+              <h2 className="cta-title sec-about-cta__title _01">Let’s</h2>
+              <h2 className="cta-title sec-about-cta__title _02">
+                <span className="text-color-secondary _02">Build</span>
+              </h2>
+            </div>
+
+            <div className="cta-title-wrap">
+              <h2 className="cta-title sec-about-cta__title _03">
+                <span className="text-color-secondary _03">Your</span>
+              </h2>
+              <h2 className="cta-title sec-about-cta__title _04">Brand</h2>
+            </div>
+
+            <div className="cta-button-wrap">
+              <div className="cta-button-block">
+                <Link href="/contact" className="main-button alternate-button sec-about-cta__btn w-inline-block">
+                  <div className="main-button-block">
+                    <div className="button-text alternate-text">Get in Touch</div>
+                    <div className="button-text alternate-text">Get in Touch</div>
+                  </div>
+                  <img
+                    loading="lazy"
+                    src="https://res.cloudinary.com/vfsp1egd/image/upload/v1792145871/algofort/assets/68f287b26ff74f4a3003bac0_black-star-icon.svg"
+                    alt="Star Icon"
+                    className="button-icon"
+                  />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Closing overlay panels */}
+        <div className="cta-overlay-wrap" aria-hidden="true">
+          <div className="cta-overlay-block">
+            <div className="cta-overlay top"></div>
+            <div className="cta-overlay bottom"></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  );
+}
