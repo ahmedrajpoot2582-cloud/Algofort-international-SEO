@@ -67,4 +67,16 @@ After production deployment, inspect canonical URLs, submit `/sitemap.xml` in Se
 - Original asset integrity passed for all 467 non-generated assets at the pinned source revision.
 - Browser checks covered mobile and desktop rendering, no horizontal overflow at 390px, country filtering and country-to-enquiry prefill. No new browser errors were captured in the final navigation check.
 - Lint completed with zero errors; warnings remain, including existing project warnings and Next metadata-export warnings. The warnings have not been suppressed.
-- Public deployment, Search Console access, live form/email delivery and public performance scores have not been verified.
+- Public deployment is verified below. Search Console access, live form/email delivery and public performance scores have not been verified.
+
+## Vercel deployment — 19 October 2026
+
+Live preview: https://algofort-international-seo.vercel.app
+
+Project: `addiztech/algofort-international-seo`. The destination GitHub repository is connected to Vercel. The first deployment built successfully on Vercel and reached `READY`. All 28 public sitemap-source routes returned HTTP 200 without authentication; unknown market/guide routes returned 404. The live country-to-enquiry flow was checked in the browser.
+
+This is a staging mirror for the existing algofort.com site. `NEXT_PUBLIC_SITE_INDEXABLE=false` is saved in the project's Production environment, and the deployment was built with that value. Main-page robots metadata and HTTP headers contain `noindex`; robots.txt disallows crawling and the staging sitemap contains no indexed URLs. Canonicals continue to identify algofort.com. This prevents accidental indexing of the mirror; it does not activate the new SEO pages on the existing main domain.
+
+To launch on algofort.com: connect and verify the domain in Vercel, configure the required DNS records through the domain owner, retain `NEXT_PUBLIC_SITE_URL=https://algofort.com`, then change `NEXT_PUBLIC_SITE_INDEXABLE` to `true` and redeploy. Verify DNS/domain cutover, redirects, forms and email before submitting the production sitemap. The original domain has not been repointed by this work.
+
+Private Firebase admin, SMTP, reCAPTCHA and other server configuration must be added through the hosting settings to enable and verify the existing forms/admin/email integrations. These secrets were not present in the source repository and have not been copied from another project.
