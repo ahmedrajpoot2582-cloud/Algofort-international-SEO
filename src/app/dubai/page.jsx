@@ -1,7 +1,12 @@
 'use client';
 
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import Link from 'next/link';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
+import SplitType from 'split-type';
+
 import { Header } from '../../components/common/Header';
 import { Footer } from '../../components/common/Footer';
 import { PageBanner } from '../../components/common/PageBanner';
@@ -11,7 +16,12 @@ import { SmoothScroll } from '../../components/common/SmoothScroll';
 import { SubtitleMarquee } from '../../components/common/SubtitleMarquee';
 import { ProcessSection } from '../../components/sections/ProcessSection';
 import { ContactSection } from '../../components/sections/ContactSection';
+import { initTitleAnimation } from '../../utils/titleAnimation';
 import '../../styles/dubai.css';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger, useGSAP);
+}
 
 const dubaiServices = [
   {
@@ -74,16 +84,299 @@ const dubaiFaqs = [
   },
 ];
 
+// Helper to split text into words and chars for magnetic hover effect
+function splitTextIntoSpans(el) {
+  if (!el || el.dataset.splitDone) return el.querySelectorAll('.char');
+
+  const text = el.textContent.trim();
+  el.innerHTML = '';
+  const charArray = [];
+
+  const words = text.split(/\s+/);
+  words.forEach((wordStr, wIdx) => {
+    const wordSpan = document.createElement('span');
+    wordSpan.className = 'word';
+    wordSpan.style.display = 'inline-block';
+    wordSpan.style.whiteSpace = 'nowrap';
+
+    wordStr.split('').forEach((cStr) => {
+      const charSpan = document.createElement('span');
+      charSpan.className = 'char';
+      charSpan.style.display = 'inline-block';
+      charSpan.style.willChange = 'transform';
+      charSpan.textContent = cStr;
+      wordSpan.appendChild(charSpan);
+      charArray.push(charSpan);
+    });
+
+    el.appendChild(wordSpan);
+    if (wIdx < words.length - 1) {
+      const space = document.createTextNode(' ');
+      el.appendChild(space);
+    }
+  });
+
+  el.dataset.splitDone = 'true';
+  return charArray;
+}
+
 export default function DubaiPage() {
-  const [openFaq, setOpenFaq] = React.useState(null);
+  const [openFaq, setOpenFaq] = useState(null);
 
   const toggleFaq = (index) => {
     setOpenFaq(openFaq === index ? null : index);
   };
 
+  const pageRef = useRef(null);
+  const aboutSectionRef = useRef(null);
+  const aboutTextRef = useRef(null);
+  const servicesSectionRef = useRef(null);
+  const faqSectionRef = useRef(null);
+
+  // GSAP Animations Engine
+  useGSAP(
+    () => {
+      // 1. Kinetic Scrub on Dubai Intro Text (Chars light up as user scrolls)
+      if (aboutTextRef.current) {
+        const pElement = aboutTextRef.current.querySelector('p');
+        if (pElement) {
+          const split = new SplitType(pElement, {
+            types: 'words, chars',
+            tagName: 'span',
+          });
+
+          if (split.chars && split.chars.length > 0) {
+            gsap.set(split.chars, { opacity: 0.2 });
+
+            gsap.to(split.chars, {
+              opacity: 1,
+              duration: 0.01,
+              stagger: 0.02,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: aboutTextRef.current,
+                start: 'top 80%',
+                end: 'bottom 35%',
+                scrub: true,
+              },
+            });
+          }
+        }
+      }
+
+      // 2. Fact Cards Stagger Fade & Slide In
+      if (aboutSectionRef.current) {
+        const cards = aboutSectionRef.current.querySelectorAll('.fact-card');
+        if (cards.length > 0) {
+          gsap.fromTo(
+            cards,
+            { y: 50, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.8,
+              stagger: 0.15,
+              ease: 'power3.out',
+              scrollTrigger: {
+                trigger: aboutSectionRef.current.querySelector('.fact-cards-wrapper'),
+                start: 'top 85%',
+                once: true,
+              },
+            }
+          );
+        }
+      }
+
+      // 3. Stagger Character Reveal on Section Headings
+      if (servicesSectionRef.current) {
+        const servTitle = servicesSectionRef.current.querySelector('.sec-services__title');
+        if (servTitle) {
+          initTitleAnimation(servTitle, { start: 'top 85%', stagger: 0.02 });
+        }
+      }
+
+      if (faqSectionRef.current) {
+        const faqTitle = faqSectionRef.current.querySelector('.sec-faq__title');
+        if (faqTitle) {
+          initTitleAnimation(faqTitle, { start: 'top 85%', stagger: 0.02 });
+        }
+      }
+
+      // 4. Interactive 3D Cursor Hover & Floating Image Follow on Service Grids
+      if (servicesSectionRef.current) {
+        const serviceGrids = servicesSectionRef.current.querySelectorAll('.service-content-grid');
+        serviceGrids.forEach((grid) => {
+          const imageWrap = grid.querySelector('.service-image-wrap');
+          const titles = grid.querySelectorAll('.service-title');
+          const numberText = grid.querySelector('.service-text.is-number');
+
+          const allChars = [];
+          titles.forEach((titleEl) => {
+            const chars = splitTextIntoSpans(titleEl);
+            allChars.push(chars);
+          });
+
+          if (imageWrap) {
+            gsap.set(imageWrap, {
+              opacity: 0,
+              scale: 0.6,
+              pointerEvents: 'none',
+            });
+          }
+
+          let xTo = imageWrap ? gsap.quickTo(imageWrap, 'x', { duration: 0.35, ease: 'power2.out' }) : null;
+          let yTo = imageWrap ? gsap.quickTo(imageWrap, 'y', { duration: 0.35, ease: 'power2.out' }) : null;
+          let rotateYTo = imageWrap ? gsap.quickTo(imageWrap, 'rotationY', { duration: 0.35, ease: 'power2.out' }) : null;
+          let rotateZTo = imageWrap ? gsap.quickTo(imageWrap, 'rotation', { duration: 0.35, ease: 'power2.out' }) : null;
+
+          const onMouseEnter = () => {
+            allChars.forEach((chars) => {
+              if (chars.length) {
+                gsap.to(chars, {
+                  yPercent: -100,
+                  duration: 0.4,
+                  ease: 'power2.out',
+                  stagger: 0.02,
+                  overwrite: 'auto',
+                });
+              }
+            });
+
+            if (numberText) {
+              gsap.to(numberText, { color: '#f47a1f', duration: 0.3, overwrite: 'auto' });
+            }
+
+            if (imageWrap) {
+              gsap.to(imageWrap, {
+                opacity: 1,
+                scale: 1,
+                duration: 0.45,
+                ease: 'power3.out',
+                overwrite: 'auto',
+              });
+            }
+          };
+
+          const onMouseLeave = () => {
+            allChars.forEach((chars) => {
+              if (chars.length) {
+                gsap.to(chars, {
+                  yPercent: 0,
+                  duration: 0.4,
+                  ease: 'power2.out',
+                  stagger: 0.02,
+                  overwrite: 'auto',
+                });
+              }
+            });
+
+            if (numberText) {
+              gsap.to(numberText, { color: '#05080c', duration: 0.3, overwrite: 'auto' });
+            }
+
+            if (imageWrap) {
+              gsap.to(imageWrap, {
+                opacity: 0,
+                scale: 0.6,
+                duration: 0.35,
+                ease: 'power2.in',
+                overwrite: 'auto',
+              });
+            }
+          };
+
+          const onMouseMove = (e) => {
+            if (!imageWrap) return;
+            const rect = grid.getBoundingClientRect();
+            const relX = e.clientX - rect.left - rect.width / 2;
+            const relY = e.clientY - rect.top - rect.height / 2;
+
+            if (xTo) xTo(relX * 0.4);
+            if (yTo) yTo(relY * 0.4);
+            if (rotateYTo) rotateYTo(relX * 0.03);
+            if (rotateZTo) rotateZTo(relX * 0.02);
+          };
+
+          grid.addEventListener('mouseenter', onMouseEnter);
+          grid.addEventListener('mouseleave', onMouseLeave);
+          grid.addEventListener('mousemove', onMouseMove);
+        });
+      }
+
+      // 5. Minimalist FAQ Accordions Stagger Reveal
+      if (faqSectionRef.current) {
+        const faqItems = faqSectionRef.current.querySelectorAll('.sec-dubai-faq__item');
+        if (faqItems.length > 0) {
+          gsap.fromTo(
+            faqItems,
+            { opacity: 0, y: 25 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.6,
+              stagger: 0.1,
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: faqSectionRef.current.querySelector('.sec-dubai-faq__wrapper'),
+                start: 'top 85%',
+                once: true,
+              },
+            }
+          );
+        }
+      }
+    },
+    { scope: pageRef }
+  );
+
   return (
     <SmoothScroll>
-      <div className="page-wrapper page-dubai min-h-screen" id="top">
+      <div ref={pageRef} className="page-wrapper page-dubai min-h-screen" id="top">
+        {/* International SEO Structured Data Schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@graph': [
+                {
+                  '@type': 'WebPage',
+                  '@id': 'https://algofort.com/dubai/#webpage',
+                  url: 'https://algofort.com/dubai',
+                  name: 'Algofort Dubai | Software Engineering, AI & Digital Products',
+                  description:
+                    'Algofort partners with businesses and ventures in Dubai, DIFC, and Business Bay to engineer high-performance web applications, custom SaaS platforms, and AI automation systems.',
+                  inLanguage: 'en',
+                },
+                {
+                  '@type': 'ProfessionalService',
+                  '@id': 'https://algofort.com/#organization',
+                  name: 'Algofort',
+                  url: 'https://algofort.com',
+                  logo: 'https://res.cloudinary.com/vfsp1egd/image/upload/f_auto,q_auto:best/v1792145914/algofort/assets/logo.png',
+                  areaServed: [
+                    {
+                      '@type': 'AdministrativeArea',
+                      name: 'Dubai',
+                    },
+                    {
+                      '@type': 'Country',
+                      name: 'United Arab Emirates',
+                    },
+                  ],
+                  knowsAbout: [
+                    'Web Development',
+                    'SaaS Engineering',
+                    'AI Agent Development',
+                    'Brand Identity',
+                    'Mobile App Development',
+                  ],
+                },
+              ],
+            }),
+          }}
+        />
+
         <Cursor />
         <Header />
         <BackToTop />
@@ -98,21 +391,28 @@ export default function DubaiPage() {
             ]}
           />
 
-          {/* Section 1: Overview & Fact Cards (Exact Home Page About Section Architecture) */}
-          <section id="sec-about" className="site-section sec-about section_about-markeio forteve-about">
+          {/* Section 1: Overview & Fact Cards with Scroll Scrub Typography */}
+          <section
+            ref={aboutSectionRef}
+            id="sec-about"
+            className="site-section sec-about section_about-markeio forteve-about"
+          >
             <div className="site-container container-large sec-about__container forteve-about__container padding-global">
               <div className="section-header sec-about__header about-markeio_top forteve-about__top">
                 <div className="section-badge sec-about__badge forteve-about__badge">
                   <SubtitleMarquee text="Regional Hub — Dubai ✦ " variant="dark" />
                 </div>
-                <div className="section-description sec-about__desc sec-about__content about-markeio_content forteve-about__content">
+                <div
+                  ref={aboutTextRef}
+                  className="section-description sec-about__desc sec-about__content about-markeio_content forteve-about__content"
+                >
                   <p className="alg-text">
                     Algofort partners with ambitious businesses, ventures, and enterprises across Downtown Dubai, DIFC, Business Bay, and Dubai Internet City to engineer world-class digital products. From high-converting web and e-commerce platforms to scalable SaaS software and autonomous AI workflows, we combine elite technical craftsmanship with seamless regional collaboration.
                   </p>
                 </div>
               </div>
 
-              {/* Exact Fact Cards Layout from Home Page */}
+              {/* Exact Fact Cards Layout from Home Page with Entrance Animation */}
               <div className="fact-cards-wrapper">
                 <div className="fact-card fact-card--white">
                   <div className="fact-card-top">
@@ -150,8 +450,12 @@ export default function DubaiPage() {
             </div>
           </section>
 
-          {/* Section 2: Services Section (Exact Home Page Services Component) */}
-          <section id="sec-services" className="site-section sec-services section-home-service">
+          {/* Section 2: Services Section with Character Stagger & 3D Interactive Cursor Follow */}
+          <section
+            ref={servicesSectionRef}
+            id="sec-services"
+            className="site-section sec-services section-home-service"
+          >
             <div className="site-container sec-services__container padding-global">
               <div className="container-large">
                 <div className="padding-section-large">
@@ -227,11 +531,11 @@ export default function DubaiPage() {
             </div>
           </section>
 
-          {/* Section 3: Interactive Process Section (Exact Home Page DotLottie Component) */}
+          {/* Section 3: Interactive Process Section (Exact Home Page DotLottie Scroll Component) */}
           <ProcessSection />
 
-          {/* Section 4: Minimalist FAQ Section (Matching Exact Algofort Clean Typography) */}
-          <section id="sec-faq" className="site-section sec-faq">
+          {/* Section 4: Minimalist FAQ Section with Character Heading Reveal & Smooth Expand */}
+          <section ref={faqSectionRef} id="sec-faq" className="site-section sec-faq">
             <div className="site-container sec-faq__container container-large padding-global">
               <div className="padding-section-large">
                 <div className="section-header sec-faq__header">
@@ -266,7 +570,7 @@ export default function DubaiPage() {
             </div>
           </section>
 
-          {/* Section 5: Signature Contact CTA */}
+          {/* Section 5: Signature Contact Section */}
           <ContactSection country="Dubai, UAE" />
         </main>
 
