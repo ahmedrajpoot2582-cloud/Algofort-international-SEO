@@ -1,13 +1,18 @@
-name: Live Deploy Algofort to cPanel
+name: Deploy Algofort to configured cPanel host
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Verify deployment configuration
+        env:
+          SSH_KEY: ${{ secrets.NAMECHEAP_SSH_KEY }}
+          HOST: ${{ secrets.NAMECHEAP_HOST }}
+          USERNAME: ${{ secrets.CPANEL_USERNAME }}
+        run: |
+          test -n "$SSH_KEY" && test -n "$HOST" && test -n "$USERNAME" || { echo 'Configure cPanel deployment secrets before deploying.'; exit 1; }
       - name: Checkout Code
         uses: actions/checkout@v4
 
@@ -21,6 +26,8 @@ jobs:
 
       - name: Build Production Standalone
         env:
+          NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_SITE_URL || 'https://algofort.com' }}
+          NEXT_PUBLIC_SITE_INDEXABLE: ${{ vars.NEXT_PUBLIC_SITE_INDEXABLE || 'true' }}
           NEXT_PUBLIC_FIREBASE_API_KEY: AIzaSyBEsRew4ITMYgLFBBvvz42EKpggf36U0Gk
           NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: algofort-f0745.firebaseapp.com
           NEXT_PUBLIC_FIREBASE_PROJECT_ID: algofort-f0745

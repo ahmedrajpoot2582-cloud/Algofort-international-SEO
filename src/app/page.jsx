@@ -11,22 +11,24 @@ import { Footer } from '../components/common/Footer';
 import { Cursor } from '../components/common/Cursor';
 import { BackToTop } from '../components/common/BackToTop';
 import { SmoothScroll } from '../components/common/SmoothScroll';
+import { absoluteUrl } from '../lib/site';
 
 const homeJsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
     {
       '@type': 'WebSite',
-      '@id': 'https://algofort.com/#website',
+      '@id': absoluteUrl('/#website'),
       name: 'Algofort',
-      url: 'https://algofort.com/',
+      url: absoluteUrl('/'),
     },
     {
       '@type': 'Organization',
-      '@id': 'https://algofort.com/#organization',
+      '@id': absoluteUrl('/#organization'),
       name: 'Algofort',
-      url: 'https://algofort.com/',
-      logo: 'https://algofort.com/fav-icon.png',
+      url: absoluteUrl('/'),
+      logo: absoluteUrl('/fav-icon.png'),
+      areaServed: 'Worldwide',
     },
   ],
 };

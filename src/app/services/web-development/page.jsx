@@ -1,4 +1,6 @@
 import { withSocialMetadata } from '../../../lib/seo';
+import { InternationalServiceLinks } from '../../../components/international/InternationalServiceLinks';
+import { ServiceStructuredData } from '../../../components/international/ServiceStructuredData';
 import { Header } from '../../../components/common/Header';
 import { Footer } from '../../../components/common/Footer';
 import { PageBanner } from '../../../components/common/PageBanner';
@@ -29,6 +31,7 @@ export default function WebDevelopmentPage() {
         <Header />
         <BackToTop />
         <main id="main-content">
+          <ServiceStructuredData slug="web-development" />
           <PageBanner
             title="Web Development"
             breadcrumbs={[
@@ -43,6 +46,7 @@ export default function WebDevelopmentPage() {
           <WebServiceWhyUsSection />
           <TestimonialsSection />
           <WebServiceFaqSection />
+          <InternationalServiceLinks />
           <CtaSection />
         </main>
         <Footer />

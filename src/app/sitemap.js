@@ -1,4 +1,6 @@
-const baseUrl = 'https://algofort.com';
+import { absoluteUrl, SITE_INDEXABLE } from '../lib/site.js';
+import { markets, marketPath, internationalAlternates } from '../data/international.js';
+import { insights } from '../data/insights.js';
 
 const pages = [
   '/',
@@ -19,7 +21,13 @@ const pages = [
 ];
 
 export default function sitemap() {
-  return pages.map((path) => ({
-    url: new URL(path, baseUrl).toString(),
+  if (!SITE_INDEXABLE) return [];
+  const regionalPaths = ['/international', ...markets.map(marketPath)];
+  const allPages = [...pages, ...regionalPaths, '/insights', ...insights.map((insight) => `/insights/${insight.slug}`)];
+  return allPages.map((path) => ({
+    url: absoluteUrl(path),
+    alternates: {
+      languages: Object.fromEntries(Object.entries(regionalPaths.includes(path) ? internationalAlternates() : { en: path, 'x-default': path }).map(([locale, href]) => [locale, absoluteUrl(href)])),
+    },
   }));
 }

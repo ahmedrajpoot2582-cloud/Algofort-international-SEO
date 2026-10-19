@@ -14,6 +14,7 @@
     "predev": "npm run build:lp",
     "start": "next start",
     "lint": "oxlint",
+    "check:seo": "node scripts/check-international-seo.mjs",
     "push": "git add . && git commit -m \"Update code\" && git push origin main"
   },
   "dependencies": {

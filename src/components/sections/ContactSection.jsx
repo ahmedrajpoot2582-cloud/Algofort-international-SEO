@@ -39,6 +39,16 @@ export function ContactSection() {
   const [recaptchaResetKey, setRecaptchaResetKey] = useState(0);
 
   useEffect(() => {
+    const country = new URLSearchParams(window.location.search).get('country');
+    if (country && country.length <= 80) {
+      const frame = requestAnimationFrame(() => {
+        setFormData((previous) => previous.message ? previous : { ...previous, message: `Project country or region: ${country}\n\nProject details: ` });
+      });
+      return () => cancelAnimationFrame(frame);
+    }
+  }, []);
+
+  useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const container = containerRef.current;
     if (!container) return;

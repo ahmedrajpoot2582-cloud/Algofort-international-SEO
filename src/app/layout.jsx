@@ -4,9 +4,10 @@ import WhatsAppWidget from '../components/common/WhatsAppWidget';
 import '../styles/support-chat.css';
 import SupportChatWidget from '../components/common/SupportChatWidget';
 import { withSocialMetadata } from '../lib/seo';
+import { SITE_URL } from '../lib/site';
 
 export const metadata = withSocialMetadata({
-  metadataBase: new URL('https://algofort.com'),
+  metadataBase: new URL(SITE_URL),
   title: 'Algofort | AI, Custom Software & Digital Transformation',
   description:
     'Algofort is a technology and digital solutions agency engineering custom software, intelligent AI solutions, and high-performance digital platforms.',

@@ -1,4 +1,6 @@
-const siteUrl = 'https://algofort.com';
+import { SITE_URL, SITE_INDEXABLE } from './site.js';
+
+const siteUrl = SITE_URL;
 
 const shareImage = {
   url: '/assets/open-graph-image.jpg',
@@ -12,6 +14,12 @@ export function withSocialMetadata(metadata) {
 
   return {
     ...metadata,
+    alternates: {
+      ...metadata.alternates,
+      canonical: path,
+      languages: metadata.alternates?.languages || { en: path, 'x-default': path },
+    },
+    robots: metadata.robots || { index: SITE_INDEXABLE, follow: true },
     openGraph: {
       title: metadata.title,
       description: metadata.description,
@@ -19,12 +27,15 @@ export function withSocialMetadata(metadata) {
       siteName: 'Algofort',
       type: 'website',
       images: [shareImage],
+      locale: metadata.openGraph?.locale || 'en_US',
+      ...metadata.openGraph,
     },
     twitter: {
       card: 'summary_large_image',
       title: metadata.title,
       description: metadata.description,
       images: [shareImage],
+      ...metadata.twitter,
     },
   };
 }

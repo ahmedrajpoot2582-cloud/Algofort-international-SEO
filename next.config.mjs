@@ -1,3 +1,5 @@
+import { SITE_INDEXABLE } from './src/lib/site.js';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -55,6 +57,7 @@ const nextConfig = {
       {
         source: '/:path*',
         headers: [
+          ...(!SITE_INDEXABLE ? [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }] : []),
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'X-Frame-Options', value: 'DENY' },
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },

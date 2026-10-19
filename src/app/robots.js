@@ -1,10 +1,12 @@
+import { absoluteUrl, SITE_INDEXABLE } from '../lib/site.js';
+
 export default function robots() {
   return {
-    rules: {
+    rules: SITE_INDEXABLE ? {
       userAgent: '*',
       allow: '/',
       disallow: ['/admin', '/api/'],
-    },
-    sitemap: 'https://algofort.com/sitemap.xml',
+    } : { userAgent: '*', disallow: '/' },
+    ...(SITE_INDEXABLE ? { sitemap: absoluteUrl('/sitemap.xml') } : {}),
   };
 }

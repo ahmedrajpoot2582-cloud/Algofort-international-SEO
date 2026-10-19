@@ -184,6 +184,12 @@ export const Footer = ({ className = '', newsletterPreview = false } = {}) => {
                             <div className="nav-text">CONTACT US</div>
                           </div>
                         </Link>
+                        <Link href="/international" className="footer_nav_link nav-link">
+                          <div className="nav-text-wrap"><div className="nav-text">INTERNATIONAL</div><div className="nav-text">INTERNATIONAL</div></div>
+                        </Link>
+                        <Link href="/insights" className="footer_nav_link nav-link">
+                          <div className="nav-text-wrap"><div className="nav-text">INSIGHTS</div><div className="nav-text">INSIGHTS</div></div>
+                        </Link>
                       </div>
 
                       <div className="footer_links_col">
