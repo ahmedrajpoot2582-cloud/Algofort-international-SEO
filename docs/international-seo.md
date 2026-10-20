@@ -44,4 +44,6 @@ The regional page uses native scrolling with smooth anchor navigation. It does n
 
 The hero uses the homepage's server-rendered character/CSS entrance pattern, so it starts before hydration. Its small local poster and main narrow heading font preload; decorative hero video stays off on mobile. Other effects initialize near the viewport and offscreen marquees pause. Reduced-motion visitors receive static readable content.
 
+Initially visible introductory content remains steady during hydration. Section entry timelines arm on the first native scroll (or immediately for a restored/hash position), avoiding a late hide/reveal of copy that has already painted.
+
 Validation includes production build, lint (existing warnings only), source SEO checks and rendered checks across 20 pages/16 internal destinations, plus desktop/mobile layout, menu hover/focus, independent section entry and homepage client parity checks. Lighthouse measurements are lab results and do not establish search rankings. Backend form delivery still depends on the hosting settings above.

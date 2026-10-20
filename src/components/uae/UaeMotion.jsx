@@ -15,6 +15,8 @@ export function UaeMotion() {
     media.add('(prefers-reduced-motion: no-preference)', () => {
       const context = gsap.context(() => {}, root);
       const timelines = new Map();
+      let scrollingStarted = window.scrollY > 0;
+      const pending = new Set();
       const selector = [
         '.heading-style-h2', '.sec-uae__about-copy',
         '.sec-uae-industries__item', '.sec-uae-ecosystem__item',
@@ -24,9 +26,7 @@ export function UaeMotion() {
       const targets = [...root.querySelectorAll(selector)].filter(element =>
         !element.closest('#sec-testimonials, .sec-page-banner, .showreel_lightbox')
       );
-      const observer = new IntersectionObserver(entries => {
-        entries.forEach(({ target, isIntersecting }) => {
-          if (!isIntersecting) return;
+      const reveal = target => {
           if (!timelines.has(target)) context.add(() => {
             const timeline = gsap.timeline({
               paused: true,
@@ -54,10 +54,27 @@ export function UaeMotion() {
           });
           const timeline = timelines.get(target);
           if (!timeline.isActive()) timeline.restart(true);
+      };
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(({ target, isIntersecting }) => {
+          if (!isIntersecting) { pending.delete(target); return; }
+          if (!scrollingStarted) { pending.add(target); return; }
+          reveal(target);
         });
       }, { threshold: 0.12, rootMargin: '0px 0px -24px 0px' });
+      const startScrollMotion = () => {
+        if (window.scrollY <= 0) return;
+        scrollingStarted = true;
+        pending.forEach(reveal);
+        pending.clear();
+        window.removeEventListener('scroll', startScrollMotion);
+      };
+      // Keep initially visible copy steady during hydration. Motion starts with
+      // scrolling, including native hash/restored navigation.
+      if (!scrollingStarted) window.addEventListener('scroll', startScrollMotion, { passive: true });
       targets.forEach(target => observer.observe(target));
       return () => {
+        window.removeEventListener('scroll', startScrollMotion);
         observer.disconnect();
         context.revert();
         targets.forEach(target => { delete target.dataset.motionState; });
