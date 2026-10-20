@@ -27,7 +27,7 @@ export default function sitemap() {
   return allPages.map((path) => ({
     url: absoluteUrl(path),
     alternates: {
-      languages: Object.fromEntries(Object.entries(regionalPaths.includes(path) ? internationalAlternates() : { en: path, 'x-default': path }).map(([locale, href]) => [locale, absoluteUrl(href)])),
+      languages: Object.fromEntries(Object.entries((path === '/' || regionalPaths.includes(path)) ? internationalAlternates() : { en: path, 'x-default': path }).map(([locale, href]) => [locale, absoluteUrl(href)])),
     },
   }));
 }

@@ -14,7 +14,7 @@ assert.equal(new Set(markets.map((market) => market.locale)).size, markets.lengt
 const urls = new Set(sitemap().map((entry) => entry.url));
 assert.equal(urls.size, sitemap().length, 'No duplicate sitemap URLs');
 for (const market of markets) {
-  assert.equal(marketPath(market), '/uae');
+  assert.equal(marketPath(market), '/ae');
   const metadata = withSocialMetadata({ title: market.title, description: market.description, alternates: { canonical: marketPath(market), languages: internationalAlternates() } });
   assert.equal(metadata.alternates.languages[market.locale], marketPath(market));
   assert.equal(metadata.openGraph.url, absoluteUrl(marketPath(market)));

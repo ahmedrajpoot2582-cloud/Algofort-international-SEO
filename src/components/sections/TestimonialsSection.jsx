@@ -38,7 +38,7 @@ const testimonialsData = [
   },
 ];
 
-export function TestimonialsSection() {
+export function TestimonialsSection({ items = testimonialsData } = {}) {
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -79,7 +79,7 @@ export function TestimonialsSection() {
         </div>
 
         <div className="alg-testimonials-grid cb-summary-testimonials" id="testimonials" ref={containerRef}>
-          {testimonialsData.map((item, idx) => (
+          {items.map((item, idx) => (
             <div key={idx} className="alg-testimonials-card cb-summary-testimonial">
               <div className="alg-testimonials-quotes cb-summary-testimonial-quotes" />
               <div className="alg-testimonials-text cb-summary-testimonial-text">{item.text}</div>

@@ -11,7 +11,7 @@ export const metadata = withSocialMetadata({
   title: 'Algofort | AI, Custom Software & Digital Transformation',
   description:
     'Algofort is a technology and digital solutions agency engineering custom software, intelligent AI solutions, and high-performance digital platforms.',
-  alternates: { canonical: '/' },
+  alternates: { canonical: '/', languages: { 'en-AE': '/ae', 'en-PK': '/', 'x-default': '/' } },
   icons: {
     icon: [
       { url: '/fav-icon.png', type: 'image/png' },

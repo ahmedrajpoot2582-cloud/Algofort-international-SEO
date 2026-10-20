@@ -102,7 +102,7 @@ function splitTextIntoSpans(el) {
   return charArray;
 }
 
-export const ServicesSection = () => {
+export const ServicesSection = ({ items = servicesData, heading } = {}) => {
   const containerRef = useRef(null);
 
   useGSAP(() => {
@@ -266,7 +266,7 @@ export const ServicesSection = () => {
                 </div>
 
                 <h2 className="heading-style-h2 section-title sec-services__title text-color-alternate">
-                  Creative <span className="text-color-secondary">Solutions</span>
+                  {heading || <>Creative <span className="text-color-secondary">Solutions</span></>}
                 </h2>
               </div>
 
@@ -291,7 +291,7 @@ export const ServicesSection = () => {
 
             {/* Service Items Component */}
             <div className="service-component">
-              {servicesData.map((service) => (
+              {items.map((service) => (
                 <div key={service.id} className="w-layout-grid service-content-grid">
                   <div className="service-content-item">
                     <div className="service-text is-number">{service.num}</div>

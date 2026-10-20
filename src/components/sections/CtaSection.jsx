@@ -21,7 +21,7 @@ const availableServices = [
   'UI/UX Design',
 ];
 
-export function CtaSection() {
+export function CtaSection({ title, description = 'Let us collaborate to build something extraordinary and elevate your brand to the next level.', country = '', phoneLabel = 'Phone Number' } = {}) {
   const sectionRef = useRef(null);
   const bgImgRef = useRef(null);
 
@@ -30,7 +30,7 @@ export function CtaSection() {
     phone: '',
     email: '',
     selectedServices: ['Website Design'],
-    message: '',
+    message: country ? `Project country or region: ${country}\n\nProject details: ` : '',
   });
 
   const [submitted, setSubmitted] = useState(false);
@@ -135,11 +135,10 @@ export function CtaSection() {
                 <div className="text-align-left">
                   <div className="text-color-white">
                     <h2 className="alg-cta-title heading-style-h2 section-title sec-cta__title">
-                      Start a <br />
-                      <span className="text-color-secondary">Project</span>
+                      {title || <>Start a <br /><span className="text-color-secondary">Project</span></>}
                     </h2>
                     <p className="alg-cta-desc section-description sec-cta__desc cta-description alg-text">
-                      Let us collaborate to build something extraordinary and elevate your brand to the next level.
+                      {description}
                     </p>
                   </div>
                 </div>
@@ -198,7 +197,7 @@ export function CtaSection() {
                             />
                           </div>
                           <div className="alg-cta-form-group form_group">
-                            <label htmlFor="phone">Phone Number</label>
+                            <label htmlFor="phone">{phoneLabel}</label>
                             <input
                               type="tel"
                               id="phone"

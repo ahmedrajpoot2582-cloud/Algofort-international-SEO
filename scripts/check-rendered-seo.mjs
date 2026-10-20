@@ -25,9 +25,9 @@ for (const path of paths) {
       assert.ok(links.some((link) => link.hreflang === locale && new URL(link.href).toString() === absoluteUrl(target)), `${path}: ${locale} alternate`);
     }
   }
-  if (path === '/uae') {
+  if (path === '/ae') {
     assert.ok(!html.includes('Find your location') && !html.includes('country-directory'), 'No unwanted directory section');
-    assert.ok(html.includes('name="message"') && html.includes('id="sec-contact"'), 'Inline project enquiry form');
+    assert.ok(html.includes('name="message"') && html.includes('id="sec-cta"'), 'Inline project enquiry form');
   }
   if (newPaths.includes(path)) {
     for (const [, href] of html.matchAll(/<a\b[^>]*href="(\/[^"#]*)"/g)) internalTargets.add(new URL(href.replaceAll('&amp;', '&'), origin).pathname);
@@ -43,10 +43,10 @@ for (const invalidPath of ['/international/not-a-market', '/insights/not-a-guide
 const sitemapXml = await (await fetch(new URL('/sitemap.xml', origin))).text();
 assert.equal((sitemapXml.match(/<loc>/g) || []).length, paths.length);
 assert.ok(sitemapXml.includes('hreflang="en-AE"'));
-for (const legacyPath of ['/international', '/international/united-arab-emirates']) {
+for (const legacyPath of ['/uae', '/international', '/international/united-arab-emirates']) {
   const response = await fetch(new URL(legacyPath, origin), { redirect: 'manual' });
   assert.equal(response.status, 308, `${legacyPath}: permanent redirect`);
-  assert.equal(new URL(response.headers.get('location'), origin).pathname, '/uae');
+  assert.equal(new URL(response.headers.get('location'), origin).pathname, '/ae');
 }
 assert.equal((await fetch(new URL('/international/canada', origin))).status, 404, 'Retired market guide');
 console.log(`Rendered SEO checks passed: ${paths.length} pages, ${internalTargets.size} internal destinations, valid JSON-LD, regional alternates and unknown-route 404s.`);

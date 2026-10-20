@@ -55,6 +55,8 @@ function splitTextIntoSpans(el) {
 
 export function PageBanner({
   title = 'Page Title',
+  eyebrow,
+  services = marqueeItems,
   breadcrumbs,
   showBottomBar = true,
   className = '',
@@ -231,6 +233,7 @@ export function PageBanner({
         
         {/* Main Center Content: Title + Breadcrumb */}
         <div className="sec-page-banner__content-wrap">
+          {eyebrow && <span className="sec-page-banner__eyebrow">{eyebrow}</span>}
           <h1 className="alg-hero-title section-title sec-page-banner__title">
             {title}
           </h1>
@@ -332,7 +335,7 @@ export function PageBanner({
                   >
                     <div className="service-marquee">
                       <div className="service-marquee-track">
-                        {[...marqueeItems, ...marqueeItems].map((text, i) => (
+                        {[...services, ...services].map((text, i) => (
                           <div className="marquee-service-text" key={i}>
                             {text}
                           </div>

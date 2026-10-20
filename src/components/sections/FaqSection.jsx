@@ -123,7 +123,7 @@ function FaqDivider() {
   );
 }
 
-export function FaqSection() {
+export function FaqSection({ items = faqData } = {}) {
   const sectionRef = useRef(null);
 
   useEffect(() => {
@@ -149,7 +149,7 @@ export function FaqSection() {
         <div className="alg-faq-items cb-faq-items">
           <FaqDivider />
 
-          {faqData.map((item, idx) => (
+          {items.map((item, idx) => (
             <div key={idx}>
               <details className="alg-faq-item cb-faq-item">
                 <summary className="alg-faq-item-toggle cb-faq-item-toggle">

@@ -1,4 +1,5 @@
 import { permanentRedirect } from 'next/navigation';
-export default function UaeRedirect() {
-  permanentRedirect('/dubai');
+
+export default function LegacyUaePage() {
+  permanentRedirect('/ae');
 }
