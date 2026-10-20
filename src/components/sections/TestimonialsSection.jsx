@@ -5,7 +5,6 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SubtitleMarquee } from '../common/SubtitleMarquee';
 import { initTitleAnimation } from '../../utils/titleAnimation';
-import { observeNear } from '../../utils/observeNear';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -45,15 +44,10 @@ export function TestimonialsSection({ items = testimonialsData } = {}) {
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
+
     const titleEl =
       document.querySelector('#sec-testimonials .alg-testimonials-title, #sec-testimonials .sec-testimonials__title') ||
       el.closest('.alg-testimonials, .sec-testimonials')?.querySelector('.alg-testimonials-title, .sec-testimonials__title');
-    if (el.closest('[data-uae-gsap]')) {
-      return observeNear(el.closest('section'), () => {
-        const animation = initTitleAnimation(titleEl, { start: 'top 85%', stagger: 0.02 });
-        return () => { animation?.scrollTrigger?.kill(); animation?.kill(); };
-      }, 300);
-    }
     if (titleEl) {
       initTitleAnimation(titleEl, { start: 'top 85%', stagger: 0.02 });
     }

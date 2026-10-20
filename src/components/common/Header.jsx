@@ -363,7 +363,7 @@ export const Header = ({ prefetch = null }) => {
                   >
                     <div className="nav-text-wrap">
                       <div className="nav-text" style={active ? { color: '#ffffff' } : undefined}>{item.label}</div>
-                      <div className="nav-text" style={active ? { color: '#ffffff' } : undefined}>{item.label}</div>
+                      <div className="nav-text" aria-hidden="true" style={active ? { color: '#ffffff' } : undefined}>{item.label}</div>
                     </div>
                   </Link>
                 );

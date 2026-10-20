@@ -19,6 +19,14 @@ const marqueeItems = [
   'Mobile App Development',
 ];
 
+function HeroTitleText({ text }) {
+  let index = 0;
+  return text.split(' ').map((word, wordIndex) => <React.Fragment key={wordIndex}>
+    {wordIndex > 0 && ' '}
+    <span className="hero-word" aria-hidden="true">{Array.from(word).map((char, charIndex) => <span className="hero-char" key={charIndex} style={{ '--char-index': index++ }}>{char}</span>)}</span>
+  </React.Fragment>);
+}
+
 function splitTextIntoSpans(el) {
   if (!el || el.dataset.splitDone) return Array.from(el.querySelectorAll('.char'));
 
@@ -65,6 +73,7 @@ export function PageBanner({
   children,
 }) {
   const containerRef = useRef(null);
+  const htmlEntrance = performanceMode && animateEntrance && typeof title === 'string';
   const bannerPoster = performanceMode
     ? '/assets/68ee74b7102caefef6ce7890_2F68f23d0b14d2158ab1fa8dea_14471915_3840_2160_30fps_20_281_29-poster-00001.jpg'
     : 'https://res.cloudinary.com/vfsp1egd/image/upload/w_1920,c_limit,q_auto:best,f_auto/v1792145856/algofort/assets/68ee74b7102caefef6ce7890_2F68f23d0b14d2158ab1fa8dea_14471915_3840_2160_30fps_20_281_29-poster-00001';
@@ -80,7 +89,7 @@ export function PageBanner({
   useGSAP(() => {
     const container = containerRef.current;
     if (!container) return;
-    if (!animateEntrance) return;
+    if (!animateEntrance || htmlEntrance) return;
 
     // Header elements (matching Home page BannerSection)
     const headerEl = document.querySelector('.site-header');
@@ -145,24 +154,6 @@ export function PageBanner({
     }
 
     // 2. Video Reveal
-    if (performanceMode) {
-      // Match the home's quick entrance: the pieces overlap instead of making
-      // a long regional headline hold back breadcrumbs and social controls.
-      if (videoWrap) tl.to(videoWrap, { scale: 1, duration: 0.45, ease: 'power2.out' }, 0);
-      if (logoEl) tl.to(logoEl, { opacity: 1, y: 0, duration: 0.35 }, 0);
-      if (navLinks?.length) tl.to(navLinks, { opacity: 1, y: 0, duration: 0.3, stagger: 0.04 }, 0.1);
-      if (menuBtn) tl.to(menuBtn, { opacity: 1, scale: 1, duration: 0.3 }, 0.1);
-      if (titleChars.length) tl.to(titleChars, { opacity: 1, y: 0, duration: 0.35, stagger: { amount: 0.45 } }, 0.12);
-      if (breadcrumbNav) {
-        tl.set(breadcrumbNav, { visibility: 'visible' }, 0.25);
-        tl.to(breadcrumbNav, { opacity: 1, scale: 1, duration: 0.3 }, 0.25);
-      }
-      if (breadcrumbItems?.length) tl.to(breadcrumbItems, { opacity: 1, x: 0, duration: 0.3, stagger: 0.05 }, 0.3);
-      const bottomItems = [social1, social2, marqueeComp, social3, social4].filter(Boolean);
-      if (bottomItems.length) tl.to(bottomItems, { opacity: 1, y: 0, scale: 1, duration: 0.3, stagger: 0.05 }, 0.3);
-      return;
-    }
-
     if (videoWrap) {
       tl.to(videoWrap, { scale: 1, duration: 0.45, ease: 'power2.out' });
     }
@@ -221,7 +212,7 @@ export function PageBanner({
     if (social4) {
       tl.to(social4, { opacity: 1, y: 0, duration: 0.2 }, '-=0.12');
     }
-  }, { scope: containerRef, dependencies: [title, JSON.stringify(breadcrumbList), showBottomBar, animateEntrance, performanceMode] });
+  }, { scope: containerRef, dependencies: [title, JSON.stringify(breadcrumbList), showBottomBar, animateEntrance, htmlEntrance] });
 
   return (
     <header
@@ -230,6 +221,7 @@ export function PageBanner({
       className={`alg-hero site-section section-home-header sec-banner sec-page-banner ${className}`}
     >
       {performanceMode && <link rel="preload" as="image" href={bannerPoster} fetchPriority="high" />}
+      {performanceMode && <link rel="preload" as="font" href="/assets/68f24a7e02445111cfe6382d_Mona-Sans-BoldNarrow.woff2" type="font/woff2" crossOrigin="anonymous" />}
       {breadcrumbList.length >= 2 && breadcrumbList.every((crumb) => crumb.href) && (
         <script
           type="application/ld+json"
@@ -259,8 +251,8 @@ export function PageBanner({
         {/* Main Center Content: Title + Breadcrumb */}
         <div className="sec-page-banner__content-wrap">
           {eyebrow && <span className="sec-page-banner__eyebrow">{eyebrow}</span>}
-          <h1 className="alg-hero-title section-title sec-page-banner__title">
-            {title}
+          <h1 className="alg-hero-title section-title sec-page-banner__title" aria-label={htmlEntrance ? title : undefined}>
+            {htmlEntrance ? <HeroTitleText text={title} /> : title}
           </h1>
 
           <div className="sec-page-banner__breadcrumb-wrap">

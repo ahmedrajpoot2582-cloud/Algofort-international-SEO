@@ -2,6 +2,30 @@
    Header Navigation Drawer: Desktop vs Mobile View
    ========================================================================== */
 
+/* Both rolling lines need a fixed height; flex shrinking clips the second line. */
+.sec-header .nav-link-block .nav-text-wrap {
+  height: 1.125rem;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.sec-header .nav-link-block .nav-text {
+  flex: 0 0 1.125rem;
+  height: 1.125rem;
+  line-height: 1.125rem;
+  white-space: nowrap;
+}
+.sec-header .nav-link-block .nav-link:is(:hover, :focus-visible) {
+  background-color: #f47a1f;
+}
+.sec-header .nav-link-block .nav-link:is(:hover, :focus-visible) .nav-text {
+  transform: translateY(-100%) !important;
+}
+.sec-header .nav-link-block .nav-link:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 4px;
+}
+
 .desktop-nav-list {
   display: flex !important;
 }

@@ -2,128 +2,90 @@
 
 import { useEffect } from 'react';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import SplitType from 'split-type';
-import { observeNear } from '../../utils/observeNear';
 
-gsap.registerPlugin(ScrollTrigger);
-
-// Use the homepage's power3 reveals, letter scrub and testimonial fan motion.
-// Initialize offscreen sections near the viewport and revert everything on exit.
+// Each visible item owns one reusable GSAP timeline. Native intersection
+// events start it on entry; no global text splitting or scroll-frame loop.
 export function UaeMotion() {
   useEffect(() => {
     const root = document.querySelector('[data-uae-gsap]');
-    if (!root) return;
+    if (!root || !('IntersectionObserver' in window)) return;
     const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
     const media = gsap.matchMedia();
 
     media.add('(prefers-reduced-motion: no-preference)', () => {
       const context = gsap.context(() => {}, root);
-      const stops = [];
-      const splits = [];
-      const syncRestoredPosition = (animation, element, start) => {
-        const bounds = element.getBoundingClientRect();
-        // Hash/restored navigation can jump past a trigger before its observer
-        // runs. Finish past sections and play the one already in view.
-        if (bounds.bottom <= 0) animation.progress(1);
-        else if (bounds.top <= innerHeight * start) animation.play();
-      };
-      const groups = [
-        ['.sec-uae-industries__grid', '.sec-uae-industries__item'],
-        ['.sec-uae-ecosystem__list', '.sec-uae-ecosystem__item'],
-        ['.sec-uae-advantages__list', '.sec-uae-advantages__item'],
-        ['.sec-uae-technology__list', '.sec-uae-technology__row'],
-        ['.sec-uae-results__grid', '.sec-uae-results__card'],
-        ['.sec-uae__process-grid', '.sec-uae__step'],
-      ];
-
-      groups.forEach(([groupSelector, itemSelector]) => {
-        const group = root.querySelector(groupSelector);
-        stops.push(observeNear(group, () => {
-          context.add(() => {
-            const animation = gsap.fromTo(group.querySelectorAll(itemSelector),
-              { y: 40, opacity: 0 },
-              {
-                y: 0, opacity: 1, duration: 0.75, stagger: 0.12,
-                ease: 'power3.out',
-                scrollTrigger: { trigger: group, start: 'top 85%', once: true },
+      const timelines = new Map();
+      const selector = [
+        '.heading-style-h2', '.sec-uae__about-copy',
+        '.sec-uae-industries__item', '.sec-uae-ecosystem__item',
+        '.sec-uae-advantages__item', '.sec-uae-technology__row',
+        '.sec-uae-results__card', '.sec-uae__step',
+      ].join(',');
+      const targets = [...root.querySelectorAll(selector)].filter(element =>
+        !element.closest('#sec-testimonials, .sec-page-banner, .showreel_lightbox')
+      );
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(({ target, isIntersecting }) => {
+          if (!isIntersecting) return;
+          if (!timelines.has(target)) context.add(() => {
+            const timeline = gsap.timeline({
+              paused: true,
+              onStart: () => { target.dataset.motionState = 'entering'; },
+              onComplete: () => { target.dataset.motionState = 'visible'; },
+            });
+            if (target.matches('.heading-style-h2')) {
+              timeline.fromTo(target, { y: 28, opacity: 0 }, {
+                y: 0, opacity: 1, duration: 0.65, ease: 'power3.out',
               });
-            syncRestoredPosition(animation, group, 0.85);
+            } else {
+              const technology = target.matches('.sec-uae-technology__row');
+              timeline.fromTo(target, { y: technology ? 0 : 32, x: technology ? 40 : 0, opacity: 0 }, {
+                x: 0, y: 0, opacity: 1, duration: 0.65, ease: 'power3.out',
+              });
+              const icon = target.querySelector('.sec-uae-industries__meta svg');
+              if (icon) timeline.fromTo(icon, { rotation: -18, scale: 0.8 }, {
+                rotation: 0, scale: 1, duration: 0.5, ease: 'back.out(1.4)',
+              }, 0.1);
+              if (technology) timeline.fromTo(target.querySelectorAll('li'), { y: 12, opacity: 0 }, {
+                y: 0, opacity: 1, duration: 0.35, stagger: 0.04, ease: 'power2.out',
+              }, 0.15);
+            }
+            timelines.set(target, timeline);
           });
-        }, 300));
-      });
-
-      const about = root.querySelector('.sec-uae__about-copy .scrub_letter');
-      stops.push(observeNear(about, () => {
-        context.add(() => {
-          const paragraph = about.querySelector('p');
-          const mobile = window.matchMedia('(max-width: 767px)').matches;
-          const split = new SplitType(paragraph, { types: mobile ? 'words' : 'words, chars', tagName: 'span' });
-          splits.push(split);
-          paragraph.setAttribute('aria-label', paragraph.textContent);
-          split.words?.forEach(word => word.setAttribute('aria-hidden', 'true'));
-          gsap.fromTo(mobile ? split.words : split.chars, { opacity: 0.2 }, {
-            opacity: 1, duration: 0.01, stagger: 0.02, ease: 'none',
-            scrollTrigger: { trigger: about, start: 'top 80%', end: 'bottom 30%', scrub: true },
-          });
+          const timeline = timelines.get(target);
+          if (!timeline.isActive()) timeline.restart(true);
         });
-      }, 300));
-
-      const testimonials = root.querySelector('#testimonials');
-      stops.push(observeNear(testimonials, () => {
-        context.add(() => {
-          const cards = testimonials.querySelectorAll('.alg-testimonials-card');
-          const desktop = window.matchMedia('(min-width: 768px)').matches;
-          // These offsets and timings match the home page's folded card fan.
-          const fan = [[28, 27, -9], [0, -5, 0], [-24, 26, 9], [16, -34, -20], [3, -48, 20]];
-          const animation = gsap.fromTo(cards, {
-            xPercent: index => desktop ? fan[index % fan.length][0] : 0,
-            yPercent: index => desktop ? fan[index % fan.length][1] : 0,
-            rotation: index => desktop ? fan[index % fan.length][2] : 0,
-            y: desktop ? 0 : 30,
-          }, {
-            xPercent: 0, yPercent: 0, rotation: 0, y: 0,
-            duration: 1.2, stagger: 0.1, ease: 'power3.out',
-            scrollTrigger: { trigger: testimonials, start: 'top 70%', once: true },
-          });
-          syncRestoredPosition(animation, testimonials, 0.7);
-        });
-      }, 300));
-
+      }, { threshold: 0.12, rootMargin: '0px 0px -24px 0px' });
+      targets.forEach(target => observer.observe(target));
       return () => {
-        stops.forEach(stop => stop());
+        observer.disconnect();
         context.revert();
-        splits.forEach(split => split.revert());
+        targets.forEach(target => { delete target.dataset.motionState; });
       };
     });
 
-    // Marquees keep their original motion while visible and pause offscreen.
     const loops = [...root.querySelectorAll('.subtitle-marquee-track, .service-marquee-track, .sonar-wave')];
     const visibleLoops = new Set();
     const updateLoops = () => loops.forEach(loop => {
       loop.toggleAttribute('data-loop-visible', visibleLoops.has(loop) && !document.hidden && !preference.matches);
     });
-    const loopObserver = 'IntersectionObserver' in window ? new IntersectionObserver(entries => {
+    const loopObserver = new IntersectionObserver(entries => {
       entries.forEach(({ target, isIntersecting }) => {
         if (isIntersecting) visibleLoops.add(target);
         else visibleLoops.delete(target);
       });
       updateLoops();
-    }) : null;
-    if (loopObserver) loops.forEach(loop => loopObserver.observe(loop));
-    else loops.forEach(loop => visibleLoops.add(loop));
-    updateLoops();
+    });
+    loops.forEach(loop => loopObserver.observe(loop));
     document.addEventListener('visibilitychange', updateLoops);
     preference.addEventListener('change', updateLoops);
-
     return () => {
       media.revert();
-      loopObserver?.disconnect();
+      loopObserver.disconnect();
       document.removeEventListener('visibilitychange', updateLoops);
       preference.removeEventListener('change', updateLoops);
       loops.forEach(loop => loop.removeAttribute('data-loop-visible'));
     };
   }, []);
-
   return null;
 }

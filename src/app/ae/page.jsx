@@ -3,7 +3,6 @@ import { Footer } from '../../components/common/Footer';
 import { PageBanner } from '../../components/common/PageBanner';
 import { Cursor } from '../../components/common/Cursor';
 import { BackToTop } from '../../components/common/BackToTop';
-import { SmoothScroll } from '../../components/common/SmoothScroll';
 import { SubtitleMarquee } from '../../components/common/SubtitleMarquee';
 import { DeferredLottie } from '../../components/common/DeferredLottie';
 import { ServicesSection } from '../../components/sections/ServicesSection';
@@ -54,7 +53,6 @@ const schema = {
 
 export default function UaePage() {
   return (
-    <SmoothScroll smoothAnchors>
       <div className="page-wrapper page-uae" id="top" data-uae-gsap>
         <Cursor /><Header prefetch={false} /><BackToTop /><UaeMotion />
         <main id="main-content">
@@ -100,12 +98,11 @@ export default function UaePage() {
           <UaeTechnologySection />
           <ShowreelSection />
           <UaeResultsSection />
-          <TestimonialsSection items={content.testimonials} />
+          <TestimonialsSection />
           <FaqSection deferMotion items={content.faqs} />
           <CtaSection deferMotion title={<>Start a project<br /><span className="text-color-secondary">in the UAE.</span></>} description="Let us collaborate to build something extraordinary and elevate your brand across Dubai and the GCC." country="United Arab Emirates" phoneLabel="Phone Number (UAE / International)" />
         </main>
         <Footer />
       </div>
-    </SmoothScroll>
   );
 }
