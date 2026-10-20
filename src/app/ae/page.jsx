@@ -54,12 +54,12 @@ const schema = {
 
 export default function UaePage() {
   return (
-    <SmoothScroll animateParagraphs={false} animateHeadings={false} smoothAnchors>
-      <div className="page-wrapper page-uae" id="top" data-section-motion>
+    <SmoothScroll smoothAnchors>
+      <div className="page-wrapper page-uae" id="top" data-uae-gsap>
         <Cursor /><Header prefetch={false} /><BackToTop /><UaeMotion />
         <main id="main-content">
           <script type="application/ld+json">{JSON.stringify(schema).replace(/</g, '\\u003c')}</script>
-          <PageBanner performanceMode title={content.heroTitle} eyebrow={content.heroBadge} services={content.marquee} breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'UAE', href: '/ae', active: true }]} />
+          <PageBanner performanceMode animateEntrance title={content.heroTitle} eyebrow={content.heroBadge} services={content.marquee} breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'UAE', href: '/ae', active: true }]} />
 
           <section className="site-section sec-uae-about" id="uae-about">
             <div className="site-container container-large padding-global">
@@ -69,7 +69,7 @@ export default function UaePage() {
                   <h2 className="heading-style-h2 section-title">Digital solutions.<br /><span className="text-color-secondary">Built for the UAE.</span></h2>
                 </div>
                 <div className="sec-uae__about-copy">
-                  <p className="alg-text section-description">{content.about}</p>
+                  <div className="scrub_letter"><p className="alg-text section-description">{content.about}</p></div>
                   <p className="alg-text sec-uae__studio-note">Global engineering & delivery studio: Karachi. Serving Dubai, Abu Dhabi, the UAE and global markets.</p>
                 </div>
               </div>

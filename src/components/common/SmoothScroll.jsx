@@ -13,9 +13,16 @@ if (typeof window !== 'undefined') {
 
 export const SmoothScroll = ({ children, animateParagraphs = true, animateHeadings = true, smoothAnchors = false }) => {
   useEffect(() => {
+    // Text uses the same lazy GSAP initializers on desktop and touch screens.
+    const stopHeadings = animateHeadings ? initAllHeadingsAnimation() : null;
+    const stopText = animateParagraphs ? initAllTextFadeAnimation() : null;
+    const stopTextMotion = () => {
+      stopHeadings?.();
+      if (typeof stopText === 'function') stopText();
+    };
     // Touch devices already provide inertial scrolling. Keep UAE anchor motion
     // native there so an idle phone does not run a JavaScript scroll ticker.
-    if (smoothAnchors && window.matchMedia('(max-width: 767px), (prefers-reduced-motion: reduce)').matches) return;
+    if (smoothAnchors && window.matchMedia('(max-width: 767px), (prefers-reduced-motion: reduce)').matches) return stopTextMotion;
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -38,10 +45,6 @@ export const SmoothScroll = ({ children, animateParagraphs = true, animateHeadin
 
     gsap.ticker.add(updateLenis);
     gsap.ticker.lagSmoothing(0);
-
-    // Initialize heading and sequential paragraph animations across all pages
-    const stopHeadings = animateHeadings ? initAllHeadingsAnimation() : null;
-    const stopText = animateParagraphs ? initAllTextFadeAnimation() : null;
 
     if (document.fonts) {
       document.fonts.ready.then(() => {
@@ -73,8 +76,7 @@ export const SmoothScroll = ({ children, animateParagraphs = true, animateHeadin
         if (window.__lenisInstance === lenis) window.__lenisInstance = null;
         if (window.lenis === lenis) window.lenis = null;
       }
-      stopHeadings?.();
-      if (typeof stopText === 'function') stopText();
+      stopTextMotion();
       clearTimeout(timer);
       if (smoothAnchors) document.removeEventListener('toggle', refreshAfterToggle, true);
       lenis.destroy();

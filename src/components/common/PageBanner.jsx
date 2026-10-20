@@ -58,6 +58,7 @@ export function PageBanner({
   eyebrow,
   services = marqueeItems,
   performanceMode = false,
+  animateEntrance = !performanceMode,
   breadcrumbs,
   showBottomBar = true,
   className = '',
@@ -79,8 +80,7 @@ export function PageBanner({
   useGSAP(() => {
     const container = containerRef.current;
     if (!container) return;
-    // The regional page paints its hero directly from server HTML.
-    if (performanceMode) return;
+    if (!animateEntrance) return;
 
     // Header elements (matching Home page BannerSection)
     const headerEl = document.querySelector('.site-header');
@@ -203,7 +203,7 @@ export function PageBanner({
     if (social4) {
       tl.to(social4, { opacity: 1, y: 0, duration: 0.2 }, '-=0.12');
     }
-  }, { scope: containerRef, dependencies: [title, JSON.stringify(breadcrumbList), showBottomBar, performanceMode] });
+  }, { scope: containerRef, dependencies: [title, JSON.stringify(breadcrumbList), showBottomBar, animateEntrance] });
 
   return (
     <header

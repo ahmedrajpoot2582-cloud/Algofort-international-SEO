@@ -44,15 +44,15 @@ export function TestimonialsSection({ items = testimonialsData } = {}) {
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
-    // Regional pages use the shared section observer and an upright card grid.
-    if (el.closest('[data-section-motion]')) return;
-
     const titleEl =
       document.querySelector('#sec-testimonials .alg-testimonials-title, #sec-testimonials .sec-testimonials__title') ||
       el.closest('.alg-testimonials, .sec-testimonials')?.querySelector('.alg-testimonials-title, .sec-testimonials__title');
     if (titleEl) {
       initTitleAnimation(titleEl, { start: 'top 85%', stagger: 0.02 });
     }
+
+    // Regional pages use a GSAP fan entrance that stays open after leaving view.
+    if (el.closest('[data-uae-gsap]')) return;
 
     const st = ScrollTrigger.create({
       trigger: el,
