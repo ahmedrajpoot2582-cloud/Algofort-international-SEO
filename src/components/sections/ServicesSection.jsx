@@ -6,6 +6,7 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { SubtitleMarquee } from '../common/SubtitleMarquee';
 import { initTitleAnimation } from '../../utils/titleAnimation';
+import { observeNear } from '../../utils/observeNear';
 
 const servicesData = [
   {
@@ -102,11 +103,13 @@ function splitTextIntoSpans(el) {
   return charArray;
 }
 
-export const ServicesSection = ({ items = servicesData, heading } = {}) => {
+export const ServicesSection = ({ items = servicesData, heading, deferMotion = false } = {}) => {
   const containerRef = useRef(null);
 
-  useGSAP(() => {
+  useGSAP((context, contextSafe) => {
     if (!containerRef.current) return;
+    if (deferMotion && window.matchMedia('(hover: none), (prefers-reduced-motion: reduce)').matches) return;
+    const initialize = contextSafe(() => {
 
     const mainTitle = containerRef.current.querySelector('.sec-services__title');
     if (mainTitle) {
@@ -251,7 +254,10 @@ export const ServicesSection = ({ items = servicesData, heading } = {}) => {
       btn.addEventListener('mouseenter', onMouseEnter);
       btn.addEventListener('mouseleave', onMouseLeave);
     });
-  }, { scope: containerRef });
+    });
+    if (deferMotion) return observeNear(containerRef.current, initialize, 300);
+    initialize();
+  }, { scope: containerRef, dependencies: [deferMotion] });
 
   return (
     <section ref={containerRef} id="sec-services" className="site-section sec-services section-home-service">

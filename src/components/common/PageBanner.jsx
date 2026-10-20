@@ -57,12 +57,16 @@ export function PageBanner({
   title = 'Page Title',
   eyebrow,
   services = marqueeItems,
+  performanceMode = false,
   breadcrumbs,
   showBottomBar = true,
   className = '',
   children,
 }) {
   const containerRef = useRef(null);
+  const bannerPoster = performanceMode
+    ? '/assets/68ee74b7102caefef6ce7890_2F68f23d0b14d2158ab1fa8dea_14471915_3840_2160_30fps_20_281_29-poster-00001.jpg'
+    : 'https://res.cloudinary.com/vfsp1egd/image/upload/w_1920,c_limit,q_auto:best,f_auto/v1792145856/algofort/assets/68ee74b7102caefef6ce7890_2F68f23d0b14d2158ab1fa8dea_14471915_3840_2160_30fps_20_281_29-poster-00001';
 
   // Default breadcrumbs if not explicitly provided
   const breadcrumbList = breadcrumbs && breadcrumbs.length > 0
@@ -75,6 +79,8 @@ export function PageBanner({
   useGSAP(() => {
     const container = containerRef.current;
     if (!container) return;
+    // The regional page paints its hero directly from server HTML.
+    if (performanceMode) return;
 
     // Header elements (matching Home page BannerSection)
     const headerEl = document.querySelector('.site-header');
@@ -197,7 +203,7 @@ export function PageBanner({
     if (social4) {
       tl.to(social4, { opacity: 1, y: 0, duration: 0.2 }, '-=0.12');
     }
-  }, { scope: containerRef, dependencies: [title, JSON.stringify(breadcrumbList), showBottomBar] });
+  }, { scope: containerRef, dependencies: [title, JSON.stringify(breadcrumbList), showBottomBar, performanceMode] });
 
   return (
     <header
@@ -205,6 +211,7 @@ export function PageBanner({
       ref={containerRef}
       className={`alg-hero site-section section-home-header sec-banner sec-page-banner ${className}`}
     >
+      {performanceMode && <link rel="preload" as="image" href={bannerPoster} fetchPriority="high" />}
       {breadcrumbList.length >= 2 && breadcrumbList.every((crumb) => crumb.href) && (
         <script
           type="application/ld+json"
@@ -218,11 +225,11 @@ export function PageBanner({
         <div className="alg-hero-video background-video w-background-video w-background-video-atom">
           <ViewportVideo
             sources={pageVideoSources}
+            desktopOnly={performanceMode}
             data-object-fit="cover"
-            poster="https://res.cloudinary.com/vfsp1egd/image/upload/w_1920,c_limit,q_auto:best,f_auto/v1792145856/algofort/assets/68ee74b7102caefef6ce7890_2F68f23d0b14d2158ab1fa8dea_14471915_3840_2160_30fps_20_281_29-poster-00001"
+            poster={bannerPoster}
             style={{
-              backgroundImage:
-                'url("https://res.cloudinary.com/vfsp1egd/image/upload/w_1920,c_limit,q_auto:best,f_auto/v1792145856/algofort/assets/68ee74b7102caefef6ce7890_2F68f23d0b14d2158ab1fa8dea_14471915_3840_2160_30fps_20_281_29-poster-00001")',
+              backgroundImage: `url("${bannerPoster}")`,
             }}
           />
         </div>

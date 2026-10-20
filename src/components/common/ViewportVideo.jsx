@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-export function ViewportVideo({ sources, poster, ...props }) {
+export function ViewportVideo({ sources, poster, desktopOnly = false, ...props }) {
   const videoRef = useRef(null);
   const visibleRef = useRef(false);
   const [shouldLoad, setShouldLoad] = useState(false);
@@ -12,7 +12,7 @@ export function ViewportVideo({ sources, poster, ...props }) {
     if (!video) return;
 
     // Keep the poster for visitors who prefer less motion or use data saver.
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || navigator.connection?.saveData) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || navigator.connection?.saveData || (desktopOnly && window.matchMedia('(max-width: 767px)').matches)) return;
 
     const updatePlayback = (visible) => {
       visibleRef.current = visible;
@@ -49,7 +49,7 @@ export function ViewportVideo({ sources, poster, ...props }) {
       document.removeEventListener('visibilitychange', handleVisibility);
       video.pause();
     };
-  }, []);
+  }, [desktopOnly]);
 
   useEffect(() => {
     if (!shouldLoad || !videoRef.current) return;

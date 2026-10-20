@@ -5,6 +5,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SubtitleMarquee } from '../common/SubtitleMarquee';
 import { initTitleAnimation } from '../../utils/titleAnimation';
+import { observeNear } from '../../utils/observeNear';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -55,10 +56,11 @@ const faqData = [
   },
 ];
 
-function FaqDivider() {
+function FaqDivider({ deferMotion = false }) {
   const dividerRef = useRef(null);
 
   useEffect(() => {
+    const initialize = () => {
     const el = dividerRef.current;
     if (!el) return;
 
@@ -114,7 +116,10 @@ function FaqDivider() {
       el.removeEventListener('mousemove', handleMouseMove);
       el.removeEventListener('mouseleave', handleMouseLeave);
     };
-  }, []);
+    };
+    if (deferMotion) return observeNear(dividerRef.current, initialize, 300);
+    return initialize();
+  }, [deferMotion]);
 
   return (
     <div className="alg-faq-divider cb-faq-divider">
@@ -123,7 +128,7 @@ function FaqDivider() {
   );
 }
 
-export function FaqSection({ items = faqData } = {}) {
+export function FaqSection({ items = faqData, deferMotion = false } = {}) {
   const sectionRef = useRef(null);
 
   useEffect(() => {
@@ -147,7 +152,7 @@ export function FaqSection({ items = faqData } = {}) {
           </h2>
         </div>
         <div className="alg-faq-items cb-faq-items">
-          <FaqDivider />
+          <FaqDivider deferMotion={deferMotion} />
 
           {items.map((item, idx) => (
             <div key={idx}>
@@ -165,7 +170,7 @@ export function FaqSection({ items = faqData } = {}) {
                 </div>
               </details>
 
-              <FaqDivider />
+              <FaqDivider deferMotion={deferMotion} />
             </div>
           ))}
         </div>

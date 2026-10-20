@@ -11,13 +11,17 @@ if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-export const SmoothScroll = ({ children }) => {
+export const SmoothScroll = ({ children, animateParagraphs = true, animateHeadings = true, smoothAnchors = false }) => {
   useEffect(() => {
+    // Touch devices already provide inertial scrolling. Keep UAE anchor motion
+    // native there so an idle phone does not run a JavaScript scroll ticker.
+    if (smoothAnchors && window.matchMedia('(max-width: 767px), (prefers-reduced-motion: reduce)').matches) return;
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
       touchMultiplier: 2,
+      anchors: smoothAnchors ? { offset: -24 } : false,
     });
 
     if (typeof window !== 'undefined') {
@@ -36,8 +40,8 @@ export const SmoothScroll = ({ children }) => {
     gsap.ticker.lagSmoothing(0);
 
     // Initialize heading and sequential paragraph animations across all pages
-    const stopHeadings = initAllHeadingsAnimation();
-    const stopText = initAllTextFadeAnimation();
+    const stopHeadings = animateHeadings ? initAllHeadingsAnimation() : null;
+    const stopText = animateParagraphs ? initAllTextFadeAnimation() : null;
 
     if (document.fonts) {
       document.fonts.ready.then(() => {
@@ -57,6 +61,13 @@ export const SmoothScroll = ({ children }) => {
       }
     }, 150);
 
+    // Accordions change document height; update both scroll systems together.
+    const refreshAfterToggle = () => {
+      lenis.resize();
+      ScrollTrigger.refresh();
+    };
+    if (smoothAnchors) document.addEventListener('toggle', refreshAfterToggle, true);
+
     return () => {
       if (typeof window !== 'undefined') {
         if (window.__lenisInstance === lenis) window.__lenisInstance = null;
@@ -65,10 +76,11 @@ export const SmoothScroll = ({ children }) => {
       stopHeadings?.();
       if (typeof stopText === 'function') stopText();
       clearTimeout(timer);
+      if (smoothAnchors) document.removeEventListener('toggle', refreshAfterToggle, true);
       lenis.destroy();
       gsap.ticker.remove(updateLenis);
     };
-  }, []);
+  }, [animateParagraphs, animateHeadings, smoothAnchors]);
 
   return <>{children}</>;
 };

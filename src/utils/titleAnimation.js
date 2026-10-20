@@ -70,6 +70,12 @@ export function splitTextIntoChars(el) {
  */
 export function initTitleAnimation(titleEl, options = {}) {
   if (!titleEl || titleEl.dataset.titleAnimated) return null;
+  // These pages reveal complete headings with their section's native animation.
+  if (titleEl.closest('[data-section-motion]') || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    titleEl.dataset.splitDone = 'true';
+    titleEl.dataset.titleAnimated = 'true';
+    return null;
+  }
 
   const chars = splitTextIntoChars(titleEl);
   if (!chars.length) {

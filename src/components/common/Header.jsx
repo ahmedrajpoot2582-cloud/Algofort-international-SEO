@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import gsap from 'gsap';
 import '../../styles/header.css';
 
-export const Header = () => {
+export const Header = ({ prefetch = null }) => {
   const pathname = usePathname();
   const [navOpen, setNavOpen] = useState(false);
   const [servicesSubOpen, setServicesSubOpen] = useState(false);
@@ -131,7 +131,7 @@ export const Header = () => {
           
           {/* Logo */}
           <div className="alg-header-logo-wrapper logo-wrapper sec-header__logo-wrapper" id="w-node-_775fe0a9-7eeb-54f2-c56b-580613a9104a-13a91046">
-            <Link aria-current="page" className="alg-header-logo-link logo-link sec-header__logo-link w-inline-block" href="/">
+            <Link prefetch={prefetch} aria-current="page" className="alg-header-logo-link logo-link sec-header__logo-link w-inline-block" href="/">
               <div className="alg-header-logo-wrap logo-wrap">
                 <img 
                   alt="Algofort Logo" 
@@ -166,7 +166,7 @@ export const Header = () => {
                       <div className="navigation-content-list desktop-nav-list">
                         
                         <div className="alg-header-drawer-link-block navigation-link-block">
-                          <Link className={`navigation-link w-inline-block ${pathname?.includes('web-development') ? 'is-active w--current' : ''}`} href="/services/web-development" onClick={() => setNavOpen(false)}>
+                          <Link prefetch={prefetch} className={`navigation-link w-inline-block ${pathname?.includes('web-development') ? 'is-active w--current' : ''}`} href="/services/web-development" onClick={() => setNavOpen(false)}>
                             <div className="navigation-link-wrap">
                               <div className="navigation-link-text">Web Development</div>
                               <div className="navigation-link-text">Web Development</div>
@@ -176,7 +176,7 @@ export const Header = () => {
                         </div>
 
                         <div className="alg-header-drawer-link-block navigation-link-block">
-                          <Link className={`navigation-link w-inline-block ${pathname?.includes('brand-identity') ? 'is-active w--current' : ''}`} href="/services/brand-identity" onClick={() => setNavOpen(false)}>
+                          <Link prefetch={prefetch} className={`navigation-link w-inline-block ${pathname?.includes('brand-identity') ? 'is-active w--current' : ''}`} href="/services/brand-identity" onClick={() => setNavOpen(false)}>
                             <div className="navigation-link-wrap">
                               <div className="navigation-link-text">Brand Identity</div>
                               <div className="navigation-link-text">Brand Identity</div>
@@ -186,7 +186,7 @@ export const Header = () => {
                         </div>
 
                         <div className="alg-header-drawer-link-block navigation-link-block">
-                          <Link className={`navigation-link w-inline-block ${pathname?.includes('saas-app') ? 'is-active w--current' : ''}`} href="/services/saas-app-development" onClick={() => setNavOpen(false)}>
+                          <Link prefetch={prefetch} className={`navigation-link w-inline-block ${pathname?.includes('saas-app') ? 'is-active w--current' : ''}`} href="/services/saas-app-development" onClick={() => setNavOpen(false)}>
                             <div className="navigation-link-wrap">
                               <div className="navigation-link-text">SaaS App Development</div>
                               <div className="navigation-link-text">SaaS App Development</div>
@@ -196,7 +196,7 @@ export const Header = () => {
                         </div>
 
                         <div className="alg-header-drawer-link-block navigation-link-block">
-                          <Link className={`navigation-link w-inline-block ${pathname?.includes('mobile-app') ? 'is-active w--current' : ''}`} href="/services/mobile-app-development" onClick={() => setNavOpen(false)}>
+                          <Link prefetch={prefetch} className={`navigation-link w-inline-block ${pathname?.includes('mobile-app') ? 'is-active w--current' : ''}`} href="/services/mobile-app-development" onClick={() => setNavOpen(false)}>
                             <div className="navigation-link-wrap">
                               <div className="navigation-link-text">Mobile App Development</div>
                               <div className="navigation-link-text">Mobile App Development</div>
@@ -212,7 +212,7 @@ export const Header = () => {
 
                         {/* 01. Home */}
                         <div className="alg-header-drawer-link-block navigation-link-block">
-                          <Link className={`navigation-link w-inline-block ${isActive('/') ? 'is-active w--current' : ''}`} href="/" onClick={() => setNavOpen(false)}>
+                          <Link prefetch={prefetch} className={`navigation-link w-inline-block ${isActive('/') ? 'is-active w--current' : ''}`} href="/" onClick={() => setNavOpen(false)}>
                             <div className="navigation-link-wrap">
                               <div className="navigation-link-text">Home</div>
                               <div className="navigation-link-text">Home</div>
@@ -223,7 +223,7 @@ export const Header = () => {
 
                         {/* 02. About */}
                         <div className="alg-header-drawer-link-block navigation-link-block">
-                          <Link className={`navigation-link w-inline-block ${isActive('/about') ? 'is-active w--current' : ''}`} href="/about" onClick={() => setNavOpen(false)}>
+                          <Link prefetch={prefetch} className={`navigation-link w-inline-block ${isActive('/about') ? 'is-active w--current' : ''}`} href="/about" onClick={() => setNavOpen(false)}>
                             <div className="navigation-link-wrap">
                               <div className="navigation-link-text">About</div>
                               <div className="navigation-link-text">About</div>
@@ -268,23 +268,23 @@ export const Header = () => {
                           {/* Sub Services Accordion */}
                           <div className={`nav-subservices-container ${servicesSubOpen ? 'is-open' : ''}`}>
                             <div className="nav-subservices-list">
-                              <Link className={`nav-subservice-item ${pathname?.includes('web-development') ? 'is-active' : ''}`} href="/services/web-development" onClick={() => setNavOpen(false)}>
+                              <Link prefetch={prefetch} className={`nav-subservice-item ${pathname?.includes('web-development') ? 'is-active' : ''}`} href="/services/web-development" onClick={() => setNavOpen(false)}>
                                 <span className="nav-subservice-dot">✦</span>
                                 <span>Web Development</span>
                               </Link>
-                              <Link className={`nav-subservice-item ${pathname?.includes('brand-identity') ? 'is-active' : ''}`} href="/services/brand-identity" onClick={() => setNavOpen(false)}>
+                              <Link prefetch={prefetch} className={`nav-subservice-item ${pathname?.includes('brand-identity') ? 'is-active' : ''}`} href="/services/brand-identity" onClick={() => setNavOpen(false)}>
                                 <span className="nav-subservice-dot">✦</span>
                                 <span>Brand Identity</span>
                               </Link>
-                              <Link className={`nav-subservice-item ${pathname?.includes('saas-app') ? 'is-active' : ''}`} href="/services/saas-app-development" onClick={() => setNavOpen(false)}>
+                              <Link prefetch={prefetch} className={`nav-subservice-item ${pathname?.includes('saas-app') ? 'is-active' : ''}`} href="/services/saas-app-development" onClick={() => setNavOpen(false)}>
                                 <span className="nav-subservice-dot">✦</span>
                                 <span>SaaS App Development</span>
                               </Link>
-                              <Link className={`nav-subservice-item ${pathname?.includes('mobile-app') ? 'is-active' : ''}`} href="/services/mobile-app-development" onClick={() => setNavOpen(false)}>
+                              <Link prefetch={prefetch} className={`nav-subservice-item ${pathname?.includes('mobile-app') ? 'is-active' : ''}`} href="/services/mobile-app-development" onClick={() => setNavOpen(false)}>
                                 <span className="nav-subservice-dot">✦</span>
                                 <span>Mobile App Development</span>
                               </Link>
-                              <Link className={`nav-subservice-item ${pathname === '/services' || pathname === '/our-services' ? 'is-active' : ''}`} href="/services" onClick={() => setNavOpen(false)}>
+                              <Link prefetch={prefetch} className={`nav-subservice-item ${pathname === '/services' || pathname === '/our-services' ? 'is-active' : ''}`} href="/services" onClick={() => setNavOpen(false)}>
                                 <span className="nav-subservice-dot">✦</span>
                                 <span>All Services</span>
                               </Link>
@@ -294,7 +294,7 @@ export const Header = () => {
 
                         {/* 04. Portfolio */}
                         <div className="alg-header-drawer-link-block navigation-link-block">
-                          <Link className={`navigation-link w-inline-block ${isActive('/portfolio') ? 'is-active w--current' : ''}`} href="/portfolio" onClick={() => setNavOpen(false)}>
+                          <Link prefetch={prefetch} className={`navigation-link w-inline-block ${isActive('/portfolio') ? 'is-active w--current' : ''}`} href="/portfolio" onClick={() => setNavOpen(false)}>
                             <div className="navigation-link-wrap">
                               <div className="navigation-link-text">Portfolio</div>
                               <div className="navigation-link-text">Portfolio</div>
@@ -305,7 +305,7 @@ export const Header = () => {
 
                         {/* 05. Contact */}
                         <div className="alg-header-drawer-link-block navigation-link-block">
-                          <Link className={`navigation-link w-inline-block ${isActive('/contact') ? 'is-active w--current' : ''}`} href="/contact" onClick={() => setNavOpen(false)}>
+                          <Link prefetch={prefetch} className={`navigation-link w-inline-block ${isActive('/contact') ? 'is-active w--current' : ''}`} href="/contact" onClick={() => setNavOpen(false)}>
                             <div className="navigation-link-wrap">
                               <div className="navigation-link-text">Contact</div>
                               <div className="navigation-link-text">Contact</div>
@@ -318,7 +318,7 @@ export const Header = () => {
 
                       <div className="navigation-button-wrap" id="w-node-_775fe0a9-7eeb-54f2-c56b-580613a91087-13a91046">
                         <div className="navigation-button-block">
-                          <Link className="main-button btn-primary sec-header__btn w-inline-block" href="/contact" onClick={() => setNavOpen(false)}>
+                          <Link prefetch={prefetch} className="main-button btn-primary sec-header__btn w-inline-block" href="/contact" onClick={() => setNavOpen(false)}>
                             <div className="main-button-block">
                               <div className="button-text">Get in Touch</div>
                               <div className="button-text">Get in Touch</div>
@@ -354,7 +354,7 @@ export const Header = () => {
               ].map((item) => {
                 const active = isActive(item.href);
                 return (
-                  <Link 
+                  <Link prefetch={prefetch}
                     key={item.href}
                     className={`nav-link w-inline-block ${active ? 'is-active w--current' : ''}`} 
                     href={item.href}

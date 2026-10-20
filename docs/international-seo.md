@@ -33,3 +33,13 @@ For main-domain launch, connect and verify algofort.com, configure DNS through t
 Firebase admin, SMTP, reCAPTCHA and other private settings must be configured through hosting to verify form submission, admin access and email. These secrets were absent from the repository and have not been copied from other projects. The UAE form uses the existing submission flow and prefills the project country.
 
 Market keyword research, translated content, market-specific case studies, earned links and Search Console monitoring remain ongoing work; no ranking uplift is asserted.
+
+## UAE motion and loading (20 October 2026)
+
+The UAE page uses a native intersection observer to reveal whole section headings and cards once. It avoids paragraph character splitting, leaves server-rendered content visible, honors reduced motion and pauses offscreen marquee/sonar loops. Desktop keeps Lenis wheel and anchor scrolling; small screens use native momentum and CSS anchor scrolling. The hero poster is preloaded locally and the decorative video stays off on small screens. Service hover setup and FAQ divider effects initialize near their sections; touch devices omit service mouse-follow effects. Header route prefetching is disabled for UAE only.
+
+Testimonials use an upright responsive grid. Duplicate outer/inner section padding was removed: the testimonial-to-FAQ gap measures 80px at 1440px and 56px at 390px, instead of 368px in the previous desktop page. No horizontal overflow was found at 390px, 768px or 1440px. FAQ expansion and back-to-top navigation were checked.
+
+Local production-build Lighthouse 13.5.0 diagnostics: desktop 95 (LCP 1.1s, TBT 40ms); optimized simulated mobile 64 (LCP 5.4s, TBT 250ms, CLS 0). These are lab measurements, not field Core Web Vitals or search rankings. Mobile render-blocking shared theme CSS and font loading remain the largest opportunity. Production hosting uses a different network stack, so deployed measurements should be checked separately.
+
+Validation: Next production build, lint (existing warnings only), source SEO checks and rendered checks covering 20 pages, 16 internal destinations, metadata, JSON-LD, regional alternates, legacy redirects and unknown-route 404s passed. Backend form delivery remains subject to the hosting settings described above.
