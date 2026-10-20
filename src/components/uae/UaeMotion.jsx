@@ -15,7 +15,7 @@ export function UaeMotion() {
     media.add('(prefers-reduced-motion: no-preference)', () => {
       const context = gsap.context(() => {}, root);
       const timelines = new Map();
-      let scrollingStarted = window.scrollY > 0;
+      let scrollingStarted = window.scrollY > 0 || !!window.location.hash;
       const pending = new Set();
       const selector = [
         '.heading-style-h2', '.sec-uae__about-copy',
@@ -63,18 +63,19 @@ export function UaeMotion() {
         });
       }, { threshold: 0.12, rootMargin: '0px 0px -24px 0px' });
       const startScrollMotion = () => {
-        if (window.scrollY <= 0) return;
         scrollingStarted = true;
         pending.forEach(reveal);
         pending.clear();
-        window.removeEventListener('scroll', startScrollMotion);
+        inputEvents.forEach(type => window.removeEventListener(type, startScrollMotion));
       };
+      const inputEvents = ['wheel', 'touchstart', 'pointerdown', 'keydown'];
       // Keep initially visible copy steady during hydration. Motion starts with
-      // scrolling, including native hash/restored navigation.
-      if (!scrollingStarted) window.addEventListener('scroll', startScrollMotion, { passive: true });
+      // actual input, not a synthetic scroll used by layout measurement.
+      // Direct hash/restored navigation is already armed above.
+      if (!scrollingStarted) inputEvents.forEach(type => window.addEventListener(type, startScrollMotion, { passive: true }));
       targets.forEach(target => observer.observe(target));
       return () => {
-        window.removeEventListener('scroll', startScrollMotion);
+        inputEvents.forEach(type => window.removeEventListener(type, startScrollMotion));
         observer.disconnect();
         context.revert();
         targets.forEach(target => { delete target.dataset.motionState; });
