@@ -21,6 +21,13 @@ export function UaeMotion() {
       const context = gsap.context(() => {}, root);
       const stops = [];
       const splits = [];
+      const syncRestoredPosition = (animation, element, start) => {
+        const bounds = element.getBoundingClientRect();
+        // Hash/restored navigation can jump past a trigger before its observer
+        // runs. Finish past sections and play the one already in view.
+        if (bounds.bottom <= 0) animation.progress(1);
+        else if (bounds.top <= innerHeight * start) animation.play();
+      };
       const groups = [
         ['.sec-uae-industries__grid', '.sec-uae-industries__item'],
         ['.sec-uae-ecosystem__list', '.sec-uae-ecosystem__item'],
@@ -34,13 +41,14 @@ export function UaeMotion() {
         const group = root.querySelector(groupSelector);
         stops.push(observeNear(group, () => {
           context.add(() => {
-            gsap.fromTo(group.querySelectorAll(itemSelector),
+            const animation = gsap.fromTo(group.querySelectorAll(itemSelector),
               { y: 40, opacity: 0 },
               {
                 y: 0, opacity: 1, duration: 0.75, stagger: 0.12,
                 ease: 'power3.out',
                 scrollTrigger: { trigger: group, start: 'top 85%', once: true },
               });
+            syncRestoredPosition(animation, group, 0.85);
           });
         }, 300));
       });
@@ -67,7 +75,7 @@ export function UaeMotion() {
           const desktop = window.matchMedia('(min-width: 768px)').matches;
           // These offsets and timings match the home page's folded card fan.
           const fan = [[28, 27, -9], [0, -5, 0], [-24, 26, 9], [16, -34, -20], [3, -48, 20]];
-          gsap.fromTo(cards, {
+          const animation = gsap.fromTo(cards, {
             xPercent: index => desktop ? fan[index % fan.length][0] : 0,
             yPercent: index => desktop ? fan[index % fan.length][1] : 0,
             rotation: index => desktop ? fan[index % fan.length][2] : 0,
@@ -77,6 +85,7 @@ export function UaeMotion() {
             duration: 1.2, stagger: 0.1, ease: 'power3.out',
             scrollTrigger: { trigger: testimonials, start: 'top 70%', once: true },
           });
+          syncRestoredPosition(animation, testimonials, 0.7);
         });
       }, 300));
 
