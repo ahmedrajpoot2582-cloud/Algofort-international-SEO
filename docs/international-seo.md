@@ -40,6 +40,8 @@ At the owner's request, UAE now uses the homepage's GSAP heading and paragraph c
 
 Testimonials use the homepage's folded-card fan offsets, 1.2s duration and 0.1s stagger, implemented in GSAP. They stay open after the entrance to preserve the spacing fix when visitors move to FAQ. The responsive grid and removal of duplicate outer/inner padding retain an 80px desktop / 56px mobile gap after the cards settle.
 
+Responsive text optimization: at widths up to 767px, UAE body paragraphs and about scrub animate words with GSAP, while headings retain individual letter reveals. Desktop uses the shared character animations unchanged. Paragraph glyphs do not keep permanent will-change layers. Restored/hash navigation explicitly starts visible card sequences and completes sections already passed.
+
 Historical performance measurements before restoring full GSAP text/hero motion: local desktop 95 and mobile 64; deployed desktop 89 and mobile 80. These scores describe the earlier lightweight animation version and do not establish the performance of the current GSAP version. Mobile shared theme CSS and font loading remain opportunities. Lighthouse lab scores are not field Core Web Vitals or search rankings.
 
 Validation: Next production build, lint (existing warnings only), source SEO checks and rendered checks covering 20 pages, 16 internal destinations, metadata, JSON-LD, regional alternates, legacy redirects and unknown-route 404s passed. Backend form delivery remains subject to the hosting settings described above.

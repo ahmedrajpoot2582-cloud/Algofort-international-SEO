@@ -57,11 +57,12 @@ export function UaeMotion() {
       stops.push(observeNear(about, () => {
         context.add(() => {
           const paragraph = about.querySelector('p');
-          const split = new SplitType(paragraph, { types: 'words, chars', tagName: 'span' });
+          const mobile = window.matchMedia('(max-width: 767px)').matches;
+          const split = new SplitType(paragraph, { types: mobile ? 'words' : 'words, chars', tagName: 'span' });
           splits.push(split);
           paragraph.setAttribute('aria-label', paragraph.textContent);
           split.words?.forEach(word => word.setAttribute('aria-hidden', 'true'));
-          gsap.fromTo(split.chars, { opacity: 0.2 }, {
+          gsap.fromTo(mobile ? split.words : split.chars, { opacity: 0.2 }, {
             opacity: 1, duration: 0.01, stagger: 0.02, ease: 'none',
             scrollTrigger: { trigger: about, start: 'top 80%', end: 'bottom 30%', scrub: true },
           });

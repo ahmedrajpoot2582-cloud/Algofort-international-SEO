@@ -15,7 +15,7 @@ export const SmoothScroll = ({ children, animateParagraphs = true, animateHeadin
   useEffect(() => {
     // Text uses the same lazy GSAP initializers on desktop and touch screens.
     const stopHeadings = animateHeadings ? initAllHeadingsAnimation() : null;
-    const stopText = animateParagraphs ? initAllTextFadeAnimation() : null;
+    const stopText = animateParagraphs ? initAllTextFadeAnimation({ wordsOnlyOnMobile: smoothAnchors }) : null;
     const stopTextMotion = () => {
       stopHeadings?.();
       if (typeof stopText === 'function') stopText();

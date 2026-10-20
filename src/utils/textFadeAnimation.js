@@ -16,7 +16,7 @@ if (typeof window !== 'undefined') {
  * 3. FOUC prevention: Works with CSS split-ready class so text never flashes on initial load.
  * 4. Excludes scrub text (like homepage large scrub statements).
  */
-export function initAllTextFadeAnimation() {
+export function initAllTextFadeAnimation({ wordsOnlyOnMobile = false } = {}) {
   if (typeof window === 'undefined') return [];
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     document.querySelectorAll('p.alg-text, .alg-text, .sec-about-team__join-text, .alg-contact-desc').forEach((el) => {
@@ -61,6 +61,9 @@ export function initAllTextFadeAnimation() {
   });
 
   if (!targetParagraphs.length) return [];
+  // The regional page keeps the same GSAP timing on small screens while
+  // animating words instead of creating hundreds of individual glyph layers.
+  const wordsOnly = wordsOnlyOnMobile && window.matchMedia('(max-width: 767px)').matches;
 
   // Group paragraphs by their immediate or closest parent content container
   const containerGroups = new Map();
@@ -100,12 +103,12 @@ export function initAllTextFadeAnimation() {
       }
 
       const split = new SplitType(paragraph, {
-        types: 'words, chars',
+        types: wordsOnly ? 'words' : 'words, chars',
         tagName: 'span',
       });
 
       splits.push(split);
-      const chars = split.chars || [];
+      const chars = (wordsOnly ? split.words : split.chars) || [];
       if (!chars.length) {
         paragraph.classList.add('split-ready');
         return;

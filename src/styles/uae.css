@@ -2,6 +2,7 @@
 /* Keep the server-rendered text available; GSAP reveals its individual characters. */
 .page-uae p.alg-text { opacity: 1 !important; animation: none !important; }
 .page-uae .section-title, .page-uae .heading-style-h2 { opacity: 1 !important; animation: none !important; }
+.page-uae .alg-text .char { will-change: auto; }
 .page-uae .subtitle-marquee-track, .page-uae .service-marquee-track, .page-uae .sonar-wave { animation-play-state: paused !important; }
 .page-uae [data-loop-visible] { animation-play-state: running !important; }
 .page-uae .sec-page-banner__breadcrumb-nav { visibility: visible; opacity: 1; }
