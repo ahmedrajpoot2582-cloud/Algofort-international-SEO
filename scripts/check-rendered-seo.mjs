@@ -43,7 +43,7 @@ for (const invalidPath of ['/international/not-a-market', '/insights/not-a-guide
 const sitemapXml = await (await fetch(new URL('/sitemap.xml', origin))).text();
 assert.equal((sitemapXml.match(/<loc>/g) || []).length, paths.length);
 assert.ok(sitemapXml.includes('hreflang="en-AE"'));
-for (const legacyPath of ['/uae', '/international', '/international/united-arab-emirates']) {
+for (const legacyPath of ['/uae', '/dubai', '/international', '/international/united-arab-emirates']) {
   const response = await fetch(new URL(legacyPath, origin), { redirect: 'manual' });
   assert.equal(response.status, 308, `${legacyPath}: permanent redirect`);
   assert.equal(new URL(response.headers.get('location'), origin).pathname, '/ae');

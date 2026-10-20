@@ -5,7 +5,7 @@
 Country priority: UAE, then UK, then USA. Build and review the UAE page first. The worldwide directory, country search and generic market guides have been removed.
 
 - /ae uses the owner-supplied Dubai/UAE copy: regional hero and social strip, about, four home-style services, six illustrated delivery steps, showreel, five testimonials, seven FAQs and the existing project form.
-- /uae permanently redirects to /ae.
+- /uae and /dubai permanently redirect to /ae, preserving previous entry URLs while keeping one canonical UAE page.
 - /international and /international/united-arab-emirates permanently redirect to /ae.
 - Other retired market-guide URLs return 404 and are excluded from the sitemap.
 - UK and USA pages follow the UAE review; no placeholder pages are published.
