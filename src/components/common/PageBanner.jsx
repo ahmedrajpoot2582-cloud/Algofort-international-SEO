@@ -218,6 +218,7 @@ export function PageBanner({
     <header
       id="sec-page-banner"
       ref={containerRef}
+      data-entrance={animateEntrance && !htmlEntrance ? 'gsap' : 'html'}
       className={`alg-hero site-section section-home-header sec-banner sec-page-banner ${className}`}
     >
       {performanceMode && <link rel="preload" as="image" href={bannerPoster} fetchPriority="high" />}

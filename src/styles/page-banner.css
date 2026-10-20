@@ -294,6 +294,12 @@
   position: relative !important;
 }
 
+/* HTML entrances skip the GSAP timeline that reveals these shared elements. */
+.sec-page-banner[data-entrance="html"] .social-link,
+.sec-page-banner[data-entrance="html"] .service-marquee-component {
+  opacity: 1;
+}
+
 /* ==========================================================================
    Inner Page Banner: Matching Homepage Banner Inner Grid Layout & Width Exactly
    Container matches homepage (.container-large)
