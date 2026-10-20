@@ -28,6 +28,9 @@ for (const path of paths) {
   if (path === '/ae') {
     assert.ok(!html.includes('Find your location') && !html.includes('country-directory'), 'No unwanted directory section');
     assert.ok(html.includes('name="message"') && html.includes('id="sec-cta"'), 'Inline project enquiry form');
+    for (const section of ['uae-industries', 'uae-ecosystem', 'uae-advantages', 'uae-technology', 'uae-results']) {
+      assert.ok(html.includes(`id="${section}"`), `Server-rendered UAE section: ${section}`);
+    }
   }
   if (newPaths.includes(path)) {
     for (const [, href] of html.matchAll(/<a\b[^>]*href="(\/[^"#]*)"/g)) internalTargets.add(new URL(href.replaceAll('&amp;', '&'), origin).pathname);

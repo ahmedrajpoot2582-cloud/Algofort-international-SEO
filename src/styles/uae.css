@@ -27,11 +27,73 @@
 .page-uae .sec-testimonials .sec-testimonials__container, .page-uae .sec-faq .sec-faq__container { padding-block: 5rem !important; }
 .page-uae .sec-faq .sec-faq__header { margin-bottom: 2.5rem !important; }
 .page-uae .sec-faq .alg-faq-item-title { font-size: clamp(1rem, 1.3vw, 1.2rem) !important; }
+/* Additional market content shares the site's compact type and inset frames. */
+.page-uae .sec-uae-expansion { padding-block: 5rem; }
+.page-uae .sec-uae-expansion__header { max-width: 850px; margin-bottom: 2.5rem; }
+.page-uae .sec-uae-expansion__header .section-title { margin-top: 0 !important; }
+.page-uae .sec-uae-expansion__header .section-description { max-width: 740px; line-height: 1.7; }
+.page-uae .sec-uae-expansion .heading-style-h3 { font-size: clamp(1.25rem, 1.6vw, 1.5rem) !important; line-height: 1.25 !important; margin: 0 0 .85rem; color: inherit; }
+.page-uae .sec-uae-expansion__number { color: #71717a; font-size: .8125rem; font-weight: 500; letter-spacing: .06em; }
+.page-uae .sec-uae-expansion__caption { display: flex; justify-content: space-between; gap: 1rem; padding-bottom: 1rem; font-size: .75rem; letter-spacing: .06em; text-transform: uppercase; color: #666; }
+.page-uae .sec-uae-expansion__eyebrow { margin-top: 1.5rem; font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; color: #666; }
+.page-uae .sec-uae-industries__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 2.5rem; }
+.page-uae .sec-uae-industries__item { min-width: 0; padding-block: 1.75rem 2rem; border-top: 1px solid #05080c26; }
+.page-uae .sec-uae-industries__meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+.page-uae .sec-uae-industries__meta svg { color: #c45a0c; }
+.page-uae .sec-uae-industries__item p, .page-uae .sec-uae-advantages__item p { margin: 0; font-size: .9375rem; line-height: 1.7; color: #555; }
+.page-uae .sec-uae-ecosystem { padding-top: 0; }
+.page-uae .sec-uae-ecosystem__panel { display: grid; grid-template-columns: 1fr 1.1fr; gap: 3.5rem; padding: 3rem; border-radius: 32px; background: #05080c; color: #fff; }
+.page-uae .sec-uae-ecosystem .heading-style-h2 { color: #fff; }
+.page-uae .sec-uae-ecosystem__intro .section-description { color: #ffffffb8; font-size: .9375rem; }
+.page-uae .sec-uae-ecosystem__caption { display: inline-block; padding: .6rem .85rem; border: 1px solid #ffffff30; border-radius: 100px; font-size: .75rem; color: #ffffffb8; }
+.page-uae .sec-uae-ecosystem__item { border-top: 1px solid #ffffff30; }
+.page-uae .sec-uae-ecosystem__item:last-child { border-bottom: 1px solid #ffffff30; }
+.page-uae .sec-uae-ecosystem__item summary { display: grid; grid-template-columns: 1.25rem 1fr 1.25rem; align-items: start; gap: 1rem; padding-block: 1.5rem; cursor: pointer; list-style: none; }
+.page-uae .sec-uae-ecosystem__item summary::-webkit-details-marker { display: none; }
+.page-uae .sec-uae-ecosystem__item summary h3 { margin-bottom: 0; }
+.page-uae .sec-uae-ecosystem__item .sec-uae-expansion__number { color: #f47a1f; padding-top: .25rem; }
+.page-uae .sec-uae-ecosystem__body { min-height: 0; overflow: hidden; }
+.page-uae .sec-uae-ecosystem__item p { margin: 0 2.25rem 1.5rem; color: #ffffffb8; font-size: .9375rem; line-height: 1.7; }
+.page-uae .sec-uae-ecosystem__toggle { position: relative; width: 18px; height: 18px; margin-top: .2rem; }
+.page-uae .sec-uae-ecosystem__toggle::before, .page-uae .sec-uae-ecosystem__toggle::after { content: ''; position: absolute; background: currentColor; }
+.page-uae .sec-uae-ecosystem__toggle::before { width: 14px; height: 1px; left: 2px; top: 8px; }
+.page-uae .sec-uae-ecosystem__toggle::after { width: 1px; height: 14px; left: 8px; top: 2px; }
+.page-uae .sec-uae-ecosystem__item[open] .sec-uae-ecosystem__toggle::after { display: none; }
+.page-uae .sec-uae-ecosystem__item summary:focus-visible { outline: 2px solid #f47a1f; outline-offset: 5px; }
+.page-uae .sec-uae-advantages { border-block: 1px solid #05080c18; }
+.page-uae .sec-uae-advantages__layout { display: grid; grid-template-columns: .9fr 1.1fr; gap: 4rem; }
+.page-uae .sec-uae-advantages__list { display: grid; gap: 1.75rem; }
+.page-uae .sec-uae-advantages__item { display: grid; grid-template-columns: 1.25rem 1fr; gap: 1.25rem; border-bottom: 1px solid #05080c20; padding-bottom: 1.75rem; }
+.page-uae .sec-uae-advantages__item:last-child { padding-bottom: 0; border-bottom: 0; }
+.page-uae .sec-uae-advantages__item > span { padding-top: .25rem; color: #b94c00; }
+.page-uae .sec-uae-technology__row { display: grid; grid-template-columns: .55fr 1fr; gap: 2rem; padding-block: 1.5rem; border-top: 1px solid #05080c26; align-items: start; }
+.page-uae .sec-uae-technology__row h3 { padding-top: .4rem; }
+.page-uae .sec-uae-technology__tools { display: flex; flex-wrap: wrap; gap: .65rem; list-style: none; margin: 0; padding: 0; }
+.page-uae .sec-uae-technology__tools li { padding: .65rem .9rem; font-size: .875rem; line-height: 1.3; border-radius: 100px; border: 1px solid #05080c26; color: #333; background: white; }
+.page-uae .sec-uae-results__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
+.page-uae .sec-uae-results__card { display: flex; flex-direction: column; align-items: start; min-width: 0; padding: 2rem; background: #fff; border: 1px solid #05080c18; border-radius: 24px; }
+.page-uae .sec-uae-results__outcome { width: 100%; padding-block: 1.75rem; margin-bottom: 1.75rem; border-bottom: 1px solid #05080c20; }
+.page-uae .sec-uae-results__outcome strong { display: block; color: #b94c00; font-family: 'Mona Sans', sans-serif; font-weight: 600; font-size: clamp(2rem, 3vw, 2.75rem); line-height: 1.15; letter-spacing: -.035em; }
+.page-uae .sec-uae-results__outcome > span { display: block; font-size: .875rem; color: #555; margin-top: .5rem; }
+.page-uae .sec-uae-results__category { font-size: .75rem; color: #666; line-height: 1.5; margin: 0 0 1.25rem; }
+.page-uae .sec-uae-results__card .alg-text { margin: 0; font-size: .9375rem; line-height: 1.7; color: #555; }
 @media (max-width: 991px) {
+ .page-uae .sec-uae-industries__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+ .page-uae .sec-uae-ecosystem__panel, .page-uae .sec-uae-advantages__layout { grid-template-columns: 1fr; gap: 2rem; }
+ .page-uae .sec-uae-ecosystem__panel { padding: 2rem; }
+ .page-uae .sec-uae-results__card { padding: 1.5rem; }
  .page-uae .sec-uae__about-grid { grid-template-columns: 1fr; gap: 1.5rem; }
  .page-uae .sec-uae__process-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 767px) {
+ .page-uae .sec-uae-expansion { padding-block: 3.5rem; }
+ .page-uae .sec-uae-expansion__header { margin-bottom: 2rem; }
+ .page-uae .sec-uae-ecosystem { padding-top: 0; }
+ .page-uae .sec-uae-ecosystem__panel { padding: 1.5rem; border-radius: 24px; }
+ .page-uae .sec-uae-industries__grid, .page-uae .sec-uae-results__grid, .page-uae .sec-uae-technology__row { grid-template-columns: 1fr; }
+ .page-uae .sec-uae-technology__row { gap: .5rem; }
+ .page-uae .sec-uae-expansion__caption { flex-wrap: wrap; }
+ .page-uae .sec-uae-expansion__caption > span:last-child { display: none; }
  .page-uae main .heading-style-h2 { font-size: 2rem !important; }
  .page-uae main .heading-style-h3 { font-size: 1.5rem !important; }
  .page-uae .sec-uae-about, .page-uae .sec-uae-process { padding-block: 3.5rem; }

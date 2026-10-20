@@ -11,6 +11,7 @@ import { ShowreelSection } from '../../components/sections/ShowreelSection';
 import { TestimonialsSection } from '../../components/sections/TestimonialsSection';
 import { FaqSection } from '../../components/sections/FaqSection';
 import { CtaSection } from '../../components/sections/CtaSection';
+import { UaeIndustriesSection, UaeEcosystemSection, UaeAdvantagesSection, UaeTechnologySection, UaeResultsSection } from '../../components/uae/UaeExpertiseSections';
 import { uaeContent as content } from '../../data/uae';
 import { internationalAlternates } from '../../data/markets';
 import { withSocialMetadata } from '../../lib/seo';
@@ -75,6 +76,8 @@ export default function UaePage() {
           </section>
 
           <ServicesSection items={content.services} heading={<>Creative solutions<br /><span className="text-color-secondary">for UAE enterprises.</span></>} />
+          <UaeIndustriesSection />
+          <UaeEcosystemSection />
 
           <section className="site-section sec-uae-process" id="uae-process">
             <div className="site-container container-large padding-global">
@@ -92,7 +95,10 @@ export default function UaePage() {
             </div>
           </section>
 
+          <UaeAdvantagesSection />
+          <UaeTechnologySection />
           <ShowreelSection />
+          <UaeResultsSection />
           <TestimonialsSection items={content.testimonials} />
           <FaqSection items={content.faqs} />
           <CtaSection title={<>Start a project<br /><span className="text-color-secondary">in the UAE.</span></>} description="Let us collaborate to build something extraordinary and elevate your brand across Dubai and the GCC." country="United Arab Emirates" phoneLabel="Phone Number (UAE / International)" />
