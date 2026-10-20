@@ -102,7 +102,7 @@ export default function UaePage() {
           <UaeResultsSection />
           <TestimonialsSection items={content.testimonials} />
           <FaqSection deferMotion items={content.faqs} />
-          <CtaSection title={<>Start a project<br /><span className="text-color-secondary">in the UAE.</span></>} description="Let us collaborate to build something extraordinary and elevate your brand across Dubai and the GCC." country="United Arab Emirates" phoneLabel="Phone Number (UAE / International)" />
+          <CtaSection deferMotion title={<>Start a project<br /><span className="text-color-secondary">in the UAE.</span></>} description="Let us collaborate to build something extraordinary and elevate your brand across Dubai and the GCC." country="United Arab Emirates" phoneLabel="Phone Number (UAE / International)" />
         </main>
         <Footer />
       </div>

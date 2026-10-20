@@ -42,6 +42,8 @@ Testimonials use the homepage's folded-card fan offsets, 1.2s duration and 0.1s 
 
 Responsive text optimization: at widths up to 767px, UAE body paragraphs and about scrub animate words with GSAP, while headings retain individual letter reveals. Desktop uses the shared character animations unchanged. Paragraph glyphs do not keep permanent will-change layers. Restored/hash navigation explicitly starts visible card sequences and completes sections already passed.
 
+The UAE hero entrance overlaps its GSAP character, navigation, breadcrumb and social tweens; its timeline completes in about 0.92 seconds instead of chaining the controls behind the long headline. Testimonials, FAQ and CTA heading setup is deferred until their sections approach the viewport. The UAE CTA also defers its parallax setup and lazy-loads its decorative background image. Homepage defaults and the existing visual design are retained.
+
 Historical performance measurements before restoring full GSAP text/hero motion: local desktop 95 and mobile 64; deployed desktop 89 and mobile 80. These scores describe the earlier lightweight animation version and do not establish the performance of the current GSAP version. Mobile shared theme CSS and font loading remain opportunities. Lighthouse lab scores are not field Core Web Vitals or search rankings.
 
 Validation: Next production build, lint (existing warnings only), source SEO checks and rendered checks covering 20 pages, 16 internal destinations, metadata, JSON-LD, regional alternates, legacy redirects and unknown-route 404s passed. Backend form delivery remains subject to the hosting settings described above.

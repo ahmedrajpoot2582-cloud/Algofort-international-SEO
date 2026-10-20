@@ -7,6 +7,7 @@ import { SubtitleMarquee } from '../common/SubtitleMarquee';
 import { RecaptchaField } from '../common/RecaptchaField';
 import { initTitleAnimation } from '../../utils/titleAnimation';
 import { submitContactForm } from '../../utils/submitContactForm';
+import { observeNear } from '../../utils/observeNear';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -21,7 +22,7 @@ const availableServices = [
   'UI/UX Design',
 ];
 
-export function CtaSection({ title, description = 'Let us collaborate to build something extraordinary and elevate your brand to the next level.', country = '', phoneLabel = 'Phone Number' } = {}) {
+export function CtaSection({ title, description = 'Let us collaborate to build something extraordinary and elevate your brand to the next level.', country = '', phoneLabel = 'Phone Number', deferMotion = false } = {}) {
   const sectionRef = useRef(null);
   const bgImgRef = useRef(null);
 
@@ -42,33 +43,41 @@ export function CtaSection({ title, description = 'Let us collaborate to build s
   useEffect(() => {
     if (!sectionRef.current) return;
     const titleEl = sectionRef.current.querySelector('.alg-cta-title, .sec-cta__title');
+    if (deferMotion) return observeNear(sectionRef.current, () => {
+      const animation = initTitleAnimation(titleEl, { start: 'top 85%', stagger: 0.02 });
+      return () => { animation?.scrollTrigger?.kill(); animation?.kill(); };
+    }, 300);
     if (titleEl) {
       initTitleAnimation(titleEl, { start: 'top 85%', stagger: 0.02 });
     }
-  }, []);
+  }, [deferMotion]);
 
   useEffect(() => {
     if (!bgImgRef.current || !sectionRef.current) return;
+    const initialize = () => {
+      const anim = gsap.fromTo(
+        bgImgRef.current,
+        { yPercent: -15 },
+        {
+          yPercent: 15,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: true,
+          },
+        }
+      );
 
-    const anim = gsap.fromTo(
-      bgImgRef.current,
-      { yPercent: -15 },
-      {
-        yPercent: 15,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: true,
-        },
-      }
-    );
-
-    return () => {
-      anim.kill();
+      return () => {
+        anim.scrollTrigger?.kill();
+        anim.kill();
+      };
     };
-  }, []);
+    if (deferMotion) return observeNear(sectionRef.current, initialize, 300);
+    return initialize();
+  }, [deferMotion]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -119,6 +128,8 @@ export function CtaSection({ title, description = 'Let us collaborate to build s
           <div className="alg-cta-bg-wrap cta_bg_wrap">
             <img
               ref={bgImgRef}
+              loading={deferMotion ? 'lazy' : 'eager'}
+              decoding="async"
               src="https://res.cloudinary.com/vfsp1egd/image/upload/w_1920,c_limit,q_auto:best,f_auto/v1792145727/algofort/assets/showreel"
               alt="CTA Background"
               className="alg-cta-bg-img cta_bg_img"

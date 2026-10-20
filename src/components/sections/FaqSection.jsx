@@ -134,10 +134,14 @@ export function FaqSection({ items = faqData, deferMotion = false } = {}) {
   useEffect(() => {
     if (!sectionRef.current) return;
     const titleEl = sectionRef.current.querySelector('.alg-faq-title, .sec-faq__title');
+    if (deferMotion) return observeNear(sectionRef.current, () => {
+      const animation = initTitleAnimation(titleEl, { start: 'top 85%', stagger: 0.02 });
+      return () => { animation?.scrollTrigger?.kill(); animation?.kill(); };
+    }, 300);
     if (titleEl) {
       initTitleAnimation(titleEl, { start: 'top 85%', stagger: 0.02 });
     }
-  }, []);
+  }, [deferMotion]);
 
   return (
     <section ref={sectionRef} className="alg-faq site-section sec-faq cb-faq" id="sec-faq">

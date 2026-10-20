@@ -145,6 +145,24 @@ export function PageBanner({
     }
 
     // 2. Video Reveal
+    if (performanceMode) {
+      // Match the home's quick entrance: the pieces overlap instead of making
+      // a long regional headline hold back breadcrumbs and social controls.
+      if (videoWrap) tl.to(videoWrap, { scale: 1, duration: 0.45, ease: 'power2.out' }, 0);
+      if (logoEl) tl.to(logoEl, { opacity: 1, y: 0, duration: 0.35 }, 0);
+      if (navLinks?.length) tl.to(navLinks, { opacity: 1, y: 0, duration: 0.3, stagger: 0.04 }, 0.1);
+      if (menuBtn) tl.to(menuBtn, { opacity: 1, scale: 1, duration: 0.3 }, 0.1);
+      if (titleChars.length) tl.to(titleChars, { opacity: 1, y: 0, duration: 0.35, stagger: { amount: 0.45 } }, 0.12);
+      if (breadcrumbNav) {
+        tl.set(breadcrumbNav, { visibility: 'visible' }, 0.25);
+        tl.to(breadcrumbNav, { opacity: 1, scale: 1, duration: 0.3 }, 0.25);
+      }
+      if (breadcrumbItems?.length) tl.to(breadcrumbItems, { opacity: 1, x: 0, duration: 0.3, stagger: 0.05 }, 0.3);
+      const bottomItems = [social1, social2, marqueeComp, social3, social4].filter(Boolean);
+      if (bottomItems.length) tl.to(bottomItems, { opacity: 1, y: 0, scale: 1, duration: 0.3, stagger: 0.05 }, 0.3);
+      return;
+    }
+
     if (videoWrap) {
       tl.to(videoWrap, { scale: 1, duration: 0.45, ease: 'power2.out' });
     }
@@ -203,7 +221,7 @@ export function PageBanner({
     if (social4) {
       tl.to(social4, { opacity: 1, y: 0, duration: 0.2 }, '-=0.12');
     }
-  }, { scope: containerRef, dependencies: [title, JSON.stringify(breadcrumbList), showBottomBar, animateEntrance] });
+  }, { scope: containerRef, dependencies: [title, JSON.stringify(breadcrumbList), showBottomBar, animateEntrance, performanceMode] });
 
   return (
     <header
