@@ -16,6 +16,70 @@ export function UaeProcessMotion() {
       let lifecycle;
       const context = gsap.context(() => {}, section);
 
+      // Offset coordinates ignore transforms, including a preceding frame that
+      // is still sliding. Re-measure on refresh for responsive layouts/fonts.
+      const layoutPosition = element => {
+        let x = 0;
+        let y = 0;
+        for (let node = element; node; node = node.offsetParent) {
+          x += node.offsetLeft;
+          y += node.offsetTop;
+        }
+        return { x, y };
+      };
+      const buildScene = () => context.add(() => {
+        const journey = section.querySelector('.sec-uae__process-journey');
+        const steps = [...section.querySelectorAll('.sec-uae__step')];
+        const frames = steps.map(step => step.querySelector('.sec-uae__step-frame'));
+        const timeline = gsap.timeline({
+          defaults: { ease: 'none' },
+          scrollTrigger: {
+            trigger: journey,
+            start: 'top 80%',
+            end: 'bottom 65%',
+            scrub: true,
+            invalidateOnRefresh: true,
+          },
+        });
+        steps.forEach((step, index) => {
+          if (index === 0) {
+            // The first complete step travels from the left, toward the right.
+            timeline.fromTo(step, { x: () => -window.innerWidth, opacity: 0 }, {
+              x: 0, opacity: 1, duration: 1,
+            }, 0);
+            return;
+          }
+          const frame = frames[index];
+          const previous = frames[index - 1];
+          const difference = axis => layoutPosition(previous)[axis] - layoutPosition(frame)[axis];
+          // Each frame unfolds from behind its predecessor into the staircase.
+          // Existing z-index order keeps the preceding frame in front.
+          const dropsDown = Math.abs(difference('y')) > 8;
+          timeline.fromTo(frame, {
+            x: () => difference('x'),
+            y: () => difference('y'),
+            opacity: 0,
+          }, {
+            // Drop below the preceding frame before shifting sideways, so the
+            // emerging artwork never crosses its readable description.
+            x: dropsDown ? () => difference('x') : 0,
+            y: 0, opacity: 1, duration: dropsDown ? .65 : 1,
+          }, index);
+          if (dropsDown) timeline.to(frame, { x: 0, duration: .35 }, index + .65);
+          timeline.fromTo(step.querySelector('.sec-uae__step-copy'), {
+            x: step.classList.contains('sec-uae__step--right') ? 28 : -28,
+            y: 12, opacity: 0,
+          }, {
+            x: 0, y: 0, opacity: 1, duration: .35,
+          }, index + 1).fromTo(step.querySelector('.sec-uae__step-rule'), {
+            scaleX: 0,
+          }, {
+            scaleX: 1, duration: .35,
+          }, index + 1);
+        });
+        section.dataset.scrollMotion = 'scrub';
+      });
+
       const setup = async () => {
         try {
           const { default: barba } = await import('@barba/core');
@@ -23,48 +87,15 @@ export function UaeProcessMotion() {
           // An isolated Barba hook manager coordinates this scroll scene.
           // Do not initialize its SPA router: React owns the DOM and Next owns history.
           lifecycle = new barba.hooks.constructor();
-          lifecycle.enter(({ next, animation }) => {
-            next.container.dataset.transition = 'entering';
-            return animation.restart().then(() => {
-              if (active) next.container.dataset.transition = 'visible';
-            });
-          });
+          // Barba mounts the scene; ScrollTrigger alone controls its progress.
+          // No restart/play callback: stopping the scroll also stops the boxes.
+          lifecycle.enter(buildScene);
         } catch {
           // The artwork and readable server markup also work without this optional chunk.
         }
         if (!active) return;
-        context.add(() => {
-          section.querySelectorAll('.sec-uae__step').forEach((step, index) => {
-            const right = step.classList.contains('sec-uae__step--right');
-            const animation = gsap.timeline({ paused: true });
-            animation.fromTo(step, {
-              x: index === 0 ? 90 : (right ? 28 : -28),
-              y: index === 0 ? 0 : 80,
-              opacity: 0,
-            }, {
-              x: 0, y: 0, opacity: 1,
-              duration: 1, ease: 'power3.out', immediateRender: false,
-            }).fromTo(step.querySelector('.sec-uae__step-frame'), {
-              y: 24, rotation: right ? 3 : -3,
-            }, {
-              y: 0, rotation: 0, duration: 1, ease: 'power3.out', immediateRender: false,
-            }, 0).fromTo(step.querySelector('.sec-uae__step-rule'), {
-              scaleX: 0,
-            }, {
-              scaleX: 1, duration: .7, ease: 'power2.out', immediateRender: false,
-            }, .15);
-
-            const enter = () => {
-              if (animation.isActive()) return;
-              if (lifecycle) {
-                lifecycle.do('enter', { next: { container: step, namespace: 'uae-process' }, animation });
-              } else animation.restart();
-            };
-            ScrollTrigger.create({
-              trigger: step, start: 'top 88%', onEnter: enter, onEnterBack: enter,
-            });
-          });
-        });
+        if (lifecycle) await lifecycle.do('enter', { next: { container: section, namespace: 'uae-process' } });
+        else buildScene();
         document.fonts?.ready.then(() => { if (active) ScrollTrigger.refresh(); });
       };
       setup();
@@ -72,7 +103,7 @@ export function UaeProcessMotion() {
         active = false;
         context.revert();
         lifecycle?.clear();
-        section.querySelectorAll('[data-transition]').forEach(step => { delete step.dataset.transition; });
+        delete section.dataset.scrollMotion;
       };
     });
 

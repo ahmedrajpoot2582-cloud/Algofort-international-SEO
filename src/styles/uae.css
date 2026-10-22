@@ -31,6 +31,7 @@
 .page-uae .uae-text-word { display: inline-block; white-space: nowrap; }
 .page-uae .uae-text-char { display: inline-block; }
 .page-uae .sec-uae-process { overflow-x: clip; }
+.page-uae .sec-uae-process > .site-container { width: 100% !important; max-width: none !important; padding-inline: clamp(1.25rem, 2vw, 2.5rem) !important; }
 .page-uae .sec-uae__process-header { max-width: 850px; margin: 0 auto 3.5rem; text-align: center; }
 .page-uae .sec-uae__process-header .section-badge { justify-content: center; }
 /* The six framed scenes form a descending staircase, like the supplied reference. */
@@ -95,19 +96,19 @@
 .page-uae .sec-uae-expansion__eyebrow { margin-top: 1.5rem; font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; color: #666; }
 .page-uae .sec-uae-advantages__item p { margin: 0; font-size: 1.0625rem; line-height: 1.7; color: #555; }
 .page-uae .sec-uae-ecosystem { padding-top: 0; }
-.page-uae .sec-uae-ecosystem__panel { position: relative; isolation: isolate; display: grid; grid-template-columns: 1fr 1.1fr; gap: 3.5rem; padding: 3rem; border-radius: 32px; color: #05080c; }
-.page-uae .sec-uae-ecosystem__background { position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: linear-gradient(90deg, #faf9f6b8, #faf9f673), url('/assets/uae-architectural-light.webp') center / cover; pointer-events: none; box-shadow: inset 0 0 0 1px #05080c0d; }
-.page-uae .sec-uae-ecosystem .heading-style-h2 { color: #05080c; }
-.page-uae .sec-uae-ecosystem__intro .section-description { color: #43433f; font-size: 1.0625rem; }
-.page-uae .sec-uae-ecosystem__caption { display: inline-block; padding: .6rem .85rem; border: 1px solid #05080c30; border-radius: 100px; font-size: .75rem; color: #43433f; background: #ffffff60; }
-.page-uae .sec-uae-ecosystem__item { border-top: 1px solid #05080c30; }
-.page-uae .sec-uae-ecosystem__item:last-child { border-bottom: 1px solid #05080c30; }
+.page-uae .sec-uae-ecosystem__panel { position: relative; isolation: isolate; display: grid; grid-template-columns: 1fr 1.1fr; gap: 3.5rem; padding: 3rem; border-radius: 32px; color: #fff; }
+.page-uae .sec-uae-ecosystem__background { position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: linear-gradient(90deg, #05080ceb, #05080cb8), url('/assets/uae-architectural-light.webp') center / cover; pointer-events: none; }
+.page-uae .sec-uae-ecosystem .heading-style-h2 { color: #fff; }
+.page-uae .sec-uae-ecosystem__intro .section-description { color: #ffffffbf; font-size: 1.0625rem; }
+.page-uae .sec-uae-ecosystem__caption { display: inline-block; padding: .6rem .85rem; border: 1px solid #ffffff30; border-radius: 100px; font-size: .75rem; color: #ffffffbf; background: #05080c30; }
+.page-uae .sec-uae-ecosystem__item { border-top: 1px solid #ffffff30; }
+.page-uae .sec-uae-ecosystem__item:last-child { border-bottom: 1px solid #ffffff30; }
 .page-uae .sec-uae-ecosystem__item summary { display: grid; grid-template-columns: 1.25rem 1fr 1.25rem; align-items: start; gap: 1rem; padding-block: 1.5rem; cursor: pointer; list-style: none; }
 .page-uae .sec-uae-ecosystem__item summary::-webkit-details-marker { display: none; }
 .page-uae .sec-uae-ecosystem__item summary h3 { margin-bottom: 0; }
 .page-uae .sec-uae-ecosystem__item .sec-uae-expansion__number { color: #f47a1f; padding-top: .25rem; }
 .page-uae .sec-uae-ecosystem__body { min-height: 0; overflow: hidden; }
-.page-uae .sec-uae-ecosystem__item p { margin: 0 2.25rem 1.5rem; color: #43433f; font-size: 1.0625rem; line-height: 1.7; }
+.page-uae .sec-uae-ecosystem__item p { margin: 0 2.25rem 1.5rem; color: #ffffffbf; font-size: 1.0625rem; line-height: 1.7; }
 .page-uae .sec-uae-ecosystem__toggle { position: relative; width: 18px; height: 18px; margin-top: .2rem; }
 .page-uae .sec-uae-ecosystem__toggle::before, .page-uae .sec-uae-ecosystem__toggle::after { content: ''; position: absolute; background: currentColor; }
 .page-uae .sec-uae-ecosystem__toggle::before { width: 14px; height: 1px; left: 2px; top: 8px; }

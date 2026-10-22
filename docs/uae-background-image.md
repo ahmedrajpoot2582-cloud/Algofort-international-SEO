@@ -2,7 +2,7 @@
 
 - Generated with the built-in Imagegen tool.
 - Website asset: `public/assets/uae-architectural-light.webp` (1672 × 941, 25,174 bytes).
-- Used only behind the UAE market standards accordion; a light overlay keeps text readable.
+- Used only behind the UAE market standards accordion; the requested dark overlay keeps white and orange text readable.
 
 ## Generation prompt
 
