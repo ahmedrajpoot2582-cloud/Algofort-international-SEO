@@ -31,7 +31,7 @@ export function UaeIndustriesSection() {
   return (
     <section className="site-section sec-uae-expansion sec-uae-industries" id="uae-industries" aria-labelledby="uae-industries-title">
       <div className="site-container container-large padding-global">
-        <SectionHeading titleId="uae-industries-title" badge="Industries we serve" description="We build tailored software, high-converting web platforms, and mobile apps designed for the fastest-growing industries in the UAE and wider GCC.">Powering digital transformation<br /><span className="text-color-secondary">across Dubai’s key sectors.</span></SectionHeading>
+        <SectionHeading titleId="uae-industries-title" badge="Industries we serve" description="We build tailored software, high-converting web platforms, and mobile apps designed for the fastest-growing industries in the UAE and wider GCC."><span className="uae-industries-title-line">Powering digital transformation</span>{' '}<span className="uae-industries-title-line">across <em className="uae-heading-script">Dubai’s</em> key sectors.</span></SectionHeading>
         <div className="sec-uae-expansion__caption"><span>Sector-specific expertise</span><span>06 industries</span></div>
         <div className="section-content sec-uae-industries__grid">
           {content.industries.map((industry) => <article className="sec-uae-industries__item" key={industry.number}>

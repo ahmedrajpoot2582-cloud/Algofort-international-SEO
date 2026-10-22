@@ -74,7 +74,7 @@ export default function UaePage() {
             </div>
           </section>
 
-          <ServicesSection deferMotion items={content.services} heading={<>Creative solutions<br /><span className="text-color-secondary">for UAE enterprises.</span></>} />
+          <ServicesSection deferMotion animateHeading={false} items={content.services} heading={<><span className="uae-services-title-line">Creative solutions</span>{' '}<span className="uae-services-title-line text-color-secondary">for UAE enterprises.</span></>} />
           <UaeIndustriesSection />
           <UaeEcosystemSection />
 

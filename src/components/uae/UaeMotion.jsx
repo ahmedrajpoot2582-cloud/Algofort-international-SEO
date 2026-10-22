@@ -3,8 +3,8 @@
 import { useEffect } from 'react';
 import gsap from 'gsap';
 
-// Each visible item owns one reusable GSAP timeline. Native intersection
-// events start it on entry; no global text splitting or scroll-frame loop.
+// Split only visible UAE copy. Other pages and the home testimonials keep
+// their original animation, and native observers avoid a scroll-frame loop.
 export function UaeMotion() {
   useEffect(() => {
     const root = document.querySelector('[data-uae-gsap]');
@@ -15,10 +15,14 @@ export function UaeMotion() {
     media.add('(prefers-reduced-motion: no-preference)', () => {
       const context = gsap.context(() => {}, root);
       const timelines = new Map();
+      const splits = new Set();
+      const building = new Set();
+      let active = true;
+      let splitPlugin;
       let scrollingStarted = window.scrollY > 0 || !!window.location.hash;
       const pending = new Set();
       const selector = [
-        '.heading-style-h2', '.sec-uae__about-copy',
+        '.heading-style-h2', '.sec-uae__about-copy p',
         '.sec-uae-industries__item', '.sec-uae-ecosystem__item',
         '.sec-uae-advantages__item', '.sec-uae-technology__row',
         '.sec-uae-results__card', '.sec-uae__step',
@@ -26,14 +30,51 @@ export function UaeMotion() {
       const targets = [...root.querySelectorAll(selector)].filter(element =>
         !element.closest('#sec-testimonials, .sec-page-banner, .showreel_lightbox')
       );
-      const reveal = target => {
+      const reveal = async target => {
+          const wave = target.matches('.sec-uae-about h2, .sec-uae-expansion h2, .sec-uae-process h2, .sec-services__title');
+          const letters = target.matches('.sec-uae__about-copy p');
+          let SplitText;
+          if ((wave || letters) && !timelines.has(target)) {
+            if (building.has(target)) return;
+            building.add(target);
+            try {
+              splitPlugin ||= import('gsap/SplitText').then(module => {
+                gsap.registerPlugin(module.SplitText);
+                return module.SplitText;
+              });
+              SplitText = await splitPlugin;
+            } catch {
+              // Leave server-rendered copy visible if the optional chunk fails.
+              building.delete(target);
+              return;
+            }
+            building.delete(target);
+            if (!active || !target.isConnected) return;
+          }
           if (!timelines.has(target)) context.add(() => {
             const timeline = gsap.timeline({
               paused: true,
               onStart: () => { target.dataset.motionState = 'entering'; },
               onComplete: () => { target.dataset.motionState = 'visible'; },
             });
-            if (target.matches('.heading-style-h2')) {
+            if (wave || letters) {
+              const split = SplitText.create(target, {
+                type: 'words,chars', wordsClass: 'uae-text-word',
+                charsClass: 'uae-text-char', aria: 'auto',
+              });
+              splits.add(split);
+              const colors = split.chars.map(char => getComputedStyle(char).color);
+              timeline.fromTo(split.chars, {
+                y: wave ? 40 : 50, opacity: 0,
+                ...(wave ? { color: '#00FF66' } : {}),
+              }, {
+                y: 0, opacity: 1,
+                ...(wave ? { color: index => colors[index] } : {}),
+                stagger: wave ? { each: 0.04, from: 'start' } : { amount: Math.min(split.chars.length * 0.03, 1.2) },
+                duration: 0.6, ease: wave ? 'sine.out' : 'back.out(1.7)',
+                immediateRender: false,
+              });
+            } else if (target.matches('.heading-style-h2')) {
               timeline.fromTo(target, { y: 28, opacity: 0 }, {
                 y: 0, opacity: 1, duration: 0.65, ease: 'power3.out',
               });
@@ -75,9 +116,11 @@ export function UaeMotion() {
       if (!scrollingStarted) inputEvents.forEach(type => window.addEventListener(type, startScrollMotion, { passive: true }));
       targets.forEach(target => observer.observe(target));
       return () => {
+        active = false;
         inputEvents.forEach(type => window.removeEventListener(type, startScrollMotion));
         observer.disconnect();
         context.revert();
+        splits.forEach(split => split.revert());
         targets.forEach(target => { delete target.dataset.motionState; });
       };
     });

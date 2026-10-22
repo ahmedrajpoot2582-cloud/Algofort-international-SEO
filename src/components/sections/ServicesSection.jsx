@@ -103,7 +103,7 @@ function splitTextIntoSpans(el) {
   return charArray;
 }
 
-export const ServicesSection = ({ items = servicesData, heading, deferMotion = false } = {}) => {
+export const ServicesSection = ({ items = servicesData, heading, deferMotion = false, animateHeading = true } = {}) => {
   const containerRef = useRef(null);
 
   useGSAP((context, contextSafe) => {
@@ -112,7 +112,7 @@ export const ServicesSection = ({ items = servicesData, heading, deferMotion = f
     const initialize = contextSafe(() => {
 
     const mainTitle = containerRef.current.querySelector('.sec-services__title');
-    if (mainTitle) {
+    if (mainTitle && animateHeading) {
       initTitleAnimation(mainTitle, { start: 'top 85%', stagger: 0.02 });
     }
 
@@ -257,7 +257,7 @@ export const ServicesSection = ({ items = servicesData, heading, deferMotion = f
     });
     if (deferMotion) return observeNear(containerRef.current, initialize, 300);
     initialize();
-  }, { scope: containerRef, dependencies: [deferMotion] });
+  }, { scope: containerRef, dependencies: [deferMotion, animateHeading] });
 
   return (
     <section ref={containerRef} id="sec-services" className="site-section sec-services section-home-service">
