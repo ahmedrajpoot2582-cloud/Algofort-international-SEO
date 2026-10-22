@@ -28,6 +28,7 @@ export function UaeProcessMotion() {
         return { x, y };
       };
       const buildScene = () => context.add(() => {
+        const scene = section.querySelector('.sec-uae__process-scene');
         const stage = section.querySelector('.sec-uae__process-stage');
         const journey = section.querySelector('.sec-uae__process-journey');
         const steps = [...section.querySelectorAll('.sec-uae__step')];
@@ -45,9 +46,10 @@ export function UaeProcessMotion() {
         const timeline = gsap.timeline({
           defaults: { ease: 'none' },
           scrollTrigger: {
-            trigger: stage,
+            // Pin the heading and artwork together; pan only the inner staircase.
+            trigger: scene,
             start: 'top 24px',
-            end: () => `+=${Math.round(Math.max(window.innerHeight * .95, 620) * steps.length)}`,
+            end: () => `+=${Math.round(Math.max(window.innerHeight * 2.4, 1600) * steps.length)}`,
             pin: true,
             pinSpacing: true,
             anticipatePin: 1,

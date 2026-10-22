@@ -34,8 +34,11 @@
 .page-uae .sec-uae-process > .site-container { width: 100% !important; max-width: none !important; padding-inline: clamp(1.25rem, 2vw, 2.5rem) !important; }
 .page-uae .sec-uae__process-header { max-width: 850px; margin: 0 auto 3.5rem; text-align: center; }
 .page-uae .sec-uae__process-header .section-badge { justify-content: center; }
+.page-uae .sec-uae__process-scene { position: relative; width: 100%; }
 .page-uae .sec-uae__process-stage { position: relative; }
-.page-uae .sec-uae-process[data-scroll-motion='pinned-scrub'] .sec-uae__process-stage { height: calc(100svh - 48px); overflow: hidden; }
+.page-uae .sec-uae-process[data-scroll-motion='pinned-scrub'] .sec-uae__process-scene { display: flex; flex-direction: column; height: calc(100svh - 48px); }
+.page-uae .sec-uae-process[data-scroll-motion='pinned-scrub'] .sec-uae__process-header { flex: none; width: 100%; margin-bottom: 1.5rem; }
+.page-uae .sec-uae-process[data-scroll-motion='pinned-scrub'] .sec-uae__process-stage { flex: 1; min-height: 0; overflow: hidden; }
 /* The six framed scenes form a descending staircase, like the supplied reference. */
 .page-uae .sec-uae__process-journey { position: relative; display: grid; grid-template-columns: repeat(28, minmax(0, 1fr)); row-gap: 1.5rem; padding: 0; margin: 0; list-style: none; }
 .page-uae .sec-uae__step { --step-accent: #f47a1f; position: relative; display: grid; grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr); align-items: center; gap: 1.25rem; min-width: 0; min-height: 230px; padding-inline: .375rem; background: #f4f4f2; }
