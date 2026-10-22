@@ -17,6 +17,7 @@ export function UaeMotion() {
       const timelines = new Map();
       const splits = new Set();
       const building = new Set();
+      const accentColor = getComputedStyle(root).getPropertyValue('--brand-orange').trim() || '#f47a1f';
       let active = true;
       let splitPlugin;
       let scrollingStarted = window.scrollY > 0 || !!window.location.hash;
@@ -32,9 +33,9 @@ export function UaeMotion() {
       );
       const reveal = async target => {
           const wave = target.matches('.sec-uae-about h2, .sec-uae-expansion h2, .sec-uae-process h2, .sec-services__title');
-          const letters = target.matches('.sec-uae__about-copy p');
+          const words = target.matches('.sec-uae__about-copy p');
           let SplitText;
-          if ((wave || letters) && !timelines.has(target)) {
+          if ((wave || words) && !timelines.has(target)) {
             if (building.has(target)) return;
             building.add(target);
             try {
@@ -57,21 +58,22 @@ export function UaeMotion() {
               onStart: () => { target.dataset.motionState = 'entering'; },
               onComplete: () => { target.dataset.motionState = 'visible'; },
             });
-            if (wave || letters) {
+            if (wave || words) {
               const split = SplitText.create(target, {
-                type: 'words,chars', wordsClass: 'uae-text-word',
+                type: words ? 'words' : 'words,chars', wordsClass: 'uae-text-word',
                 charsClass: 'uae-text-char', aria: 'auto',
               });
               splits.add(split);
-              const colors = split.chars.map(char => getComputedStyle(char).color);
-              timeline.fromTo(split.chars, {
-                y: wave ? 40 : 50, opacity: 0,
-                ...(wave ? { color: '#00FF66' } : {}),
+              const pieces = words ? split.words : split.chars;
+              const colors = wave ? pieces.map(char => getComputedStyle(char).color) : [];
+              timeline.fromTo(pieces, {
+                y: 40, opacity: 0,
+                ...(wave ? { color: accentColor } : {}),
               }, {
                 y: 0, opacity: 1,
                 ...(wave ? { color: index => colors[index] } : {}),
-                stagger: wave ? { each: 0.04, from: 'start' } : { amount: Math.min(split.chars.length * 0.03, 1.2) },
-                duration: 0.6, ease: wave ? 'sine.out' : 'back.out(1.7)',
+                stagger: wave ? { each: 0.012, from: 'start' } : { amount: Math.min(pieces.length * 0.04, 0.7) },
+                duration: wave ? 0.4 : 0.5, ease: wave ? 'sine.out' : 'power2.out',
                 immediateRender: false,
               });
             } else if (target.matches('.heading-style-h2')) {
