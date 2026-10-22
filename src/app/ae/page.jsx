@@ -4,7 +4,7 @@ import { PageBanner } from '../../components/common/PageBanner';
 import { Cursor } from '../../components/common/Cursor';
 import { BackToTop } from '../../components/common/BackToTop';
 import { SubtitleMarquee } from '../../components/common/SubtitleMarquee';
-import { DeferredLottie } from '../../components/common/DeferredLottie';
+import { UaeProcessArtwork } from '../../components/uae/UaeProcessArtwork';
 import { ServicesSection } from '../../components/sections/ServicesSection';
 import { ShowreelSection } from '../../components/sections/ShowreelSection';
 import { TestimonialsSection } from '../../components/sections/TestimonialsSection';
@@ -84,7 +84,7 @@ export default function UaePage() {
               <div className="section-content sec-uae__process-grid">
                 {content.process.map((step) => <article className="content-card sec-uae__step" key={step.step}>
                   <div className="sec-uae__step-head"><span className="sec-uae__number">{step.step}</span><h3 className="heading-style-h3 sec-uae__subtitle">{step.title}</h3></div>
-                  <div className="sec-uae__step-illustration"><DeferredLottie src={step.lottieSrc} background="transparent" speed="1" style={{ width: '120px', height: '120px' }} loop autoplay /></div>
+                  <div className="sec-uae__step-illustration"><UaeProcessArtwork step={step.step} /></div>
                   <p className="alg-text">{step.description}</p>
                 </article>)}
               </div>

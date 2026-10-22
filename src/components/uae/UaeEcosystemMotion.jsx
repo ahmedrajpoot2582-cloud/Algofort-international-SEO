@@ -18,6 +18,7 @@ export function UaeEcosystemMotion() {
 
     media.add('(min-width: 992px) and (prefers-reduced-motion: no-preference)', () => {
       const frameWidth = () => services.getBoundingClientRect().width;
+      const frameHeight = () => Math.max(panel.clientHeight, window.innerHeight - services.getBoundingClientRect().left * 2);
       const timeline = gsap.timeline({
         scrollTrigger: {
           trigger: panel,
@@ -32,10 +33,14 @@ export function UaeEcosystemMotion() {
       });
       timeline.fromTo(background, {
         width: () => panel.clientWidth,
+        height: () => panel.clientHeight,
         x: 0,
+        y: 0,
       }, {
         width: frameWidth,
+        height: frameHeight,
         x: () => (panel.clientWidth - frameWidth()) / 2,
+        y: () => (panel.clientHeight - frameHeight()) / 2,
         duration: 0.8,
         ease: 'none',
       });
