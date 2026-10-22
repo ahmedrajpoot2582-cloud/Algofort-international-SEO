@@ -1,4 +1,4 @@
-.page-uae { background: #f4f4f2; color: #05080c; }
+.page-uae { --uae-frame-inset: 10px; background: #f4f4f2; color: #05080c; }
 /* Keep server-rendered text readable before viewport-scoped GSAP motion starts. */
 .page-uae p.alg-text { opacity: 1 !important; animation: none !important; }
 .page-uae .section-title:not(.sec-testimonials__title), .page-uae .heading-style-h2:not(.sec-testimonials__title) { opacity: 1 !important; animation: none !important; }
@@ -21,7 +21,7 @@
 .page-uae .sec-uae__studio-note { margin-top: 1.5rem; color: #555; font-size: 1.125rem; font-weight: 500; line-height: 1.45; }
 .page-uae .sec-services .sec-services__container { padding-block: 0 !important; }
 .page-uae .sec-services .padding-section-large { padding-block: 5rem !important; }
-.page-uae .sec-services { --uae-service-font: clamp(1.75rem, 3vw, 2.75rem); }
+.page-uae .sec-services { --uae-service-font: clamp(1.75rem, 3vw, 2.75rem); margin-inline: var(--uae-frame-inset); width: calc(100% - var(--uae-frame-inset) * 2); box-sizing: border-box; }
 .page-uae .sec-services .service-title { font-size: var(--uae-service-font) !important; line-height: 1.2 !important; height: calc(var(--uae-service-font) * 1.2) !important; }
 .page-uae .sec-services .service-title-wrap { height: calc(var(--uae-service-font) * 1.2) !important; }
 .page-uae .sec-services .service-content-grid { padding-block: 2rem !important; }
@@ -97,6 +97,7 @@
 .page-uae .sec-uae-results__category { font-size: .75rem; color: #666; line-height: 1.5; margin: 0 0 1.25rem; }
 .page-uae .sec-uae-results__card .alg-text { margin: 0; font-size: 1.0625rem; line-height: 1.7; color: #555; }
 @media (max-width: 991px) {
+ .page-uae { --uae-frame-inset: 8px; }
  .page-uae .sec-uae-industries__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
  .page-uae .sec-uae-ecosystem__panel, .page-uae .sec-uae-advantages__layout { grid-template-columns: 1fr; gap: 2rem; }
  .page-uae .sec-uae-ecosystem__panel { padding: 2rem; }
@@ -120,6 +121,10 @@
  .page-uae .sec-services { --uae-service-font: 1.75rem; }
  .page-uae .sec-uae__process-grid { grid-template-columns: 1fr; }
  .page-uae .sec-uae__step { padding: 1.5rem; }
+}
+@media (max-width: 479px) {
+ .page-uae { --uae-frame-inset: 6px; }
+ .page-uae .sec-services { border-radius: 1.5rem; }
 }
 @media (prefers-reduced-motion: reduce) {
  .page-uae .subtitle-marquee-track, .page-uae .service-marquee-track, .page-uae .sonar-wave { animation: none !important; }

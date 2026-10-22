@@ -74,8 +74,8 @@ export function UaeMotion() {
                 duration: 0.35, ease: 'sine.out',
                 immediateRender: false,
               });
-              // Include the stagger in the requested half-second total.
-              timeline.duration(0.5);
+              // Include the stagger in the requested one-second total.
+              timeline.duration(1);
             } else {
               const technology = target.matches('.sec-uae-technology__row');
               timeline.fromTo(target, { y: technology ? 0 : 32, x: technology ? 40 : 0, opacity: 0 }, {
