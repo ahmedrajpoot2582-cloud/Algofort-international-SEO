@@ -1,5 +1,6 @@
 import { SubtitleMarquee } from '../common/SubtitleMarquee';
 import { ProcessSection } from '../sections/ProcessSection';
+import { UaeEcosystemMotion } from './UaeEcosystemMotion';
 import { uaeSections as content } from '../../data/uae-sections';
 
 const asterisk = '/assets/68f7cadfd454c94c5b5251cb_grey-asterisk-icon.svg';
@@ -34,8 +35,10 @@ export function UaeIndustriesSection() {
 export function UaeEcosystemSection() {
   return (
     <section className="site-section sec-uae-expansion sec-uae-ecosystem" id="uae-ecosystem" aria-label="Built for the UAE market">
+      <UaeEcosystemMotion />
       <div className="site-container container-large padding-global">
         <div className="sec-uae-ecosystem__panel">
+          <div className="sec-uae-ecosystem__background" aria-hidden="true" />
           <div className="sec-uae-ecosystem__intro">
             <SectionHeading dark badge="Built for the UAE market" description="Succeeding in Dubai requires more than a generic template. We build digital products pre-configured for the technical, cultural, and regulatory demands of the United Arab Emirates.">Engineered specifically<br /><span className="text-color-secondary">for UAE business standards.</span></SectionHeading>
             <span className="sec-uae-ecosystem__caption">Local ecosystem ready</span>
