@@ -58,20 +58,19 @@ export function UaeMotion() {
             });
             if (wave) {
               const split = SplitText.create(target, {
-                type: 'words,chars', wordsClass: 'uae-text-word',
-                charsClass: 'uae-text-char', aria: 'auto',
+                type: 'words', wordsClass: 'uae-text-word', aria: 'auto',
               });
               splits.add(split);
-              const pieces = split.chars;
+              const pieces = split.words;
               const colors = pieces.map(char => getComputedStyle(char).color);
               timeline.fromTo(pieces, {
-                y: 40, opacity: 0,
-                color: accentColor,
+                y: 10, opacity: 0.5,
+                color: index => gsap.utils.interpolate(colors[index], accentColor, 0.35),
               }, {
                 y: 0, opacity: 1,
                 color: index => colors[index],
-                stagger: { amount: 0.15, from: 'start' },
-                duration: 0.35, ease: 'sine.out',
+                stagger: { amount: 0.35, from: 'start' },
+                duration: 0.65, ease: 'power2.out',
                 immediateRender: false,
               });
               // Include the stagger in the requested one-second total.
@@ -96,12 +95,13 @@ export function UaeMotion() {
       };
       const observer = new IntersectionObserver(entries => {
         entries.forEach(({ target, isIntersecting, intersectionRatio }) => {
-          if (!isIntersecting || intersectionRatio < 0.12) {
+          if (!isIntersecting) {
             visibleTargets.delete(target);
             const timeline = timelines.get(target);
             if (timeline?.isActive()) timeline.progress(1);
             return;
           }
+          if (intersectionRatio < 0.12) return;
           if (visibleTargets.has(target)) return;
           visibleTargets.add(target);
           reveal(target);
@@ -109,9 +109,22 @@ export function UaeMotion() {
       }, { threshold: 0.12, rootMargin: '0px 0px -24px 0px' });
       // Play on viewport entry, replay on re-entry, never scrub with scrolling.
       targets.forEach(target => observer.observe(target));
+      // Fetch the optional splitter before About enters, without starting motion.
+      const about = root.querySelector('.sec-uae__about-copy .section-description');
+      const prepareObserver = new IntersectionObserver(entries => {
+        if (!entries.some(entry => entry.isIntersecting)) return;
+        splitPlugin ||= import('gsap/SplitText').then(module => {
+          gsap.registerPlugin(module.SplitText);
+          return module.SplitText;
+        });
+        splitPlugin.catch(() => {});
+        prepareObserver.disconnect();
+      }, { rootMargin: '240px' });
+      if (about) prepareObserver.observe(about);
       return () => {
         active = false;
         observer.disconnect();
+        prepareObserver.disconnect();
         context.revert();
         splits.forEach(split => split.revert());
         targets.forEach(target => { delete target.dataset.motionState; });

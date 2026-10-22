@@ -35,7 +35,7 @@ export function UaeIndustriesSection() {
         <div className="sec-uae-expansion__caption"><span>Sector-specific expertise</span><span>06 industries</span></div>
         <div className="section-content sec-uae-industries__grid">
           {content.industries.map((industry) => <article className="sec-uae-industries__item" key={industry.number}>
-            <div className="sec-uae-industries__meta"><span className="sec-uae-expansion__number">({industry.number})</span><IndustryIcon name={industry.icon} /></div>
+            <div className="sec-uae-industries__meta"><span className="sec-uae-expansion__number">({industry.number})</span><span className="sec-uae-industries__icon"><IndustryIcon name={industry.icon} /></span></div>
             <h3 className="heading-style-h3 sec-uae-expansion__subtitle">{industry.title}</h3>
             <p className="alg-text">{industry.description}</p>
           </article>)}
