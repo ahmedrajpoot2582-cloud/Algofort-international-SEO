@@ -11,7 +11,8 @@ export function UaeProcessSection({ items }) {
           <div className="section-badge"><SubtitleMarquee text="From Concept to Launch ✦ " /></div>
           <h2 id="uae-process-title" className="heading-style-h2 section-title">Your ideas into a<br /><span className="text-color-secondary">market-leading UAE brand.</span></h2>
         </div>
-        <ol className="section-content sec-uae__process-journey">
+        <div className="sec-uae__process-stage">
+          <ol className="section-content sec-uae__process-journey">
           {items.map((step, index) => (
             <li className={`sec-uae__step sec-uae__step--${index % 2 ? 'right' : 'left'}`} key={step.step}>
               <div className="sec-uae__step-copy">
@@ -25,7 +26,8 @@ export function UaeProcessSection({ items }) {
               </div>
             </li>
           ))}
-        </ol>
+          </ol>
+        </div>
       </div>
     </section>
   );

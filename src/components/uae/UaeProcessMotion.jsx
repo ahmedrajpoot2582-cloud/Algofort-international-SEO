@@ -28,56 +28,64 @@ export function UaeProcessMotion() {
         return { x, y };
       };
       const buildScene = () => context.add(() => {
+        const stage = section.querySelector('.sec-uae__process-stage');
         const journey = section.querySelector('.sec-uae__process-journey');
         const steps = [...section.querySelectorAll('.sec-uae__step')];
         const frames = steps.map(step => step.querySelector('.sec-uae__step-frame'));
+        const phase = 1.8;
+        const reveal = 1.2;
+        // Activate the viewport before ScrollTrigger measures its pin spacer.
+        // Without JS/reduced motion, this stays an ordinary readable list.
+        section.dataset.scrollMotion = 'pinned-scrub';
+        const cameraY = step => {
+          const lastY = Math.max(0, journey.offsetHeight - stage.clientHeight + 24);
+          const centered = step.offsetTop - (stage.clientHeight - step.offsetHeight) / 2;
+          return -Math.min(lastY, Math.max(0, centered));
+        };
         const timeline = gsap.timeline({
           defaults: { ease: 'none' },
           scrollTrigger: {
-            trigger: journey,
-            start: 'top 80%',
-            end: 'bottom 65%',
+            trigger: stage,
+            start: 'top 24px',
+            end: () => `+=${Math.round(Math.max(window.innerHeight * .95, 620) * steps.length)}`,
+            pin: true,
+            pinSpacing: true,
+            anticipatePin: 1,
             scrub: true,
             invalidateOnRefresh: true,
           },
         });
         steps.forEach((step, index) => {
+          const at = index * phase;
+          // Pan the tall staircase inside its sticky viewport, keeping the
+          // current text and frame readable together instead of cutting off rows.
+          timeline.to(journey, { y: () => cameraY(step), duration: reveal }, at);
           if (index === 0) {
             // The first complete step travels from the left, toward the right.
             timeline.fromTo(step, { x: () => -window.innerWidth, opacity: 0 }, {
-              x: 0, opacity: 1, duration: 1,
-            }, 0);
+              x: 0, opacity: 1, duration: reveal,
+            }, at);
             return;
           }
           const frame = frames[index];
           const previous = frames[index - 1];
           const difference = axis => layoutPosition(previous)[axis] - layoutPosition(frame)[axis];
-          // Each frame unfolds from behind its predecessor into the staircase.
-          // Existing z-index order keeps the preceding frame in front.
+          // Move the complete step: copy and artwork share exactly one transform.
+          // Opaque step canvases and z-order mask text while it unfolds underneath.
           const dropsDown = Math.abs(difference('y')) > 8;
-          timeline.fromTo(frame, {
+          timeline.fromTo(step, {
             x: () => difference('x'),
             y: () => difference('y'),
             opacity: 0,
           }, {
-            // Drop below the preceding frame before shifting sideways, so the
-            // emerging artwork never crosses its readable description.
+            // Drop below the preceding step, then align with the staircase.
             x: dropsDown ? () => difference('x') : 0,
-            y: 0, opacity: 1, duration: dropsDown ? .65 : 1,
-          }, index);
-          if (dropsDown) timeline.to(frame, { x: 0, duration: .35 }, index + .65);
-          timeline.fromTo(step.querySelector('.sec-uae__step-copy'), {
-            x: step.classList.contains('sec-uae__step--right') ? 28 : -28,
-            y: 12, opacity: 0,
-          }, {
-            x: 0, y: 0, opacity: 1, duration: .35,
-          }, index + 1).fromTo(step.querySelector('.sec-uae__step-rule'), {
-            scaleX: 0,
-          }, {
-            scaleX: 1, duration: .35,
-          }, index + 1);
+            y: 0, opacity: 1, duration: dropsDown ? reveal * .65 : reveal,
+          }, at);
+          if (dropsDown) timeline.to(step, { x: 0, duration: reveal * .35 }, at + reveal * .65);
         });
-        section.dataset.scrollMotion = 'scrub';
+        // Each step gets a reading pause before the next starts, still tied to scroll.
+        timeline.to({}, { duration: phase - reveal }, (steps.length - 1) * phase + reveal);
       });
 
       const setup = async () => {
