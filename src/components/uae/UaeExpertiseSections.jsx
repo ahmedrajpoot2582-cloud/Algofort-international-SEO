@@ -1,6 +1,7 @@
 import { SubtitleMarquee } from '../common/SubtitleMarquee';
 import { ProcessSection } from '../sections/ProcessSection';
 import { UaeEcosystemMotion } from './UaeEcosystemMotion';
+import { UaeAdvantagesMotion } from './UaeAdvantagesMotion';
 import { uaeSections as content } from '../../data/uae-sections';
 
 const asterisk = '/assets/68f7cadfd454c94c5b5251cb_grey-asterisk-icon.svg';
@@ -58,11 +59,15 @@ export function UaeEcosystemSection() {
 export function UaeAdvantagesSection() {
   return (
     <section className="site-section sec-uae-expansion sec-uae-advantages" id="uae-advantages" aria-label="Why choose Algofort">
+      <UaeAdvantagesMotion />
       <div className="site-container container-large padding-global">
         <div className="sec-uae-advantages__layout">
-          <div><SectionHeading badge="Why choose Algofort">Silicon Valley engineering.<br /><span className="text-color-secondary">Seamless Dubai collaboration.</span></SectionHeading><p className="sec-uae-expansion__eyebrow">The Algofort advantage</p></div>
-          <div className="section-content sec-uae-advantages__list">
-            {content.advantages.map((item) => <article className="sec-uae-advantages__item" key={item.number}><span className="sec-uae-expansion__number">{item.number}</span><div><h3 className="heading-style-h3 sec-uae-expansion__subtitle">{item.title}</h3><p className="alg-text">{item.description}</p></div></article>)}
+          <div className="sec-uae-advantages__intro"><SectionHeading badge="Why choose Algofort">Silicon Valley engineering.<br /><span className="text-color-secondary">Seamless Dubai collaboration.</span></SectionHeading><p className="sec-uae-expansion__eyebrow">The Algofort advantage</p></div>
+          <div className="sec-uae-advantages__timeline">
+            <div className="sec-uae-advantages__rail" aria-hidden="true"><span className="sec-uae-advantages__progress" /></div>
+            <ol className="section-content sec-uae-advantages__list">
+              {content.advantages.map((item) => <li className="sec-uae-advantages__item" key={item.number}><span className="sec-uae-advantages__marker" aria-hidden="true">{item.number}</span><div className="sec-uae-advantages__card"><h3 className="heading-style-h3 sec-uae-expansion__subtitle">{item.title}</h3><p className="alg-text">{item.description}</p></div></li>)}
+            </ol>
           </div>
         </div>
       </div>

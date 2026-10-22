@@ -41,7 +41,7 @@ export function UaeProcessMotion() {
             timeline.fromTo(path, {
               strokeDasharray: () => path.getTotalLength(),
               strokeDashoffset: () => path.getTotalLength(),
-            }, { strokeDashoffset: 0, duration: .6 }, at);
+            }, { strokeDashoffset: 0, stroke: '#f47a1f', duration: .6 }, at);
             // Move text and illustration as a single unit, then retain all six.
             timeline.fromTo(step, { x: index % 2 ? 24 : -24, opacity: 0 }, {
               x: 0, opacity: 1, duration: .65,
@@ -64,6 +64,16 @@ export function UaeProcessMotion() {
               x: 0, opacity: 1, ease: 'none',
               scrollTrigger: { trigger: step, start: 'top 95%', end: 'top 70%', scrub: .4 },
             });
+            if (conditions.wide) {
+              const path = paths[index];
+              gsap.fromTo(path, {
+                strokeDasharray: () => path.getTotalLength(),
+                strokeDashoffset: () => path.getTotalLength(),
+              }, {
+                strokeDashoffset: 0, stroke: '#f47a1f', ease: 'none',
+                scrollTrigger: { trigger: step, start: 'top 95%', end: 'top 70%', scrub: .4, invalidateOnRefresh: true },
+              });
+            }
           });
         }
       });

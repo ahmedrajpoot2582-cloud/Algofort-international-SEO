@@ -24,7 +24,7 @@ export function UaeMotion() {
       const selector = [
         '.sec-uae__about-copy .section-description',
         '.sec-uae-ecosystem__item',
-        '.sec-uae-advantages__item', '.sec-uae-technology__row',
+        '.sec-uae-technology__row',
         '.sec-uae-results__card',
       ].join(',');
       const targets = [...root.querySelectorAll(selector)].filter(element =>
