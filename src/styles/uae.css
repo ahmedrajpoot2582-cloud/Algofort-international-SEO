@@ -30,13 +30,28 @@
 .page-uae .uae-services-title-line { display: block; white-space: nowrap; }
 .page-uae .uae-text-word { display: inline-block; white-space: nowrap; }
 .page-uae .uae-text-char { display: inline-block; }
-.page-uae .sec-uae__process-header { max-width: 850px; margin-bottom: 2.5rem; }
-.page-uae .sec-uae__process-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
-.page-uae .sec-uae__step { padding: 1.75rem; border: 1px solid #05080c18; border-radius: 24px; background: white; }
-.page-uae .sec-uae__step-head { display: flex; align-items: center; gap: 1rem; }
-.page-uae .sec-uae__number { color: #b94c00; font-size: .875rem; }
-.page-uae .sec-uae__subtitle { margin: 0; }
-.page-uae .sec-uae__step-illustration { margin-block: 1.25rem; }
+.page-uae .sec-uae-process { overflow-x: clip; }
+.page-uae .sec-uae__process-header { max-width: 850px; margin: 0 auto 3.5rem; text-align: center; }
+.page-uae .sec-uae__process-header .section-badge { justify-content: center; }
+/* The six framed scenes form a descending staircase, like the supplied reference. */
+.page-uae .sec-uae__process-journey { display: grid; grid-template-columns: repeat(28, minmax(0, 1fr)); row-gap: 1.5rem; padding: 0; margin: 0; list-style: none; }
+.page-uae .sec-uae__step { --step-accent: #f47a1f; position: relative; display: grid; grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr); align-items: center; gap: 1.25rem; min-width: 0; min-height: 230px; padding-inline: .375rem; }
+.page-uae .sec-uae__step:nth-child(1) { grid-column: 13 / span 12; grid-row: 1; z-index: 6; }
+.page-uae .sec-uae__step:nth-child(2) { --step-accent: #45494c; grid-column: 17 / span 12; grid-row: 2; z-index: 5; }
+.page-uae .sec-uae__step:nth-child(3) { --step-accent: #c65e27; grid-column: 5 / span 12; grid-row: 2; z-index: 4; }
+.page-uae .sec-uae__step:nth-child(4) { --step-accent: #77716b; grid-column: 13 / span 12; grid-row: 3; z-index: 3; }
+.page-uae .sec-uae__step:nth-child(5) { --step-accent: #45494c; grid-column: 1 / span 12; grid-row: 3; z-index: 2; }
+.page-uae .sec-uae__step:nth-child(6) { grid-column: 9 / span 12; grid-row: 4; z-index: 1; }
+.page-uae .sec-uae__step--right { grid-template-columns: minmax(0, 1fr) minmax(0, 1.8fr); }
+.page-uae .sec-uae__step-copy { position: relative; padding-block: 1.125rem; text-align: right; }
+.page-uae .sec-uae__step--right .sec-uae__step-copy { grid-column: 2; grid-row: 1; text-align: left; }
+.page-uae .sec-uae__step-rule { position: absolute; top: 0; inset-inline: 0; height: 1px; background: #05080c30; transform-origin: right center; }
+.page-uae .sec-uae__step--right .sec-uae__step-rule { transform-origin: left center; }
+.page-uae main .sec-uae__subtitle.heading-style-h3 { margin: 0 0 .75rem; color: #05080c; font-size: clamp(1.75rem, 2.4vw, 2.5rem) !important; }
+.page-uae .sec-uae__step-frame { display: flex; flex-direction: column; justify-content: center; min-width: 0; aspect-ratio: .85; padding: .6rem .35rem .75rem; border: 7px solid var(--step-accent); border-radius: 12px; background: #fff; box-shadow: inset 0 0 0 1px #05080c12, 0 7px 15px #05080c0c; }
+.page-uae .sec-uae__step--right .sec-uae__step-frame { grid-column: 1; grid-row: 1; }
+.page-uae .sec-uae__number { display: block; width: calc(100% - 1.5rem); margin: .6rem auto 0; padding-top: .6rem; border-top: 1px solid #05080c25; text-align: center; font-family: 'Mona Sans Narrow', sans-serif; text-transform: uppercase; font-weight: 700; font-size: clamp(1.75rem, 2.7vw, 2.75rem); line-height: 1; color: var(--step-accent); }
+.page-uae .sec-uae__step-illustration { margin: auto 0 0; }
 .page-uae .uae-process-art { display: block; width: 100%; height: auto; max-height: 190px; color: #05080c; }
 .page-uae .uae-process-art [data-art-motion] { transform-box: fill-box; transform-origin: center; animation-play-state: paused; }
 .page-uae .uae-process-art[data-loop-visible] [data-art-motion] { animation-play-state: running; }
@@ -64,7 +79,7 @@
 @keyframes uae-art-flame { from { transform: scaleY(.65); opacity: .5; } to { transform: scaleY(1); opacity: 1; } }
 @keyframes uae-art-dot { 0%, 100% { opacity: .3; } 50% { opacity: 1; } }
 @keyframes uae-art-ring { from { transform: scale(1); opacity: .5; } to { transform: scale(1.16); opacity: 0; } }
-.page-uae .sec-uae__step p { margin: 0; font-size: 1.0625rem; line-height: 1.65; }
+.page-uae .sec-uae__step p { margin: 0; font-size: 1rem; line-height: 1.6; color: #4b4b48; }
 .page-uae .sec-faq .sec-faq__container { padding-block: 5rem !important; }
 .page-uae .sec-faq .sec-faq__header { margin-bottom: 2.5rem !important; }
 .page-uae .sec-faq .alg-faq-item-title { font-size: clamp(1rem, 1.3vw, 1.2rem) !important; }
@@ -80,19 +95,19 @@
 .page-uae .sec-uae-expansion__eyebrow { margin-top: 1.5rem; font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; color: #666; }
 .page-uae .sec-uae-advantages__item p { margin: 0; font-size: 1.0625rem; line-height: 1.7; color: #555; }
 .page-uae .sec-uae-ecosystem { padding-top: 0; }
-.page-uae .sec-uae-ecosystem__panel { position: relative; isolation: isolate; display: grid; grid-template-columns: 1fr 1.1fr; gap: 3.5rem; padding: 3rem; border-radius: 32px; color: #fff; }
-.page-uae .sec-uae-ecosystem__background { position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: #05080c; pointer-events: none; }
-.page-uae .sec-uae-ecosystem .heading-style-h2 { color: #fff; }
-.page-uae .sec-uae-ecosystem__intro .section-description { color: #ffffffb8; font-size: 1.0625rem; }
-.page-uae .sec-uae-ecosystem__caption { display: inline-block; padding: .6rem .85rem; border: 1px solid #ffffff30; border-radius: 100px; font-size: .75rem; color: #ffffffb8; }
-.page-uae .sec-uae-ecosystem__item { border-top: 1px solid #ffffff30; }
-.page-uae .sec-uae-ecosystem__item:last-child { border-bottom: 1px solid #ffffff30; }
+.page-uae .sec-uae-ecosystem__panel { position: relative; isolation: isolate; display: grid; grid-template-columns: 1fr 1.1fr; gap: 3.5rem; padding: 3rem; border-radius: 32px; color: #05080c; }
+.page-uae .sec-uae-ecosystem__background { position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: linear-gradient(90deg, #faf9f6b8, #faf9f673), url('/assets/uae-architectural-light.webp') center / cover; pointer-events: none; box-shadow: inset 0 0 0 1px #05080c0d; }
+.page-uae .sec-uae-ecosystem .heading-style-h2 { color: #05080c; }
+.page-uae .sec-uae-ecosystem__intro .section-description { color: #43433f; font-size: 1.0625rem; }
+.page-uae .sec-uae-ecosystem__caption { display: inline-block; padding: .6rem .85rem; border: 1px solid #05080c30; border-radius: 100px; font-size: .75rem; color: #43433f; background: #ffffff60; }
+.page-uae .sec-uae-ecosystem__item { border-top: 1px solid #05080c30; }
+.page-uae .sec-uae-ecosystem__item:last-child { border-bottom: 1px solid #05080c30; }
 .page-uae .sec-uae-ecosystem__item summary { display: grid; grid-template-columns: 1.25rem 1fr 1.25rem; align-items: start; gap: 1rem; padding-block: 1.5rem; cursor: pointer; list-style: none; }
 .page-uae .sec-uae-ecosystem__item summary::-webkit-details-marker { display: none; }
 .page-uae .sec-uae-ecosystem__item summary h3 { margin-bottom: 0; }
 .page-uae .sec-uae-ecosystem__item .sec-uae-expansion__number { color: #f47a1f; padding-top: .25rem; }
 .page-uae .sec-uae-ecosystem__body { min-height: 0; overflow: hidden; }
-.page-uae .sec-uae-ecosystem__item p { margin: 0 2.25rem 1.5rem; color: #ffffffb8; font-size: 1.0625rem; line-height: 1.7; }
+.page-uae .sec-uae-ecosystem__item p { margin: 0 2.25rem 1.5rem; color: #43433f; font-size: 1.0625rem; line-height: 1.7; }
 .page-uae .sec-uae-ecosystem__toggle { position: relative; width: 18px; height: 18px; margin-top: .2rem; }
 .page-uae .sec-uae-ecosystem__toggle::before, .page-uae .sec-uae-ecosystem__toggle::after { content: ''; position: absolute; background: currentColor; }
 .page-uae .sec-uae-ecosystem__toggle::before { width: 14px; height: 1px; left: 2px; top: 8px; }
@@ -120,13 +135,17 @@
 @media (min-width: 901px) and (max-width: 1199px) {
  .page-uae .uae-industries-home-process .heading-text { font-size: clamp(28px, calc(7vw - 35px), 50px); }
 }
+@media (max-width: 1099px) {
+ .page-uae .sec-uae__process-journey { display: flex; flex-direction: column; gap: 1.5rem; max-width: 720px; margin-inline: auto; }
+ .page-uae .sec-uae__step { grid-template-columns: minmax(0, 1fr) 180px; gap: 2rem; min-height: 225px; }
+ .page-uae .sec-uae__step--right { grid-template-columns: 180px minmax(0, 1fr); }
+}
 @media (max-width: 991px) {
  .page-uae { --uae-frame-inset: 8px; }
  .page-uae .sec-uae-ecosystem > .site-container { width: calc(100% - var(--uae-frame-inset) * 2) !important; max-width: none !important; padding-inline: 0 !important; }
  .page-uae .sec-uae-ecosystem__panel, .page-uae .sec-uae-advantages__layout { grid-template-columns: 1fr; gap: 2rem; }
  .page-uae .sec-uae-ecosystem__panel { padding: 2rem; }
  .page-uae .sec-uae-results__card { padding: 1.5rem; }
- .page-uae .sec-uae__process-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 767px) {
  .page-uae .sec-page-banner { min-height: clamp(500px, 72svh, 620px); }
@@ -143,8 +162,15 @@
  .page-uae .sec-uae-about, .page-uae .sec-uae-process { padding-block: 3.5rem; }
  .page-uae .sec-services .padding-section-large, .page-uae .sec-faq .sec-faq__container { padding-block: 3.5rem !important; }
  .page-uae .sec-services { --uae-service-font: 1.75rem; }
- .page-uae .sec-uae__process-grid { grid-template-columns: 1fr; }
- .page-uae .sec-uae__step { padding: 1.5rem; }
+ .page-uae .sec-uae__process-header { text-align: left; margin-bottom: 2.5rem; }
+ .page-uae .sec-uae__process-header .section-badge { justify-content: start; }
+ .page-uae .sec-uae__step, .page-uae .sec-uae__step--right { grid-template-columns: 112px minmax(0, 1fr); gap: 1.25rem; min-height: 0; padding-inline: 0; }
+ .page-uae .sec-uae__step-copy, .page-uae .sec-uae__step--right .sec-uae__step-copy { grid-column: 2; grid-row: 1; text-align: left; }
+ .page-uae .sec-uae__step-frame { grid-column: 1; grid-row: 1; border-width: 5px; padding: .6rem .1rem; }
+ .page-uae .sec-uae__step-rule { transform-origin: left center; }
+ .page-uae .sec-uae__step p { font-size: .9375rem; line-height: 1.55; }
+ .page-uae main .sec-uae__subtitle.heading-style-h3 { font-size: 1.875rem !important; }
+ .page-uae .sec-uae__number { width: calc(100% - .75rem); font-size: 1.75rem; }
 }
 @media (max-width: 479px) {
  .page-uae { --uae-frame-inset: 6px; }

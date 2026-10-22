@@ -18,6 +18,7 @@
     "push": "git add . && git commit -m \"Update code\" && git push origin main"
   },
   "dependencies": {
+    "@barba/core": "^2.10.3",
     "@gsap/react": "^2.1.2",
     "clsx": "^2.1.1",
     "dompurify": "^3.4.17",

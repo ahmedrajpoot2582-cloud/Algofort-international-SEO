@@ -4,7 +4,7 @@ import { PageBanner } from '../../components/common/PageBanner';
 import { Cursor } from '../../components/common/Cursor';
 import { BackToTop } from '../../components/common/BackToTop';
 import { SubtitleMarquee } from '../../components/common/SubtitleMarquee';
-import { UaeProcessArtwork } from '../../components/uae/UaeProcessArtwork';
+import { UaeProcessSection } from '../../components/uae/UaeProcessSection';
 import { ServicesSection } from '../../components/sections/ServicesSection';
 import { ShowreelSection } from '../../components/sections/ShowreelSection';
 import { TestimonialsSection } from '../../components/sections/TestimonialsSection';
@@ -75,21 +75,7 @@ export default function UaePage() {
           <UaeIndustriesSection />
           <UaeEcosystemSection />
 
-          <section className="site-section sec-uae-process" id="uae-process">
-            <div className="site-container container-large padding-global">
-              <div className="section-header sec-uae__process-header">
-                <div className="section-badge"><SubtitleMarquee text="From Concept to Launch ✦ " /></div>
-                <h2 className="heading-style-h2 section-title">Your ideas into a<br /><span className="text-color-secondary">market-leading UAE brand.</span></h2>
-              </div>
-              <div className="section-content sec-uae__process-grid">
-                {content.process.map((step) => <article className="content-card sec-uae__step" key={step.step}>
-                  <div className="sec-uae__step-head"><span className="sec-uae__number">{step.step}</span><h3 className="heading-style-h3 sec-uae__subtitle">{step.title}</h3></div>
-                  <div className="sec-uae__step-illustration"><UaeProcessArtwork step={step.step} /></div>
-                  <p className="alg-text">{step.description}</p>
-                </article>)}
-              </div>
-            </div>
-          </section>
+          <UaeProcessSection items={content.process} />
 
           <UaeAdvantagesSection />
           <UaeTechnologySection />
