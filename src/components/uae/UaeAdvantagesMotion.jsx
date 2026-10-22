@@ -12,39 +12,59 @@ export function UaeAdvantagesMotion() {
     const context = gsap.context(() => {}, section);
     const items = [...section.querySelectorAll('.sec-uae-advantages__item')];
     const rail = section.querySelector('.sec-uae-advantages__rail');
+    const count = section.querySelector('[data-timeline-current]');
+    const label = section.querySelector('.sec-uae-advantages__current-label');
+    const initialLabel = label.textContent;
     const measure = () => context.add(() => {
-      gsap.set(rail, { height: items.at(-1).offsetTop - items[0].offsetTop });
+      const first = items[0].querySelector('.sec-uae-advantages__marker').getBoundingClientRect();
+      const last = items.at(-1).querySelector('.sec-uae-advantages__marker').getBoundingClientRect();
+      gsap.set(rail, {
+        top: first.top - rail.parentElement.getBoundingClientRect().top + first.height / 2,
+        height: last.top - first.top,
+      });
     });
     measure();
     ScrollTrigger.addEventListener('refreshInit', measure);
     const media = gsap.matchMedia();
     media.add('(prefers-reduced-motion: no-preference)', () => {
-      gsap.fromTo(section.querySelector('.sec-uae-advantages__progress'), { scaleY: 0 }, {
-        scaleY: 1, ease: 'none',
+      let current = -1;
+      const progress = gsap.timeline({
         scrollTrigger: {
           trigger: items[0], start: 'top 65%',
           endTrigger: items.at(-1), end: 'top 65%', scrub: .5,
           invalidateOnRefresh: true,
+          onUpdate: self => {
+            const index = Math.round(self.progress * (items.length - 1));
+            if (index === current) return;
+            current = index;
+            count.textContent = String(index + 1).padStart(2, '0');
+            label.textContent = items[index].dataset.timelineLabel;
+          },
         },
       });
+      progress.fromTo(section.querySelector('.sec-uae-advantages__progress'), { scaleY: 0 }, { scaleY: 1, duration: 1, ease: 'none' }, 0);
+      progress.fromTo(section.querySelector('.sec-uae-advantages__meter span'), { scaleX: 0 }, { scaleX: 1, duration: 1, ease: 'none' }, 0);
       items.forEach(item => {
         const timeline = gsap.timeline({
           scrollTrigger: { trigger: item, start: 'top 88%', end: 'top 60%', scrub: .5 },
         });
-        timeline.fromTo(item.querySelector('.sec-uae-advantages__card'), { y: 24, opacity: .35 }, {
+        timeline.fromTo(item.querySelector('.sec-uae-advantages__card'), { y: 32, opacity: .5 }, {
           y: 0, opacity: 1, duration: 1, ease: 'none',
         }, 0);
         timeline.fromTo(item.querySelector('.sec-uae-advantages__marker'), {
-          backgroundColor: '#f4f4f2', borderColor: '#c9c9c4', color: '#575752',
+          backgroundColor: '#b9bab5',
         }, {
-          backgroundColor: '#f47a1f', borderColor: '#f47a1f', color: '#05080c', duration: 1, ease: 'none',
+          backgroundColor: '#f47a1f', duration: 1, ease: 'none',
         }, 0);
+        timeline.fromTo(item.querySelector('.sec-uae-advantages__card-meta svg'), { rotation: -45 }, { rotation: 0, duration: 1, ease: 'none' }, 0);
       });
     });
     return () => {
       ScrollTrigger.removeEventListener('refreshInit', measure);
       media.revert();
       context.revert();
+      count.textContent = '01';
+      label.textContent = initialLabel;
     };
   }, []);
   return null;

@@ -34,12 +34,12 @@
 /* Connected delivery map, scoped to the UAE process. */
 .page-uae .sec-uae-process { overflow-x: clip; }
 .page-uae .sec-uae-process > .site-container { width: 100% !important; max-width: none !important; padding-inline: var(--uae-frame-inset) !important; }
-.page-uae .sec-uae__process-scene { position: relative; width: 100%; padding: clamp(2rem, 3vw, 3.5rem); border-radius: 32px; color: #05080c; background: #f4f4f2; border: 1px solid #05080c18; }
+.page-uae .sec-uae__process-scene { position: relative; width: 100%; padding: clamp(2rem, 3vw, 3.5rem); border-radius: 32px; color: #05080c; background: #f4f4f2; border: 0; }
 .page-uae .sec-uae__process-header { max-width: 850px; margin: 0 auto 2rem; text-align: center; }
 .page-uae .sec-uae__process-header .section-badge { justify-content: center; }
 .page-uae #uae-process .sec-uae__process-header .section-title { color: #05080c; font-size: clamp(2.5rem, 3.3vw, 3.5rem) !important; margin: 0 !important; }
 .page-uae .sec-uae__process-stage { position: relative; min-height: 560px; isolation: isolate; }
-.page-uae .sec-uae__process-connections { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; stroke: #b5b5af; stroke-width: 1; }
+.page-uae .sec-uae__process-connections { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; stroke: #b5b5af; stroke-width: 1; stroke-linecap: round; stroke-linejoin: round; }
 .page-uae .sec-uae__process-connections path { vector-effect: non-scaling-stroke; }
 .page-uae .sec-uae__process-hub { position: absolute; top: 50%; left: 50%; width: 23%; max-width: 300px; aspect-ratio: 1; transform: translate(-50%, -50%); padding: 9px; border: 1px solid #f47a1f; border-radius: 28px; background: #f47a1f; }
 .page-uae .sec-uae__process-hub::before, .page-uae .sec-uae__process-hub::after { content: ''; position: absolute; z-index: -1; border: 1px solid #05080c30; border-radius: 28px; inset: -14px 10px 14px -10px; }
@@ -61,8 +61,8 @@
 .page-uae .sec-uae__step--right .sec-uae__step-copy { grid-column: 2; grid-row: 1; text-align: left; }
 .page-uae .sec-uae__step-label { display: block; margin-bottom: .4rem; color: #ad4700; font-size: .6875rem; letter-spacing: .1em; text-transform: uppercase; }
 .page-uae main .sec-uae__subtitle.heading-style-h3 { margin: 0 0 .6rem; color: #05080c; font-size: clamp(1.625rem, 2.2vw, 2rem) !important; }
-.page-uae .sec-uae__step-frame { display: flex; align-items: center; width: 108px; aspect-ratio: 1; padding: .3rem; border: 1px solid #deded8; border-radius: 16px; background: #fff; box-shadow: 5px 5px 0 #f47a1f; }
-.page-uae .sec-uae__step--right .sec-uae__step-frame { grid-column: 1; grid-row: 1; box-shadow: -5px 5px 0 #f47a1f; }
+.page-uae .sec-uae__step-frame { display: flex; align-items: center; width: 108px; aspect-ratio: 1; padding: .25rem; border: 0; border-radius: 100%; background: #05080c; box-shadow: none; }
+.page-uae .sec-uae__step--right .sec-uae__step-frame { grid-column: 1; grid-row: 1; box-shadow: none; }
 .page-uae .sec-uae__step-illustration { width: 100%; }
 .page-uae .sec-uae-process[data-scroll-motion='pinned-scrub'] .sec-uae__process-scene { display: flex; flex-direction: column; height: calc(100svh - 48px); }
 .page-uae .sec-uae-process[data-scroll-motion='pinned-scrub'] .sec-uae__process-header { flex: none; width: 100%; }
@@ -136,16 +136,28 @@
 .page-uae .sec-uae-ecosystem__item[data-accordion-state='opening'] .sec-uae-ecosystem__toggle::after,
 .page-uae .sec-uae-ecosystem__item[data-accordion-state='open'] .sec-uae-ecosystem__toggle::after { transform: scaleY(0); }
 .page-uae .alg-faq-item[data-accordion-state='closing'] .alg-faq-item-arrow { transform: rotate(0deg); }
-.page-uae .sec-uae-advantages { border-block: 1px solid #05080c18; }
-.page-uae .sec-uae-advantages__layout { display: grid; grid-template-columns: .9fr 1.1fr; gap: 4rem; align-items: start; }
-.page-uae .sec-uae-advantages__intro { position: sticky; top: 5rem; }
+.page-uae .sec-uae-advantages { border: 0; }
+.page-uae .sec-uae-advantages__layout { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(3rem, 6vw, 7rem); align-items: start; }
+.page-uae .sec-uae-advantages__intro { position: sticky; top: 4rem; }
+.page-uae #uae-advantages .sec-uae-advantages__intro .section-title { font-size: clamp(2.5rem, 3.5vw, 3.5rem) !important; line-height: 1.1 !important; }
+.page-uae .sec-uae-advantages__readout { width: 250px; padding-top: 1.5rem; border-top: 1px solid #05080c26; }
+.page-uae .sec-uae-advantages__readout .sec-uae-expansion__eyebrow { display: block; margin: 0 0 1.25rem; }
+.page-uae .sec-uae-advantages__count { display: flex; align-items: baseline; gap: .75rem; }
+.page-uae .sec-uae-advantages__count > span:first-child { font-family: 'Mona Sans Narrow', sans-serif; text-transform: uppercase; font-size: 5rem; font-weight: 700; line-height: 1; letter-spacing: -.03em; }
+.page-uae .sec-uae-advantages__count > span:last-child { color: #777871; font-size: .875rem; }
+.page-uae .sec-uae-advantages__current-label { display: block; min-height: 2.75rem; margin-top: 1rem; font-size: .875rem; color: #55574f; }
+.page-uae .sec-uae-advantages__meter { height: 3px; border-radius: 100px; background: #deded8; overflow: hidden; }
+.page-uae .sec-uae-advantages__meter span { display: block; width: 100%; height: 100%; background: #f47a1f; transform-origin: left center; }
 .page-uae .sec-uae-advantages__timeline { position: relative; min-width: 0; }
-.page-uae .sec-uae-advantages__rail { position: absolute; width: 2px; top: 22px; bottom: 22px; left: 21px; background: #d7d7d1; }
+.page-uae .sec-uae-advantages__rail { position: absolute; width: 1px; top: 48px; bottom: 48px; left: 5.5px; background: #d7d7d1; }
 .page-uae .sec-uae-advantages__progress { display: block; width: 100%; height: 100%; background: #f47a1f; transform-origin: center top; }
-.page-uae .sec-uae-advantages__list { position: relative; display: grid; gap: 2.5rem; list-style: none; padding: 0; margin: 0; }
-.page-uae .sec-uae-advantages__item { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 1.25rem; align-items: start; min-width: 0; position: relative; }
-.page-uae .sec-uae-advantages__marker { position: relative; z-index: 1; display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid #c9c9c4; border-radius: 50%; background: #f4f4f2; color: #575752; font-size: .8125rem; font-weight: 600; }
-.page-uae .sec-uae-advantages__card { min-width: 0; padding: 1.75rem; border: 1px solid #05080c18; border-radius: 24px; background: #fff; }
+.page-uae .sec-uae-advantages__list { position: relative; display: grid; gap: 2rem; list-style: none; padding: 0; margin: 0; }
+.page-uae .sec-uae-advantages__item { display: grid; grid-template-columns: 12px minmax(0, 1fr); gap: 1.75rem; align-items: start; min-width: 0; position: relative; }
+.page-uae .sec-uae-advantages__marker { position: relative; z-index: 1; width: 12px; height: 12px; margin-top: 42px; border: 0; border-radius: 100%; background: #b9bab5; box-shadow: 0 0 0 7px #f4f4f2; }
+.page-uae .sec-uae-advantages__card { min-width: 0; padding: clamp(1.75rem, 2.8vw, 2.5rem); border: 0; border-radius: 32px; background: #fff; box-shadow: 0 16px 50px #05080c06; }
+.page-uae .sec-uae-advantages__card-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
+.page-uae .sec-uae-advantages__card-meta > span { font-family: 'Mona Sans Narrow', sans-serif; text-transform: uppercase; font-size: 3.75rem; font-weight: 600; line-height: 1; color: #c7c8c1; }
+.page-uae .sec-uae-advantages__card-meta svg { width: 32px; height: 32px; color: #f47a1f; }
 .page-uae .sec-uae-technology__row { display: grid; grid-template-columns: .55fr 1fr; gap: 2rem; padding-block: 1.5rem; border-top: 1px solid #05080c26; align-items: start; }
 .page-uae .sec-uae-technology__row h3 { padding-top: .4rem; }
 .page-uae .sec-uae-technology__tools { display: flex; flex-wrap: wrap; gap: .65rem; list-style: none; margin: 0; padding: 0; }
@@ -168,7 +180,7 @@
  .page-uae .sec-uae__process-journey { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: auto; gap: 2.5rem; }
  .page-uae .sec-uae__step, .page-uae .sec-uae__step--right { grid-column: auto !important; grid-row: auto !important; grid-template-columns: 88px minmax(0, 1fr); align-items: start; }
  .page-uae .sec-uae__step-copy, .page-uae .sec-uae__step--right .sec-uae__step-copy { grid-column: 2; grid-row: 1; text-align: left; }
- .page-uae .sec-uae__step-frame, .page-uae .sec-uae__step--right .sec-uae__step-frame { grid-column: 1; grid-row: 1; width: 88px; box-shadow: 4px 4px 0 #f47a1f; }
+ .page-uae .sec-uae__step-frame, .page-uae .sec-uae__step--right .sec-uae__step-frame { grid-column: 1; grid-row: 1; width: 88px; box-shadow: none; }
 }
 @media (max-width: 991px) {
  .page-uae { --uae-frame-inset: 8px; }
@@ -177,6 +189,7 @@
  .page-uae .sec-uae-ecosystem__panel { padding: 2rem; }
  .page-uae .sec-uae-results__card { padding: 1.5rem; }
  .page-uae .sec-uae-advantages__intro { position: static; }
+ .page-uae .sec-uae-advantages__readout { display: none; }
 }
 @media (max-width: 767px) {
  .page-uae .sec-page-banner { min-height: clamp(500px, 72svh, 620px); }
@@ -188,8 +201,9 @@
  .page-uae .sec-uae-technology__row { gap: .5rem; }
  .page-uae .sec-uae-expansion__caption { flex-wrap: wrap; }
  .page-uae .sec-uae-advantages__list { gap: 1.75rem; }
- .page-uae .sec-uae-advantages__item { gap: .875rem; }
- .page-uae .sec-uae-advantages__card { padding: 1.25rem; border-radius: 20px; }
+ .page-uae .sec-uae-advantages__item { gap: 1rem; }
+ .page-uae .sec-uae-advantages__card { padding: 1.5rem; border-radius: 24px; }
+ .page-uae .sec-uae-advantages__card-meta > span { font-size: 3rem; }
  .page-uae .sec-uae-advantages__item p { font-size: 1rem; line-height: 1.65; }
  .page-uae .sec-uae-expansion__caption > span:last-child { display: none; }
  .page-uae main .heading-style-h2:not(.sec-testimonials__title) { font-size: 2.5rem !important; }
@@ -203,7 +217,7 @@
  .page-uae .sec-uae__process-journey { grid-template-columns: 1fr; gap: 2rem; }
  .page-uae .sec-uae__process-hub { width: 220px; }
  .page-uae .sec-uae__step, .page-uae .sec-uae__step--right { grid-template-columns: 76px minmax(0, 1fr); gap: 1rem; }
- .page-uae .sec-uae__step-frame, .page-uae .sec-uae__step--right .sec-uae__step-frame { width: 76px; border-radius: 12px; }
+ .page-uae .sec-uae__step-frame, .page-uae .sec-uae__step--right .sec-uae__step-frame { width: 76px; border-radius: 100%; }
  .page-uae .sec-uae__step p { font-size: .9375rem; }
  .page-uae main .sec-uae__subtitle.heading-style-h3 { font-size: 1.75rem !important; }
 

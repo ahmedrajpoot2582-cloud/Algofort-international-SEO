@@ -57,16 +57,31 @@ export function UaeEcosystemSection() {
 }
 
 export function UaeAdvantagesSection() {
+  const labels = ['Aligned working hours', 'Clear project milestones', 'Your ideas. Your ownership.', 'A team that works with you'];
   return (
     <section className="site-section sec-uae-expansion sec-uae-advantages" id="uae-advantages" aria-label="Why choose Algofort">
       <UaeAdvantagesMotion />
       <div className="site-container container-large padding-global">
         <div className="sec-uae-advantages__layout">
-          <div className="sec-uae-advantages__intro"><SectionHeading badge="Why choose Algofort">Silicon Valley engineering.<br /><span className="text-color-secondary">Seamless Dubai collaboration.</span></SectionHeading><p className="sec-uae-expansion__eyebrow">The Algofort advantage</p></div>
+          <div className="sec-uae-advantages__intro">
+            <SectionHeading badge="Why choose Algofort">Silicon Valley engineering.<br /><span className="text-color-secondary">Seamless Dubai collaboration.</span></SectionHeading>
+            <div className="sec-uae-advantages__readout" aria-hidden="true">
+              <span className="sec-uae-expansion__eyebrow">The Algofort advantage</span>
+              <div className="sec-uae-advantages__count"><span data-timeline-current>01</span><span>/ 04</span></div>
+              <span className="sec-uae-advantages__current-label">{labels[0]}</span>
+              <div className="sec-uae-advantages__meter"><span /></div>
+            </div>
+          </div>
           <div className="sec-uae-advantages__timeline">
             <div className="sec-uae-advantages__rail" aria-hidden="true"><span className="sec-uae-advantages__progress" /></div>
             <ol className="section-content sec-uae-advantages__list">
-              {content.advantages.map((item) => <li className="sec-uae-advantages__item" key={item.number}><span className="sec-uae-advantages__marker" aria-hidden="true">{item.number}</span><div className="sec-uae-advantages__card"><h3 className="heading-style-h3 sec-uae-expansion__subtitle">{item.title}</h3><p className="alg-text">{item.description}</p></div></li>)}
+              {content.advantages.map((item, index) => <li className="sec-uae-advantages__item" key={item.number} data-timeline-label={labels[index]}>
+                <span className="sec-uae-advantages__marker" aria-hidden="true" />
+                <div className="sec-uae-advantages__card">
+                  <div className="sec-uae-advantages__card-meta" aria-hidden="true"><span>{item.number}</span><svg viewBox="0 0 32 32" fill="none"><path d="M16 2v28M2 16h28M6 6l20 20M6 26 26 6" stroke="currentColor" strokeWidth="1.5" /></svg></div>
+                  <h3 className="heading-style-h3 sec-uae-expansion__subtitle">{item.title}</h3><p className="alg-text">{item.description}</p>
+                </div>
+              </li>)}
             </ol>
           </div>
         </div>
