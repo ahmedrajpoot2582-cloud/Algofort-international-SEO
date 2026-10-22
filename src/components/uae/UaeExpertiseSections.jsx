@@ -1,4 +1,5 @@
 import { SubtitleMarquee } from '../common/SubtitleMarquee';
+import { ProcessSection } from '../sections/ProcessSection';
 import { uaeSections as content } from '../../data/uae-sections';
 
 const asterisk = '/assets/68f7cadfd454c94c5b5251cb_grey-asterisk-icon.svg';
@@ -15,33 +16,18 @@ function SectionHeading({ badge, children, description, dark = false, titleId })
   );
 }
 
-function IndustryIcon({ name }) {
-  const paths = {
-    property: <><path d="M3 21V7l9-4v18M12 9h9v12M7 9h1M7 13h1M7 17h1M16 13h1M16 17h1M2 21h20" /></>,
-    retail: <><path d="M5 8h14l2 13H3L5 8Z" /><path d="M8 8V6a4 4 0 0 1 8 0v2M9 12h.01M15 12h.01" /></>,
-    finance: <><rect x="3" y="5" width="18" height="15" rx="2" /><path d="M3 10h18M7 15h3M14 15h3" /></>,
-    logistics: <><path d="M3 5h11v12H3zM14 10h4l3 4v3h-7" /><circle cx="7" cy="18" r="2" /><circle cx="18" cy="18" r="2" /></>,
-    health: <><path d="M20.8 5.6a5.5 5.5 0 0 0-7.8 0l-1 1-1-1a5.5 5.5 0 0 0-7.8 7.8L12 22l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z" /><path d="M8 12h8M12 8v8" /></>,
-    travel: <><path d="m3 10 7 2 8-8c1-1 3-1 3 0s0 2-1 3l-8 8 2 6-3-1-2-4-4-2-2-4Z" /></>,
-  };
-  return <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[name]}</svg>;
-}
-
 export function UaeIndustriesSection() {
   return (
-    <section className="site-section sec-uae-expansion sec-uae-industries" id="uae-industries" aria-labelledby="uae-industries-title">
-      <div className="site-container container-large padding-global">
-        <SectionHeading titleId="uae-industries-title" badge="Industries we serve" description="We build tailored software, high-converting web platforms, and mobile apps designed for the fastest-growing industries in the UAE and wider GCC."><span className="uae-industries-title-line">Powering digital transformation</span>{' '}<span className="uae-industries-title-line">across <em className="uae-heading-script">Dubai’s</em> key sectors.</span></SectionHeading>
-        <div className="sec-uae-expansion__caption"><span>Sector-specific expertise</span><span>06 industries</span></div>
-        <div className="section-content sec-uae-industries__grid">
-          {content.industries.map((industry) => <article className="sec-uae-industries__item" key={industry.number}>
-            <div className="sec-uae-industries__meta"><span className="sec-uae-expansion__number">({industry.number})</span><span className="sec-uae-industries__icon"><IndustryIcon name={industry.icon} /></span></div>
-            <h3 className="heading-style-h3 sec-uae-expansion__subtitle">{industry.title}</h3>
-            <p className="alg-text">{industry.description}</p>
-          </article>)}
-        </div>
-      </div>
-    </section>
+    <ProcessSection
+      id="uae-industries"
+      className="uae-industries-home-process"
+      badge="Industries we serve ✦ "
+      headingLabel="Powering digital transformation across Dubai’s key sectors."
+      leftTitle={['Powering digital', <>across <span className="alg-process-brand-script brand-script">Dubai’s</span></>]}
+      rightTitle={['transformation', 'key sectors.']}
+      items={content.industries.map(({ number, title, description }) => ({ step: number, title, description }))}
+      footerDescription="We build tailored software, high-converting web platforms, and mobile apps designed for the fastest-growing industries in the UAE and wider GCC."
+    />
   );
 }
 

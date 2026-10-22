@@ -23,7 +23,7 @@ export function UaeMotion() {
       let splitPlugin;
       const selector = [
         '.sec-uae__about-copy .section-description',
-        '.sec-uae-industries__item', '.sec-uae-ecosystem__item',
+        '.sec-uae-ecosystem__item',
         '.sec-uae-advantages__item', '.sec-uae-technology__row',
         '.sec-uae-results__card', '.sec-uae__step',
       ].join(',');
@@ -80,10 +80,6 @@ export function UaeMotion() {
               timeline.fromTo(target, { y: technology ? 0 : 32, x: technology ? 40 : 0, opacity: 0 }, {
                 x: 0, y: 0, opacity: 1, duration: 0.65, ease: 'power3.out',
               });
-              const icon = target.querySelector('.sec-uae-industries__meta svg');
-              if (icon) timeline.fromTo(icon, { rotation: -18, scale: 0.8 }, {
-                rotation: 0, scale: 1, duration: 0.5, ease: 'back.out(1.4)',
-              }, 0.1);
               if (technology) timeline.fromTo(target.querySelectorAll('li'), { y: 12, opacity: 0 }, {
                 y: 0, opacity: 1, duration: 0.35, stagger: 0.04, ease: 'power2.out',
               }, 0.15);
