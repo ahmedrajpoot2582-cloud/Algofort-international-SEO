@@ -12,6 +12,7 @@ import { FaqSection } from '../../components/sections/FaqSection';
 import { CtaSection } from '../../components/sections/CtaSection';
 import { UaeIndustriesSection, UaeEcosystemSection, UaeAdvantagesSection, UaeTechnologySection, UaeResultsSection } from '../../components/uae/UaeExpertiseSections';
 import { UaeMotion } from '../../components/uae/UaeMotion';
+import { UaeAccordionMotion } from '../../components/uae/UaeAccordionMotion';
 import { uaeContent as content } from '../../data/uae';
 import { internationalAlternates } from '../../data/markets';
 import { withSocialMetadata } from '../../lib/seo';
@@ -54,7 +55,7 @@ const schema = {
 export default function UaePage() {
   return (
       <div className="page-wrapper page-uae" id="top" data-uae-gsap>
-        <Cursor /><Header prefetch={false} /><BackToTop /><UaeMotion />
+        <Cursor /><Header prefetch={false} /><BackToTop /><UaeMotion /><UaeAccordionMotion />
         <main id="main-content">
           <script type="application/ld+json">{JSON.stringify(schema).replace(/</g, '\\u003c')}</script>
           <PageBanner performanceMode animateEntrance title={content.heroTitle} eyebrow={content.heroBadge} services={content.marquee} breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'UAE', href: '/ae', active: true }]} />

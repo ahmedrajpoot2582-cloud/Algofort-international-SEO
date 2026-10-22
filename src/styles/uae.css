@@ -120,6 +120,12 @@
 .page-uae .sec-uae-ecosystem__toggle::after { width: 1px; height: 14px; left: 8px; top: 2px; }
 .page-uae .sec-uae-ecosystem__item[open] .sec-uae-ecosystem__toggle::after { display: none; }
 .page-uae .sec-uae-ecosystem__item summary:focus-visible { outline: 2px solid #f47a1f; outline-offset: 5px; }
+/* Override the legacy global details grid transition only for UAE controllers. */
+.page-uae details[data-uae-accordion]::details-content { display: block; opacity: 1; content-visibility: visible; pointer-events: auto; transition: none; }
+.page-uae .sec-uae-ecosystem__item[data-uae-accordion] .sec-uae-ecosystem__toggle::after { display: block; transform: scaleY(1); transition: transform .35s ease; }
+.page-uae .sec-uae-ecosystem__item[data-accordion-state='opening'] .sec-uae-ecosystem__toggle::after,
+.page-uae .sec-uae-ecosystem__item[data-accordion-state='open'] .sec-uae-ecosystem__toggle::after { transform: scaleY(0); }
+.page-uae .alg-faq-item[data-accordion-state='closing'] .alg-faq-item-arrow { transform: rotate(0deg); }
 .page-uae .sec-uae-advantages { border-block: 1px solid #05080c18; }
 .page-uae .sec-uae-advantages__layout { display: grid; grid-template-columns: .9fr 1.1fr; gap: 4rem; }
 .page-uae .sec-uae-advantages__list { display: grid; gap: 1.75rem; }
@@ -183,6 +189,7 @@
  .page-uae .sec-services { border-radius: 1.5rem; }
 }
 @media (prefers-reduced-motion: reduce) {
+ .page-uae [data-uae-accordion] .sec-uae-ecosystem__toggle::after, .page-uae [data-uae-accordion] .alg-faq-item-arrow { transition: none; }
  .page-uae .subtitle-marquee-track, .page-uae .service-marquee-track, .page-uae .sonar-wave { animation: none !important; }
  .page-uae .uae-process-art [data-art-motion] { animation: none !important; transform: none !important; opacity: 1 !important; stroke-dashoffset: 0; }
 }

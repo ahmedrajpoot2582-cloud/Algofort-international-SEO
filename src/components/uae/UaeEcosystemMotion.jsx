@@ -48,7 +48,9 @@ export function UaeEcosystemMotion() {
       timeline.to({}, { duration: 0.2 });
 
       let refreshFrame;
-      const refresh = () => {
+      const refresh = event => {
+        // The accordion controller refreshes once its height transition settles.
+        if (event?.target?.hasAttribute('data-uae-accordion')) return;
         cancelAnimationFrame(refreshFrame);
         refreshFrame = requestAnimationFrame(() => ScrollTrigger.refresh());
       };
