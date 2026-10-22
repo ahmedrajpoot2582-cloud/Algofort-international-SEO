@@ -7,6 +7,7 @@
 .page-uae [data-loop-visible] { animation-play-state: running !important; }
 .page-uae .sec-page-banner__breadcrumb-nav { visibility: visible; opacity: 1; }
 .page-uae .sec-page-banner__breadcrumb-item { opacity: 1; transform: none; }
+.page-uae .sec-page-banner { min-height: clamp(560px, 72svh, 760px); }
 /* The legacy theme sets H3 to 8rem. Country-page hierarchy is intentionally compact. */
 .page-uae main .heading-style-h2:not(.sec-testimonials__title) { font-size: clamp(2.5rem, 4.25vw, 4rem) !important; line-height: 1.12 !important; letter-spacing: -.015em !important; margin-bottom: 1.5rem !important; }
 .page-uae main .heading-style-h3 { font-size: clamp(1.5rem, 1.9vw, 1.75rem) !important; line-height: 1.2 !important; letter-spacing: 0 !important; text-transform: uppercase !important; }
@@ -14,9 +15,9 @@
 .page-uae .sec-page-banner__title { max-width: 950px; }
 .page-uae .sec-uae-about, .page-uae .sec-uae-process { padding-block: 5rem; }
 .page-uae .sec-uae__about-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: 4rem; align-items: start; }
-.page-uae .sec-uae__about-copy .section-description { font-size: 1.125rem; line-height: 1.75; margin: 0; }
-.page-uae .sec-uae__studio-note { margin-top: 1.5rem; color: #555; font-size: 1rem; }
-.page-uae .sec-uae__about-heading .section-title { margin-top: 0 !important; }
+.page-uae .sec-uae__about-copy .section-description { font-size: clamp(1.25rem, 1.9vw, 1.5rem); font-weight: 600; line-height: 1.6; margin: 0; }
+.page-uae .sec-uae__studio-note { margin-top: 1.5rem; color: #555; font-size: 1.0625rem; font-weight: 500; line-height: 1.6; }
+.page-uae main .sec-uae__about-heading .heading-style-h2.section-title { font-size: clamp(3.25rem, 5.5vw, 5rem) !important; font-weight: 700 !important; line-height: 1.08 !important; margin-top: 0 !important; opacity: 1 !important; }
 .page-uae .sec-services .sec-services__container { padding-block: 0 !important; }
 .page-uae .sec-services .padding-section-large { padding-block: 5rem !important; }
 .page-uae .sec-services { --uae-service-font: clamp(1.75rem, 3vw, 2.75rem); }
@@ -95,6 +96,8 @@
  .page-uae .sec-uae__process-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 767px) {
+ .page-uae .sec-page-banner { min-height: clamp(500px, 72svh, 620px); }
+ .page-uae main .sec-uae__about-heading .heading-style-h2.section-title { font-size: clamp(2.75rem, 9vw, 3.5rem) !important; }
  .page-uae .sec-uae-expansion { padding-block: 3.5rem; }
  .page-uae .sec-uae-expansion__header { margin-bottom: 2rem; }
  .page-uae .sec-uae-ecosystem { padding-top: 0; }
