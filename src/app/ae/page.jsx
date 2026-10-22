@@ -59,17 +59,14 @@ export default function UaePage() {
           <script type="application/ld+json">{JSON.stringify(schema).replace(/</g, '\\u003c')}</script>
           <PageBanner performanceMode animateEntrance title={content.heroTitle} eyebrow={content.heroBadge} services={content.marquee} breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'UAE', href: '/ae', active: true }]} />
 
-          <section className="site-section sec-uae-about" id="uae-about">
+          <section className="site-section sec-uae-about" id="uae-about" aria-label="About Algofort">
             <div className="site-container container-large padding-global">
-              <div className="sec-uae__about-grid">
-                <div className="section-header sec-uae__about-heading">
-                  <div className="section-badge"><SubtitleMarquee text="About Algofort — " /></div>
-                  <h2 className="heading-style-h2 section-title">Digital solutions.<br /><span className="text-color-secondary">Built for the UAE.</span></h2>
-                </div>
-                <div className="sec-uae__about-copy">
-                  <div className="scrub_letter"><p className="alg-text section-description">{content.about}</p></div>
-                  <p className="alg-text sec-uae__studio-note">Global engineering & delivery studio: Karachi. Serving Dubai, Abu Dhabi, the UAE and global markets.</p>
-                </div>
+              <div className="section-header sec-uae__about-heading">
+                <div className="section-badge"><SubtitleMarquee text="About Algofort — " /></div>
+              </div>
+              <div className="sec-uae__about-copy">
+                <p className="alg-text section-description">{content.about}</p>
+                <p className="alg-text sec-uae__studio-note">Global engineering & delivery studio: Karachi. Serving Dubai, Abu Dhabi, the UAE and global markets.</p>
               </div>
             </div>
           </section>

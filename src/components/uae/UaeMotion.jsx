@@ -17,13 +17,12 @@ export function UaeMotion() {
       const timelines = new Map();
       const splits = new Set();
       const building = new Set();
+      const visibleTargets = new Set();
       const accentColor = getComputedStyle(root).getPropertyValue('--brand-orange').trim() || '#f47a1f';
       let active = true;
       let splitPlugin;
-      let scrollingStarted = window.scrollY > 0 || !!window.location.hash;
-      const pending = new Set();
       const selector = [
-        '.heading-style-h2', '.sec-uae__about-copy p',
+        '.sec-uae__about-copy .section-description',
         '.sec-uae-industries__item', '.sec-uae-ecosystem__item',
         '.sec-uae-advantages__item', '.sec-uae-technology__row',
         '.sec-uae-results__card', '.sec-uae__step',
@@ -32,10 +31,9 @@ export function UaeMotion() {
         !element.closest('#sec-testimonials, .sec-page-banner, .showreel_lightbox')
       );
       const reveal = async target => {
-          const wave = target.matches('.sec-uae-about h2, .sec-uae-expansion h2, .sec-uae-process h2, .sec-services__title');
-          const words = target.matches('.sec-uae__about-copy p');
+          const wave = target.matches('.sec-uae__about-copy .section-description');
           let SplitText;
-          if ((wave || words) && !timelines.has(target)) {
+          if (wave && !timelines.has(target)) {
             if (building.has(target)) return;
             building.add(target);
             try {
@@ -50,7 +48,7 @@ export function UaeMotion() {
               return;
             }
             building.delete(target);
-            if (!active || !target.isConnected) return;
+            if (!active || !target.isConnected || !visibleTargets.has(target)) return;
           }
           if (!timelines.has(target)) context.add(() => {
             const timeline = gsap.timeline({
@@ -58,28 +56,26 @@ export function UaeMotion() {
               onStart: () => { target.dataset.motionState = 'entering'; },
               onComplete: () => { target.dataset.motionState = 'visible'; },
             });
-            if (wave || words) {
+            if (wave) {
               const split = SplitText.create(target, {
-                type: words ? 'words' : 'words,chars', wordsClass: 'uae-text-word',
+                type: 'words,chars', wordsClass: 'uae-text-word',
                 charsClass: 'uae-text-char', aria: 'auto',
               });
               splits.add(split);
-              const pieces = words ? split.words : split.chars;
-              const colors = wave ? pieces.map(char => getComputedStyle(char).color) : [];
+              const pieces = split.chars;
+              const colors = pieces.map(char => getComputedStyle(char).color);
               timeline.fromTo(pieces, {
                 y: 40, opacity: 0,
-                ...(wave ? { color: accentColor } : {}),
+                color: accentColor,
               }, {
                 y: 0, opacity: 1,
-                ...(wave ? { color: index => colors[index] } : {}),
-                stagger: wave ? { each: 0.012, from: 'start' } : { amount: Math.min(pieces.length * 0.04, 0.7) },
-                duration: wave ? 0.4 : 0.5, ease: wave ? 'sine.out' : 'power2.out',
+                color: index => colors[index],
+                stagger: { amount: 0.15, from: 'start' },
+                duration: 0.35, ease: 'sine.out',
                 immediateRender: false,
               });
-            } else if (target.matches('.heading-style-h2')) {
-              timeline.fromTo(target, { y: 28, opacity: 0 }, {
-                y: 0, opacity: 1, duration: 0.65, ease: 'power3.out',
-              });
+              // Include the stagger in the requested half-second total.
+              timeline.duration(0.5);
             } else {
               const technology = target.matches('.sec-uae-technology__row');
               timeline.fromTo(target, { y: technology ? 0 : 32, x: technology ? 40 : 0, opacity: 0 }, {
@@ -99,27 +95,22 @@ export function UaeMotion() {
           if (!timeline.isActive()) timeline.restart(true);
       };
       const observer = new IntersectionObserver(entries => {
-        entries.forEach(({ target, isIntersecting }) => {
-          if (!isIntersecting) { pending.delete(target); return; }
-          if (!scrollingStarted) { pending.add(target); return; }
+        entries.forEach(({ target, isIntersecting, intersectionRatio }) => {
+          if (!isIntersecting || intersectionRatio < 0.12) {
+            visibleTargets.delete(target);
+            const timeline = timelines.get(target);
+            if (timeline?.isActive()) timeline.progress(1);
+            return;
+          }
+          if (visibleTargets.has(target)) return;
+          visibleTargets.add(target);
           reveal(target);
         });
       }, { threshold: 0.12, rootMargin: '0px 0px -24px 0px' });
-      const startScrollMotion = () => {
-        scrollingStarted = true;
-        pending.forEach(reveal);
-        pending.clear();
-        inputEvents.forEach(type => window.removeEventListener(type, startScrollMotion));
-      };
-      const inputEvents = ['wheel', 'touchstart', 'pointerdown', 'keydown'];
-      // Keep initially visible copy steady during hydration. Motion starts with
-      // actual input, not a synthetic scroll used by layout measurement.
-      // Direct hash/restored navigation is already armed above.
-      if (!scrollingStarted) inputEvents.forEach(type => window.addEventListener(type, startScrollMotion, { passive: true }));
+      // Play on viewport entry, replay on re-entry, never scrub with scrolling.
       targets.forEach(target => observer.observe(target));
       return () => {
         active = false;
-        inputEvents.forEach(type => window.removeEventListener(type, startScrollMotion));
         observer.disconnect();
         context.revert();
         splits.forEach(split => split.revert());
