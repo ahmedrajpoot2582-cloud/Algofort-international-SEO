@@ -8,22 +8,25 @@ import SplitType from 'split-type';
 
 import { SubtitleMarquee } from '../common/SubtitleMarquee';
 import { FactCardsGrid } from '../common/FactCardsGrid';
+import { observeNear } from '../../utils/observeNear';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
 }
 
-export const AboutSection = ({ description, id = 'sec-about', studioNote }) => {
+export const AboutSection = ({ description, id = 'sec-about', studioNote, deferMotion = false }) => {
   const sectionRef = useRef(null);
   const textRef = useRef(null);
 
   useGSAP(
-    () => {
+    (context, contextSafe) => {
+      let split;
+      const initialize = contextSafe(() => {
       // 1. Text scrub animation
       if (textRef.current) {
         const pElement = textRef.current.querySelector('p');
         if (pElement) {
-          const split = new SplitType(pElement, {
+          split = new SplitType(pElement, {
             types: 'words, chars',
             tagName: 'span',
           });
@@ -46,6 +49,9 @@ export const AboutSection = ({ description, id = 'sec-about', studioNote }) => {
           }
         }
       }
+      });
+      const stop = deferMotion ? observeNear(textRef.current, initialize, 0) : (initialize(), null);
+      return () => { stop?.(); split?.revert(); };
     },
     { scope: sectionRef }
   );

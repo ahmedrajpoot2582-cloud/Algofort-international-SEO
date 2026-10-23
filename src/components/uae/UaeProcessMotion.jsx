@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import gsap from 'gsap';
+import { observeNear } from '../../utils/observeNear';
 
 export function UaeProcessMotion() {
   useEffect(() => {
@@ -106,9 +107,10 @@ export function UaeProcessMotion() {
         }, { threshold: .08, rootMargin: '0px 0px -10% 0px' });
         reveals.forEach((_, target) => revealObserver.observe(target));
       };
-      setup();
+      const stop = observeNear(section, () => { setup(); }, 300);
       return () => {
         active = false;
+        stop();
         revealObserver?.disconnect();
         context.revert();
         splits.forEach(split => split.revert());

@@ -13,6 +13,7 @@ import { CtaSection } from '../../components/sections/CtaSection';
 import { UaeIndustriesSection, UaeEcosystemSection, UaeAdvantagesSection, UaeResultsSection } from '../../components/uae/UaeExpertiseSections';
 import { UaeMotion } from '../../components/uae/UaeMotion';
 import { UaeAccordionMotion } from '../../components/uae/UaeAccordionMotion';
+import { UaeSmoothScroll } from '../../components/uae/UaeSmoothScroll';
 import { uaeContent as content } from '../../data/uae';
 import { internationalAlternates } from '../../data/markets';
 import { withSocialMetadata } from '../../lib/seo';
@@ -65,12 +66,12 @@ const schema = {
 export default function UaePage() {
   return (
       <div className="page-wrapper page-uae" id="top" data-uae-gsap>
-        <Cursor /><Header prefetch={false} /><BackToTop /><UaeMotion /><UaeAccordionMotion />
+        <Cursor /><Header prefetch={false} /><BackToTop /><UaeSmoothScroll /><UaeMotion /><UaeAccordionMotion />
         <main id="main-content">
           <script type="application/ld+json">{JSON.stringify(schema).replace(/</g, '\\u003c')}</script>
           <PageBanner performanceMode animateEntrance title={content.heroTitle} eyebrow={content.heroBadge} services={content.marquee} breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'UAE', href: '/ae', active: true }]} />
 
-          <AboutSection id="uae-about" description={content.about} studioNote="Global engineering & delivery studio: Karachi. Serving Dubai, Abu Dhabi, the UAE and global markets." />
+          <AboutSection deferMotion id="uae-about" description={content.about} studioNote="Global engineering & delivery studio: Karachi. Serving Dubai, Abu Dhabi, the UAE and global markets." />
 
           <ServicesSection deferMotion animateHeading={false} items={content.services} heading={<><span className="uae-services-title-line">Creative solutions</span>{' '}<span className="uae-services-title-line text-color-secondary">for UAE enterprises.</span></>} />
           <UaeIndustriesSection />
@@ -86,7 +87,6 @@ export default function UaePage() {
           <CtaSection deferMotion title={<>Start a project<br /><span className="text-color-secondary">in the UAE.</span></>} description="Let us collaborate to build something extraordinary and elevate your brand across Dubai and the GCC." country="United Arab Emirates" phoneLabel="Phone Number (UAE / International)" />
         </main>
         <Footer />
-        <div className="uae-bottom-blur" aria-hidden="true" />
       </div>
   );
 }

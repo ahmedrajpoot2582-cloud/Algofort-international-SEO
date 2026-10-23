@@ -4,9 +4,9 @@ import { SITE_INDEXABLE } from './src/lib/site.js';
 const nextConfig = {
   reactStrictMode: true,
   output: 'standalone',
-  // The site has a large shared stylesheet. Serve it as a cacheable asset
-  // instead of repeating it in every HTML document and RSC payload.
-  experimental: { inlineCss: false },
+  // Avoid the seven render-blocking CSS requests measured on a cold visit.
+  // Next keeps CSS assets for subsequent client-side page navigation.
+  experimental: { inlineCss: true },
   async redirects() {
     return [
       {

@@ -10,6 +10,7 @@ export function UaeAccordionMotion() {
     if (!root) return;
     gsap.registerPlugin(ScrollTrigger);
     const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const hover = window.matchMedia('(hover: hover) and (pointer: fine)');
     let refreshFrame;
     const refresh = () => {
       cancelAnimationFrame(refreshFrame);
@@ -63,19 +64,32 @@ export function UaeAccordionMotion() {
           },
         });
       };
+      const open = () => {
+        group.forEach(controller => controller.setExpanded(false));
+        setExpanded(true);
+      };
+      const enter = () => {
+        if (hover.matches && groupKey.id === 'uae-ecosystem' && !expanded) open();
+      };
       const click = event => {
         event.preventDefault();
+        if (hover.matches && groupKey.id === 'uae-ecosystem' && event.detail > 0) {
+          if (!expanded) open();
+          return;
+        }
         const next = !expanded;
-        if (next) group.forEach(controller => controller.setExpanded(false));
-        setExpanded(next);
+        if (next) open();
+        else setExpanded(false);
       };
       summary.addEventListener('click', click);
+      details.addEventListener('pointerenter', enter);
       const controller = {
         settle,
         setExpanded,
         destroy: () => {
           tween?.kill();
           summary.removeEventListener('click', click);
+          details.removeEventListener('pointerenter', enter);
           details.open = expanded;
           if (originalStyle === null) body.removeAttribute('style');
           else body.setAttribute('style', originalStyle);

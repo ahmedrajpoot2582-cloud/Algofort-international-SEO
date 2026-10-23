@@ -38,8 +38,15 @@ Market keyword research, translated content, market-specific case studies, earne
 
 The UAE page retains homepage typography and shared About, Services, Showreel, Testimonials, FAQ, CTA and Footer components. The hero fills the small viewport height. Regional sections use 128px vertical spacing on desktop and 64px on mobile. Results have three columns on desktop, one on phones, and reversible right-to-left scroll reveals. The process map enters automatically in normal document flow; it is not pinned. The ecosystem and FAQ accordions each allow one open item with smooth transitions.
 
-The bottom edge blur is reduced to 6px on desktop and 4px on mobile. Tablet headings scale to fit; split process words can wrap on narrow screens, and FAQ titles shrink within their flex row without pushing the toggle outside the card. UAE-only CSS preserves homepage layouts.
+The bottom edge blur has been removed. Tablet headings scale to fit; split process words can wrap on narrow screens, and FAQ titles shrink within their flex row without pushing the toggle outside the card. UAE-only CSS preserves homepage layouts.
 
 International alternates use one shared configuration for the homepage and UAE page. Social locales identify en_PK and en_AE with reciprocal alternate locales. The UAE WebPage structured data identifies its canonical URL, English UAE language, parent website and organization, alongside the existing service, FAQ and breadcrumb data. No translated or UK/USA placeholder pages have been introduced, and no Dubai office has been invented.
 
 Validation: production build, source SEO checks, rendered canonical/hreflang/JSON-LD/viewport checks across all 20 sitemap pages and internal destinations, plus browser checks at phone, tablet and desktop widths. The mirror remains deliberately noindex; main-domain launch and Search Console submission still require the hosting/domain steps above. Technical SEO does not guarantee rankings.
+## Services, hover and loading revision (23 October 2026)
+
+The services heading is two explicit, responsive lines. UAE ecosystem topics open on pointer hover, stay open after a mouse click, and close the previous topic smoothly. Keyboard and touch activation remain available; the separate FAQ retains click-to-toggle behavior.
+
+A UAE-only Lenis controller synchronizes desktop wheel/anchor scrolling with ScrollTrigger; touch devices keep native momentum and reduced-motion users keep native scrolling. The controller cleans up on navigation. About text splitting and process word motion initialize near their sections rather than during the hero's initial render.
+
+The measured pre-change PageSpeed mobile performance score was 76 (FCP 2.3s, LCP 4.4s, TBT 240ms, CLS 0); desktop was 98. The report identified seven render-blocking CSS requests. Next's inlineCss option now removes those initial stylesheet requests. Trade-off: shared CSS travels with HTML and cannot be cached independently on a full reload; client navigation still uses CSS assets. Recheck the deployed revision with PageSpeed; no perfect score is asserted without a matching measurement.
