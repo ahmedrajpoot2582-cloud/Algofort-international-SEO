@@ -64,21 +64,19 @@ export function UaeAdvantagesSection() {
       <div className="site-container container-large padding-global">
         <div className="sec-uae-advantages__layout">
           <div className="sec-uae-advantages__intro">
-            <SectionHeading badge="Why choose Algofort">Silicon Valley engineering.<br /><span className="text-color-secondary">Seamless Dubai collaboration.</span></SectionHeading>
-            <div className="sec-uae-advantages__readout" aria-hidden="true">
-              <span className="sec-uae-expansion__eyebrow">The Algofort advantage</span>
-              <div className="sec-uae-advantages__count"><span data-timeline-current>01</span><span>/ 04</span></div>
-              <span className="sec-uae-advantages__current-label">{labels[0]}</span>
-              <div className="sec-uae-advantages__meter"><span /></div>
-            </div>
+            <SectionHeading dark badge="Why choose Algofort" description="Four ways we make cross-border projects work.">Silicon Valley engineering.<br /><span className="text-color-secondary">Seamless Dubai collaboration.</span></SectionHeading>
           </div>
           <div className="sec-uae-advantages__timeline">
-            <div className="sec-uae-advantages__rail" aria-hidden="true"><span className="sec-uae-advantages__progress" /></div>
+            <svg className="sec-uae-advantages__route" viewBox="0 0 1200 1800" preserveAspectRatio="none" fill="none" aria-hidden="true">
+              <path className="sec-uae-advantages__route-base" d="M100 180C400 80 780 260 950 320C1050 600 300 600 300 800S950 1100 950 1280S300 1500 300 1700" />
+              <path className="sec-uae-advantages__route-progress" d="M100 180C400 80 780 260 950 320C1050 600 300 600 300 800S950 1100 950 1280S300 1500 300 1700" />
+              <circle className="sec-uae-advantages__route-cursor" cx="100" cy="180" r="5" />
+            </svg>
             <ol className="section-content sec-uae-advantages__list">
               {content.advantages.map((item, index) => <li className="sec-uae-advantages__item" key={item.number} data-timeline-label={labels[index]}>
                 <span className="sec-uae-advantages__marker" aria-hidden="true" />
                 <div className="sec-uae-advantages__card">
-                  <div className="sec-uae-advantages__card-meta" aria-hidden="true"><span>{item.number}</span><svg viewBox="0 0 32 32" fill="none"><path d="M16 2v28M2 16h28M6 6l20 20M6 26 26 6" stroke="currentColor" strokeWidth="1.5" /></svg></div>
+                  <div className="sec-uae-advantages__card-meta"><span aria-hidden="true">{item.number}</span><span className="sec-uae-advantages__card-label">{labels[index]}</span></div>
                   <h3 className="heading-style-h3 sec-uae-expansion__subtitle">{item.title}</h3><p className="alg-text">{item.description}</p>
                 </div>
               </li>)}
