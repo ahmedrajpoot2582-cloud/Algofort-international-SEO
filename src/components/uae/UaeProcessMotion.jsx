@@ -14,9 +14,11 @@ export function UaeProcessMotion() {
     const artwork = [...section.querySelectorAll('.uae-process-art')];
     const visibleArtwork = new Set();
     // This section owns its illustration playback, independently of text motion.
-    const updateArtwork = () => artwork.forEach(art => {
-      art.toggleAttribute('data-loop-visible', visibleArtwork.has(art) && !document.hidden && !preference.matches);
-    });
+    const updateArtwork = () => {
+      const playing = !document.hidden && !preference.matches;
+      section.toggleAttribute('data-process-visible', visibleArtwork.size > 0 && playing);
+      artwork.forEach(art => art.toggleAttribute('data-loop-visible', visibleArtwork.has(art) && playing));
+    };
     const observer = new IntersectionObserver(entries => {
       entries.forEach(({ target, isIntersecting }) => {
         if (isIntersecting) visibleArtwork.add(target);
@@ -28,7 +30,7 @@ export function UaeProcessMotion() {
     document.addEventListener('visibilitychange', updateArtwork);
     preference.addEventListener('change', updateArtwork);
 
-    media.add({ motion: '(prefers-reduced-motion: no-preference)', wide: '(min-width: 1100px)', tall: '(min-height: 850px)' }, ({ conditions }) => {
+    media.add({ motion: '(prefers-reduced-motion: no-preference)', wide: '(min-width: 1200px)', tall: '(min-height: 850px)' }, ({ conditions }) => {
       if (!conditions.motion) return;
       let active = true;
       let lifecycle;
@@ -37,10 +39,12 @@ export function UaeProcessMotion() {
       const context = gsap.context(() => {}, section);
       const buildScene = () => context.add(() => {
         const scene = section.querySelector('.sec-uae__process-scene');
+        const stage = section.querySelector('.sec-uae__process-stage');
         const heading = section.querySelector('.sec-uae__process-header h2');
         const hub = section.querySelector('.sec-uae__process-hub');
         const steps = [...section.querySelectorAll('.sec-uae__step')];
-        const paths = [...section.querySelectorAll('.sec-uae__process-connections path')];
+        const paths = [...section.querySelectorAll('.sec-uae__connection-line')];
+        const flows = [...section.querySelectorAll('.sec-uae__connection-flow')];
         const words = element => {
           if (!SplitText) return [element];
           const split = SplitText.create(element, { type: 'words', wordsClass: 'uae-process-word', aria: 'auto' });
@@ -60,26 +64,30 @@ export function UaeProcessMotion() {
           strokeDashoffset: () => path.getTotalLength(),
         }, { strokeDashoffset: 0, stroke: '#f47a1f', duration: .7, ease: 'none' }, at);
 
-        if (conditions.wide && conditions.tall && scene.offsetHeight <= window.innerHeight - 48) {
-          section.dataset.scrollMotion = 'pinned-scrub';
+        const pinScene = conditions.tall && scene.offsetHeight <= window.innerHeight - 48;
+        const pinStage = stage.offsetHeight <= window.innerHeight - 32;
+        if (conditions.wide && (pinScene || pinStage)) {
+          section.dataset.scrollMotion = pinScene ? 'pinned-scrub' : 'stage-scrub';
           const timeline = gsap.timeline({
             scrollTrigger: {
-              trigger: scene, start: 'top 24px',
-              end: () => `+=${Math.round(window.innerHeight * 2.8)}`,
+              trigger: pinScene ? scene : stage, start: pinScene ? 'top 24px' : 'top 16px',
+              end: () => `+=${Math.round(window.innerHeight * 3.2)}`,
               pin: true, pinSpacing: true, anticipatePin: 1,
               scrub: .6, invalidateOnRefresh: true,
             },
           });
-          revealWords(timeline, headingWords);
-          timeline.fromTo(hub, { x: 0, y: 0, xPercent: -50, yPercent: -50, scale: .95 }, { scale: 1, duration: .7, ease: 'none' }, .15);
-          revealWords(timeline, hubWords, .25);
+          if (pinScene) revealWords(timeline, headingWords);
+          else revealWords(gsap.timeline({ scrollTrigger: { trigger: heading, start: 'top 92%', end: 'top 50%', scrub: .6 } }), headingWords);
+          timeline.fromTo(hub, { x: 0, y: 0, xPercent: -50, yPercent: -50, scale: .65, opacity: 0 }, { scale: 1, opacity: 1, duration: .9, ease: 'power2.out' }, 0);
+          revealWords(timeline, hubWords, .15);
           steps.forEach((step, index) => {
-            const at = .9 + index * .9;
+            const at = 1.1 + index * 1.05;
             drawPath(timeline, paths[index], at);
-            timeline.fromTo(step.querySelector('.sec-uae__step-frame'), { scale: .92, opacity: .2 }, {
-              scale: 1, opacity: 1, duration: .65, ease: 'none',
-            }, at + .1);
-            revealWords(timeline, copyWords[index], at + .15);
+            timeline.fromTo(flows[index], { opacity: 0 }, { opacity: .6, duration: .2 }, at + .7);
+            timeline.fromTo(step, { y: 18, opacity: 0 }, {
+              y: 0, opacity: 1, duration: .5, ease: 'power1.out',
+            }, at + .7);
+            revealWords(timeline, copyWords[index], at + .8);
           });
           timeline.to({}, { duration: .7 });
         } else {
@@ -92,20 +100,24 @@ export function UaeProcessMotion() {
             scrollTrigger: { trigger: hub, start: 'top 92%', end: 'top 55%', scrub: .6 },
           });
           hubTimeline.fromTo(hub, {
-            x: 0, y: 16, scale: 1,
+            x: 0, y: 16, scale: .65, opacity: 0,
             xPercent: conditions.wide ? -50 : 0,
             yPercent: conditions.wide ? -50 : 0,
-          }, { y: 0, duration: .8, ease: 'none' }, 0);
+          }, { y: 0, scale: 1, opacity: 1, duration: .9, ease: 'power2.out' }, 0);
           revealWords(hubTimeline, hubWords);
           steps.forEach((step, index) => {
             const timeline = gsap.timeline({
               scrollTrigger: { trigger: step, start: 'top 92%', end: 'top 48%', scrub: .6, invalidateOnRefresh: true },
             });
-            timeline.fromTo(step.querySelector('.sec-uae__step-frame'), { scale: .92, opacity: .35 }, {
-              scale: 1, opacity: 1, duration: .7, ease: 'none',
-            }, 0);
-            revealWords(timeline, copyWords[index], .05);
-            if (conditions.wide) drawPath(timeline, paths[index]);
+            const cardAt = conditions.wide ? .7 : 0;
+            if (conditions.wide) {
+              drawPath(timeline, paths[index]);
+              timeline.fromTo(flows[index], { opacity: 0 }, { opacity: .6, duration: .2 }, .7);
+            }
+            timeline.fromTo(step, { y: 18, opacity: .05 }, {
+              y: 0, opacity: 1, duration: .6, ease: 'none',
+            }, cardAt);
+            revealWords(timeline, copyWords[index], cardAt + .1);
           });
         }
       });
@@ -139,6 +151,7 @@ export function UaeProcessMotion() {
       document.removeEventListener('visibilitychange', updateArtwork);
       preference.removeEventListener('change', updateArtwork);
       artwork.forEach(art => art.removeAttribute('data-loop-visible'));
+      section.removeAttribute('data-process-visible');
     };
   }, []);
   return null;

@@ -1,6 +1,6 @@
 const orange = '#f47a1f';
 const paper = '#f4f4f2';
-const line = '#dededb';
+const line = '#25282c';
 
 // Native vector artwork: crisp at every size, with no player or asset download.
 export function UaeProcessArtwork({ step }) {
@@ -20,7 +20,7 @@ export function UaeProcessArtwork({ step }) {
       <path d="M42 47h236" stroke={line} />
       <g fill={line} stroke="none"><circle cx="57" cy="35" r="3" /><circle cx="68" cy="35" r="3" /><circle cx="79" cy="35" r="3" /></g>
       <rect x="57" y="62" width="43" height="82" rx="5" fill={paper} stroke="none" />
-      <path d="M67 76h23M67 87h16M67 98h20" stroke="#b4b4b0" />
+      <path d="M67 76h23M67 87h16M67 98h20" stroke="#05080c" />
       <rect x="114" y="62" width="89" height="55" rx="5" fill="#fff7ef" stroke={orange} />
       <path d="m127 105 17-18 14 11 20-24 14 15" stroke={orange} />
       <rect x="216" y="62" width="45" height="55" rx="5" fill={paper} stroke="none" />
@@ -30,7 +30,7 @@ export function UaeProcessArtwork({ step }) {
     '03': <>
       <rect x="42" y="26" width="236" height="132" rx="12" fill="#05080c" stroke="none" />
       <path d="M42 51h236" stroke="#ffffff26" />
-      <g stroke="none"><circle cx="58" cy="39" r="3" fill={orange} /><circle cx="69" cy="39" r="3" fill="#666" /><circle cx="80" cy="39" r="3" fill="#666" /></g>
+      <g stroke="none"><circle cx="58" cy="39" r="3" fill={orange} /><circle cx="69" cy="39" r="3" fill={orange} /><circle cx="80" cy="39" r="3" fill={orange} /></g>
       <path d="m87 79-16 16 16 16M109 79l16 16-16 16M103 73l-11 44" stroke={orange} />
       <g stroke="#fff" strokeWidth="3" strokeLinecap="round"><path d="M151 77h92" className="art-code" data-art-motion="" /><path d="M151 94h61" className="art-code art-delay-1" data-art-motion="" /><path d="M151 111h80" className="art-code art-delay-2" data-art-motion="" /></g>
       <path d="M62 141h196" stroke="#ffffff26" strokeWidth="3" />

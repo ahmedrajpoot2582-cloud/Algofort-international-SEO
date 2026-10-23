@@ -3,6 +3,13 @@ import { UaeProcessArtwork } from './UaeProcessArtwork';
 import { UaeProcessMotion } from './UaeProcessMotion';
 
 export function UaeProcessSection({ items }) {
+  const connections = [
+    'M492 235H484Q470 235 470 221V114Q470 100 456 100H440',
+    'M708 235H716Q730 235 730 221V114Q730 100 744 100H760',
+    'M492 300H440', 'M708 300H760',
+    'M492 365H484Q470 365 470 379V486Q470 500 456 500H440',
+    'M708 365H716Q730 365 730 379V486Q730 500 744 500H760',
+  ];
   return (
     <section className="site-section sec-uae-process" id="uae-process" aria-labelledby="uae-process-title">
       <UaeProcessMotion />
@@ -14,12 +21,10 @@ export function UaeProcessSection({ items }) {
           </div>
           <div className="sec-uae__process-stage">
             <svg className="sec-uae__process-connections" viewBox="0 0 1200 600" preserveAspectRatio="none" fill="none" aria-hidden="true">
-              <path d="M480 235H468Q450 235 450 217V118Q450 100 432 100H365" />
-              <path d="M720 235H732Q750 235 750 217V118Q750 100 768 100H835" />
-              <path d="M480 300H365" />
-              <path d="M720 300H835" />
-              <path d="M480 365H468Q450 365 450 383V482Q450 500 432 500H365" />
-              <path d="M720 365H732Q750 365 750 383V482Q750 500 768 500H835" />
+              {connections.map(d => <g key={d}>
+                <path className="sec-uae__connection-line" d={d} />
+                <path className="sec-uae__connection-flow" d={d} />
+              </g>)}
             </svg>
             <div className="sec-uae__process-hub" aria-hidden="true">
               <div className="sec-uae__process-hub-face">
