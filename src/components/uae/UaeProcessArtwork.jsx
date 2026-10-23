@@ -63,5 +63,5 @@ export function UaeProcessArtwork({ step }) {
     </>,
   };
 
-  return <svg className="uae-process-art" viewBox="0 0 320 180" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">{scenes[step] || scenes['01']}</svg>;
+  return <svg className="uae-process-art" viewBox="20 8 280 170" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">{scenes[step] || scenes['01']}</svg>;
 }

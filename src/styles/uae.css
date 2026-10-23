@@ -39,7 +39,7 @@
 .page-uae .sec-uae__process-header .section-badge { justify-content: center; }
 .page-uae #uae-process .sec-uae__process-header .section-title { color: #05080c; font-size: clamp(2.5rem, 3.3vw, 3.5rem) !important; margin: 0 !important; }
 .page-uae .sec-uae__process-stage { position: relative; min-height: 560px; isolation: isolate; }
-.page-uae .sec-uae__process-connections { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; stroke: #b5b5af; stroke-width: 1; stroke-linecap: round; stroke-linejoin: round; }
+.page-uae .sec-uae__process-connections { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; stroke: #b5b5af; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .page-uae .sec-uae__process-connections path { vector-effect: non-scaling-stroke; }
 .page-uae .sec-uae__process-hub { position: absolute; top: 50%; left: 50%; width: 23%; max-width: 300px; aspect-ratio: 1; transform: translate(-50%, -50%); padding: 9px; border: 1px solid #f47a1f; border-radius: 28px; background: #f47a1f; }
 .page-uae .sec-uae__process-hub::before, .page-uae .sec-uae__process-hub::after { content: ''; position: absolute; z-index: -1; border: 1px solid #05080c30; border-radius: 28px; inset: -14px 10px 14px -10px; }
@@ -61,9 +61,10 @@
 .page-uae .sec-uae__step--right .sec-uae__step-copy { grid-column: 2; grid-row: 1; text-align: left; }
 .page-uae .sec-uae__step-label { display: block; margin-bottom: .4rem; color: #ad4700; font-size: .6875rem; letter-spacing: .1em; text-transform: uppercase; }
 .page-uae main .sec-uae__subtitle.heading-style-h3 { margin: 0 0 .6rem; color: #05080c; font-size: clamp(1.625rem, 2.2vw, 2rem) !important; }
-.page-uae .sec-uae__step-frame { display: flex; align-items: center; width: 108px; aspect-ratio: 1; padding: .25rem; border: 0; border-radius: 100%; background: #05080c; box-shadow: none; }
+.page-uae .sec-uae__step-frame { display: flex; align-items: center; width: 108px; aspect-ratio: 1; padding: .25rem; border: 0; border-radius: 100%; background: #fff; box-shadow: 0 8px 30px #05080c08; }
 .page-uae .sec-uae__step--right .sec-uae__step-frame { grid-column: 1; grid-row: 1; box-shadow: none; }
 .page-uae .sec-uae__step-illustration { width: 100%; }
+.page-uae .uae-process-word { display: inline-block; white-space: nowrap; }
 .page-uae .sec-uae-process[data-scroll-motion='pinned-scrub'] .sec-uae__process-scene { display: flex; flex-direction: column; height: calc(100svh - 48px); }
 .page-uae .sec-uae-process[data-scroll-motion='pinned-scrub'] .sec-uae__process-header { flex: none; width: 100%; }
 .page-uae .sec-uae-process[data-scroll-motion='pinned-scrub'] .sec-uae__process-stage { flex: 1; min-height: 0; }
@@ -72,13 +73,13 @@
 .page-uae .uae-process-art [data-art-motion] { transform-box: fill-box; transform-origin: center; animation-play-state: paused; }
 .page-uae .uae-process-art[data-loop-visible] [data-art-motion] { animation-play-state: running; }
 .page-uae .art-flow { animation: uae-art-flow 4s linear infinite; }
-.page-uae .art-turn { animation: uae-art-turn 14s linear infinite; }
-.page-uae .art-cursor { animation: uae-art-cursor 4s ease-in-out infinite; }
-.page-uae .art-code { animation: uae-art-code 3.5s ease-in-out infinite; }
+.page-uae .art-turn { animation: uae-art-turn 5s linear infinite; }
+.page-uae .art-cursor { animation: uae-art-cursor 2.8s ease-in-out infinite; }
+.page-uae .art-code { animation: uae-art-code 2.4s ease-in-out infinite; }
 .page-uae .uae-process-art .art-progress { stroke-dasharray: 196; animation: uae-art-progress 4s ease-in-out infinite; transform-origin: left center; }
 .page-uae .art-check { stroke-dasharray: 18; animation: uae-art-check 4s ease-in-out infinite; }
 .page-uae .art-scan { animation: uae-art-scan 5s ease-in-out infinite; }
-.page-uae .art-launch { animation: uae-art-launch 4.5s ease-in-out infinite; }
+.page-uae .art-launch { animation: uae-art-launch 2.6s ease-in-out infinite; }
 .page-uae .art-flame { animation: uae-art-flame 1s ease-in-out infinite alternate; }
 .page-uae .art-dot { animation: uae-art-dot 2.4s ease-in-out infinite; }
 .page-uae .art-ring { animation: uae-art-ring 3s ease-out infinite; }

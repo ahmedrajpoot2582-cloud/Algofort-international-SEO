@@ -127,7 +127,7 @@ export function UaeMotion() {
       };
     });
 
-    const loops = [...root.querySelectorAll('.subtitle-marquee-track, .service-marquee-track, .sonar-wave, .uae-process-art')];
+    const loops = [...root.querySelectorAll('.subtitle-marquee-track, .service-marquee-track, .sonar-wave')];
     const visibleLoops = new Set();
     const updateLoops = () => loops.forEach(loop => {
       loop.toggleAttribute('data-loop-visible', visibleLoops.has(loop) && !document.hidden && !preference.matches);

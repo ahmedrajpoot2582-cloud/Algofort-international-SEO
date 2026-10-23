@@ -14,12 +14,12 @@ export function UaeProcessSection({ items }) {
           </div>
           <div className="sec-uae__process-stage">
             <svg className="sec-uae__process-connections" viewBox="0 0 1200 600" preserveAspectRatio="none" fill="none" aria-hidden="true">
-              <path d="M480 235H450V100H365" />
-              <path d="M720 235H750V100H835" />
+              <path d="M480 235H468Q450 235 450 217V118Q450 100 432 100H365" />
+              <path d="M720 235H732Q750 235 750 217V118Q750 100 768 100H835" />
               <path d="M480 300H365" />
               <path d="M720 300H835" />
-              <path d="M480 365H450V500H365" />
-              <path d="M720 365H750V500H835" />
+              <path d="M480 365H468Q450 365 450 383V482Q450 500 432 500H365" />
+              <path d="M720 365H732Q750 365 750 383V482Q750 500 768 500H835" />
             </svg>
             <div className="sec-uae__process-hub" aria-hidden="true">
               <div className="sec-uae__process-hub-face">
