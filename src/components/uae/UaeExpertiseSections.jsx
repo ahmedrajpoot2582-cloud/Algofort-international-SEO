@@ -42,8 +42,7 @@ export function UaeEcosystemSection() {
         <div className="sec-uae-ecosystem__panel">
           <div className="sec-uae-ecosystem__background" aria-hidden="true" />
           <div className="sec-uae-ecosystem__intro">
-            <SectionHeading dark badge="Built for the UAE market" description="Succeeding in Dubai requires more than a generic template. We build digital products pre-configured for the technical, cultural, and regulatory demands of the United Arab Emirates.">Engineered specifically<br /><span className="text-color-secondary">for UAE business standards.</span></SectionHeading>
-            <span className="sec-uae-ecosystem__caption">Local ecosystem ready</span>
+            <SectionHeading dark badge="Built for the UAE market">Engineered specifically<br /><span className="text-color-secondary">for UAE business standards.</span></SectionHeading>
           </div>
           <div className="section-content sec-uae-ecosystem__list">
             {content.ecosystem.map((item, index) => <details className="sec-uae-ecosystem__item" key={item.number} open={index === 0}>

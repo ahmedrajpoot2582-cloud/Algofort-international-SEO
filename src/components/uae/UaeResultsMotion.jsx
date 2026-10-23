@@ -21,7 +21,7 @@ export function UaeResultsMotion() {
         x: 0, opacity: 1, duration: 1, stagger: .22, ease: 'power2.out',
         scrollTrigger: {
           trigger: grid, start: 'top 95%', end: 'top 25%',
-          scrub: .65, once: true, invalidateOnRefresh: true,
+          scrub: .65, invalidateOnRefresh: true,
         },
       });
     });
@@ -31,7 +31,7 @@ export function UaeResultsMotion() {
           x: 0, opacity: 1, ease: 'power2.out',
           scrollTrigger: {
             trigger: card, start: 'top 95%', end: 'top 55%',
-            scrub: .5, once: true,
+            scrub: .5,
           },
         });
       });
