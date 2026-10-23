@@ -21,10 +21,7 @@ export function UaeProcessSection({ items }) {
           </div>
           <div className="sec-uae__process-stage">
             <svg className="sec-uae__process-connections" viewBox="0 0 1200 600" preserveAspectRatio="none" fill="none" aria-hidden="true">
-              {connections.map(d => <g key={d}>
-                <path className="sec-uae__connection-line" d={d} />
-                <path className="sec-uae__connection-flow" d={d} />
-              </g>)}
+              {connections.map(d => <path className="sec-uae__connection-flow" d={d} key={d} />)}
             </svg>
             <div className="sec-uae__process-hub" aria-hidden="true">
               <div className="sec-uae__process-hub-face">
