@@ -97,7 +97,6 @@ export function UaeResultsSection() {
         <div className="sec-uae-results__intro">
           <SectionHeading badge="Proven results">How we help<br /><span className="text-color-secondary">brands scale.</span></SectionHeading>
           <div className="sec-uae-expansion__caption"><span>Recent success stories</span></div>
-          <div className="sec-uae-results__progress" aria-hidden="true">{content.results.map(result => <span key={result.number}>{result.number}</span>)}</div>
         </div>
         <div className="section-content sec-uae-results__grid">
           {content.results.map((result) => <article className="content-card sec-uae-results__card" key={result.number}>

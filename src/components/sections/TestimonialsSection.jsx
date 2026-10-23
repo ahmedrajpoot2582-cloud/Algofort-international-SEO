@@ -38,7 +38,7 @@ const testimonialsData = [
   },
 ];
 
-export function TestimonialsSection({ items = testimonialsData } = {}) {
+export function TestimonialsSection({ items = testimonialsData, revealOnce = false } = {}) {
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -52,18 +52,25 @@ export function TestimonialsSection({ items = testimonialsData } = {}) {
       initTitleAnimation(titleEl, { start: 'top 85%', stagger: 0.02 });
     }
 
+    if (revealOnce && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      el.classList.add('is-visible');
+      return;
+    }
     const st = ScrollTrigger.create({
       trigger: el,
       start: 'top 70%',
       end: 'top -30%',
       onEnter: () => el.classList.add('is-visible'),
-      onLeave: () => el.classList.remove('is-visible'),
-      onEnterBack: () => el.classList.add('is-visible'),
-      onLeaveBack: () => el.classList.remove('is-visible'),
+      once: revealOnce,
+      ...(!revealOnce && {
+        onLeave: () => el.classList.remove('is-visible'),
+        onEnterBack: () => el.classList.add('is-visible'),
+        onLeaveBack: () => el.classList.remove('is-visible'),
+      }),
     });
 
     return () => st.kill();
-  }, []);
+  }, [revealOnce]);
 
   return (
     <section className="alg-testimonials site-section sec-testimonials cb-summary" id="sec-testimonials">

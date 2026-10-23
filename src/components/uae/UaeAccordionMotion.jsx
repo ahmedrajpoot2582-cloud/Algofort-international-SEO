@@ -15,10 +15,14 @@ export function UaeAccordionMotion() {
       cancelAnimationFrame(refreshFrame);
       refreshFrame = requestAnimationFrame(() => ScrollTrigger.refresh());
     };
+    const groups = new Map();
     const controllers = [...root.querySelectorAll('#uae-ecosystem details, #sec-faq details')].map(details => {
       const summary = details.querySelector('summary');
       const body = summary?.nextElementSibling;
       if (!summary || !body) return null;
+      const groupKey = details.closest('#uae-ecosystem, #sec-faq');
+      if (!groups.has(groupKey)) groups.set(groupKey, []);
+      const group = groups.get(groupKey);
       const originalStyle = body.getAttribute('style');
       const originalExpanded = summary.getAttribute('aria-expanded');
       let expanded = details.open;
@@ -35,11 +39,11 @@ export function UaeAccordionMotion() {
         state(expanded ? 'open' : 'closed');
       };
       settle();
-      const click = event => {
-        event.preventDefault();
+      const setExpanded = next => {
+        if (expanded === next) return;
         const height = body.getBoundingClientRect().height;
         tween?.kill();
-        expanded = !expanded;
+        expanded = next;
         if (preference.matches) {
           settle();
           refresh();
@@ -59,9 +63,16 @@ export function UaeAccordionMotion() {
           },
         });
       };
+      const click = event => {
+        event.preventDefault();
+        const next = !expanded;
+        if (next) group.forEach(controller => controller.setExpanded(false));
+        setExpanded(next);
+      };
       summary.addEventListener('click', click);
-      return {
+      const controller = {
         settle,
+        setExpanded,
         destroy: () => {
           tween?.kill();
           summary.removeEventListener('click', click);
@@ -74,6 +85,8 @@ export function UaeAccordionMotion() {
           delete details.dataset.accordionState;
         },
       };
+      group.push(controller);
+      return controller;
     }).filter(Boolean);
     const reduceMotion = () => {
       if (!preference.matches) return;
