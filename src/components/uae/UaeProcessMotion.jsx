@@ -10,20 +10,21 @@ export function UaeProcessMotion() {
     const media = gsap.matchMedia();
     const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
     const artwork = [...section.querySelectorAll('.uae-process-art')];
-    const visibleArtwork = new Set();
+    const visibleMotionTargets = new Set();
     const updateArtwork = () => {
       const playing = !document.hidden && !preference.matches;
-      section.toggleAttribute('data-process-visible', visibleArtwork.size > 0 && playing);
-      artwork.forEach(art => art.toggleAttribute('data-loop-visible', visibleArtwork.has(art) && playing));
+      section.toggleAttribute('data-process-visible', visibleMotionTargets.size > 0 && playing);
+      artwork.forEach(art => art.toggleAttribute('data-loop-visible', visibleMotionTargets.has(art) && playing));
     };
     const artworkObserver = new IntersectionObserver(entries => {
       entries.forEach(({ target, isIntersecting }) => {
-        if (isIntersecting) visibleArtwork.add(target);
-        else visibleArtwork.delete(target);
+        if (isIntersecting) visibleMotionTargets.add(target);
+        else visibleMotionTargets.delete(target);
       });
       updateArtwork();
     });
     artwork.forEach(art => artworkObserver.observe(art));
+    artworkObserver.observe(section.querySelector('.sec-uae__process-hub'));
     document.addEventListener('visibilitychange', updateArtwork);
     preference.addEventListener('change', updateArtwork);
 

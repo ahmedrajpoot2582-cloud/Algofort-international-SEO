@@ -44,10 +44,11 @@
 .page-uae .sec-uae__connection-flow { stroke: #05080c; stroke-width: 1.5; stroke-dasharray: 5 13; animation: uae-connection-flow 2.5s linear infinite; animation-play-state: paused; }
 .page-uae #uae-process[data-process-visible] .sec-uae__connection-flow { animation-play-state: running; }
 @keyframes uae-connection-flow { to { stroke-dashoffset: -36; } }
-.page-uae .sec-uae__process-hub { position: absolute; top: 50%; left: 50%; width: 20%; max-width: 260px; aspect-ratio: 1; transform: translate(-50%, -50%); padding: 9px; border: 1px solid #f47a1f; border-radius: 28px; background: #f47a1f; }
-.page-uae .sec-uae__process-hub::before, .page-uae .sec-uae__process-hub::after { content: ''; position: absolute; z-index: -1; border: 1px solid #05080c30; border-radius: 28px; inset: -14px 10px 14px -10px; }
-.page-uae .sec-uae__process-hub::after { inset: 12px -12px -12px 12px; border-color: #f47a1f70; }
-.page-uae .sec-uae__process-hub-face { height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .75rem; padding: 1rem; border-radius: 20px; background: #fff; color: #05080c; text-align: center; }
+@property --uae-hub-border-angle { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+.page-uae .sec-uae__process-hub { position: absolute; top: 50%; left: 50%; width: 20%; max-width: 260px; aspect-ratio: 1; transform: translate(-50%, -50%); padding: 0; border: 3px solid transparent; border-radius: 28px; background: linear-gradient(#fff, #fff) padding-box, conic-gradient(from var(--uae-hub-border-angle), #f47a1f, #ffb35c, #05080c, #f47a1f) border-box; animation: uae-hub-border-spin 6s linear infinite; animation-play-state: paused; }
+.page-uae #uae-process[data-process-visible] .sec-uae__process-hub { animation-play-state: running; }
+.page-uae .sec-uae__process-hub-face { height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .75rem; padding: 1.125rem; border-radius: 25px; background: #fff; color: #05080c; text-align: center; }
+@keyframes uae-hub-border-spin { to { --uae-hub-border-angle: 360deg; } }
 .page-uae .sec-uae__process-hub-brand { font-size: .625rem; font-weight: 600; text-transform: uppercase; letter-spacing: .15em; }
 .page-uae .sec-uae__process-hub svg { width: 40px; height: 40px; color: #f47a1f; }
 .page-uae .sec-uae__process-hub strong { font-family: 'Mona Sans Narrow', sans-serif; text-transform: uppercase; font-size: clamp(1.75rem, 3vw, 3rem); line-height: 1; }
@@ -229,7 +230,7 @@
 @media (prefers-reduced-motion: reduce) {
  .page-uae [data-uae-accordion] .sec-uae-ecosystem__toggle::after, .page-uae [data-uae-accordion] .alg-faq-item-arrow { transition: none; }
  .page-uae .subtitle-marquee-track, .page-uae .service-marquee-track, .page-uae .sonar-wave { animation: none !important; }
- .page-uae .sec-uae__connection-flow { animation: none !important; }
+ .page-uae .sec-uae__connection-flow, .page-uae .sec-uae__process-hub { animation: none !important; }
  .page-uae .uae-process-art [data-art-motion] { animation: none !important; transform: none !important; opacity: 1 !important; stroke-dashoffset: 0; }
 }
 html:has(.page-uae) { scroll-behavior: smooth; }
