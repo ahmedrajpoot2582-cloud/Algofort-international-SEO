@@ -71,7 +71,7 @@ export default function UaePage() {
           <UaeAdvantagesSection />
           <ShowreelSection />
           <UaeResultsSection />
-          <TestimonialsSection revealOnce />
+          <TestimonialsSection />
           <FaqSection deferMotion items={content.faqs} />
           <CtaSection deferMotion title={<>Start a project<br /><span className="text-color-secondary">in the UAE.</span></>} description="Let us collaborate to build something extraordinary and elevate your brand across Dubai and the GCC." country="United Arab Emirates" phoneLabel="Phone Number (UAE / International)" />
         </main>

@@ -10,16 +10,28 @@ export function UaeResultsMotion() {
     if (!section) return;
     gsap.registerPlugin(ScrollTrigger);
     const cards = [...section.querySelectorAll('.sec-uae-results__card')];
+    const grid = section.querySelector('.sec-uae-results__grid');
     const media = gsap.matchMedia();
     let active = true;
 
-    media.add('(prefers-reduced-motion: no-preference)', () => {
+    media.add('(prefers-reduced-motion: no-preference) and (min-width: 768px)', () => {
+      // Set every card before the stagger starts so later cards cannot flash in place.
+      gsap.set(cards, { x: () => section.clientWidth, opacity: 0 });
+      gsap.fromTo(cards, { x: () => section.clientWidth, opacity: 0 }, {
+        x: 0, opacity: 1, duration: 1, stagger: .22, ease: 'power2.out',
+        scrollTrigger: {
+          trigger: grid, start: 'top 95%', end: 'top 25%',
+          scrub: .65, once: true, invalidateOnRefresh: true,
+        },
+      });
+    });
+    media.add('(prefers-reduced-motion: no-preference) and (max-width: 767px)', () => {
       cards.forEach(card => {
-        gsap.fromTo(card, { y: 64, opacity: 0 }, {
-          y: 0, opacity: 1, duration: .85, ease: 'power3.out',
+        gsap.fromTo(card, { x: 80, opacity: 0 }, {
+          x: 0, opacity: 1, ease: 'power2.out',
           scrollTrigger: {
-            trigger: card, start: 'top 90%',
-            toggleActions: 'play none none none', once: true,
+            trigger: card, start: 'top 95%', end: 'top 55%',
+            scrub: .5, once: true,
           },
         });
       });
