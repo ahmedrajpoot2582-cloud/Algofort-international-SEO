@@ -5,13 +5,15 @@ import '../styles/support-chat.css';
 import SupportChatWidget from '../components/common/SupportChatWidget';
 import { withSocialMetadata } from '../lib/seo';
 import { SITE_URL } from '../lib/site';
+import { internationalAlternates } from '../data/markets';
 
 export const metadata = withSocialMetadata({
   metadataBase: new URL(SITE_URL),
   title: 'Algofort | AI, Custom Software & Digital Transformation',
   description:
     'Algofort is a technology and digital solutions agency engineering custom software, intelligent AI solutions, and high-performance digital platforms.',
-  alternates: { canonical: '/', languages: { 'en-AE': '/ae', 'en-PK': '/', 'x-default': '/' } },
+  alternates: { canonical: '/', languages: internationalAlternates() },
+  openGraph: { locale: 'en_PK', alternateLocale: ['en_AE'] },
   icons: {
     icon: [
       { url: '/fav-icon.png', type: 'image/png' },

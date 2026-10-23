@@ -19,13 +19,23 @@ for (const path of paths) {
   const canonical = links.find((link) => link.rel === 'canonical')?.href;
   assert.equal(canonical ? new URL(canonical).toString() : undefined, absoluteUrl(path), `${path}: canonical`);
   assert.equal((html.match(/<h1[\s>]/g) || []).length, 1, `${path}: one server-rendered H1`);
-  for (const [, content] of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) JSON.parse(content);
-  if (markets.some((market) => marketPath(market) === path)) {
+  const structuredData = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].flatMap(([, content]) => {
+    const data = JSON.parse(content);
+    return data['@graph'] || [data];
+  });
+  if (path === '/' || markets.some((market) => marketPath(market) === path)) {
     for (const [locale, target] of Object.entries(internationalAlternates())) {
       assert.ok(links.some((link) => link.hreflang === locale && new URL(link.href).toString() === absoluteUrl(target)), `${path}: ${locale} alternate`);
     }
   }
   if (path === '/ae') {
+    assert.match(html, /<meta name="viewport" content="width=device-width, initial-scale=1"/, 'Responsive viewport without zoom restrictions');
+    assert.match(html, /<meta property="og:locale" content="en_AE"/, 'UAE social locale');
+    assert.match(html, /<meta property="og:locale:alternate" content="en_PK"/, 'Regional social alternate');
+    const webPage = structuredData.find((node) => node['@type'] === 'WebPage');
+    assert.equal(webPage?.url, absoluteUrl('/ae'), 'UAE WebPage canonical URL');
+    assert.equal(webPage?.inLanguage, 'en-AE', 'UAE WebPage language');
+    assert.equal(webPage?.isPartOf?.['@id'], absoluteUrl('/#website'), 'UAE WebPage belongs to main site');
     assert.ok(!html.includes('Find your location') && !html.includes('country-directory'), 'No unwanted directory section');
     assert.ok(html.includes('name="message"') && html.includes('id="sec-cta"'), 'Inline project enquiry form');
     for (const section of ['uae-industries', 'uae-ecosystem', 'uae-advantages', 'uae-results']) {

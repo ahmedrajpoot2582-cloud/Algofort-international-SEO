@@ -10,7 +10,7 @@
 .page-uae .alg-header-drawer .navigation-link-text { white-space: nowrap; }
 .page-uae .alg-header-drawer .navigation-button-wrap { align-self: flex-start; flex-shrink: 0; }
 /* A transparent, non-interactive viewport edge softens content at the bottom. */
-.page-uae .uae-bottom-blur { position: fixed; z-index: 60; inset: auto 0 0; height: 100px; pointer-events: none; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); -webkit-mask-image: linear-gradient(transparent, #000 90%); mask-image: linear-gradient(transparent, #000 90%); }
+.page-uae .uae-bottom-blur { position: fixed; z-index: 60; inset: auto 0 0; height: 100px; pointer-events: none; -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); -webkit-mask-image: linear-gradient(transparent, #000 90%); mask-image: linear-gradient(transparent, #000 90%); }
 .page-uae:has(input:focus, textarea:focus, select:focus) .uae-bottom-blur { visibility: hidden; }
 /* Keep server-rendered text readable before viewport-scoped GSAP motion starts. */
 .page-uae p.alg-text { opacity: 1 !important; animation: none !important; }
@@ -136,6 +136,7 @@
 .page-uae .sec-uae-ecosystem__item[data-accordion-state='opening'] .sec-uae-ecosystem__toggle::after,
 .page-uae .sec-uae-ecosystem__item[data-accordion-state='open'] .sec-uae-ecosystem__toggle::after { transform: scaleY(0); }
 .page-uae .alg-faq-item[data-accordion-state='closing'] .alg-faq-item-arrow { transform: rotate(0deg); }
+.page-uae .alg-faq-item-title { flex: 1; min-width: 0; overflow-wrap: anywhere; }
 /* A flowing journey on a dark canvas; the page itself keeps scrolling. */
 .page-uae .sec-uae-advantages { margin-inline: var(--uae-frame-inset); width: calc(100% - var(--uae-frame-inset) * 2); border: 0; border-radius: 32px; color: #fff; background: radial-gradient(ellipse at 45% 18%, #f47a1f12, transparent 32%), radial-gradient(ellipse at 55% 68%, #ffffff08, transparent 32%), #101110; }
 .page-uae .sec-uae-advantages__layout { display: block; }
@@ -186,11 +187,18 @@
 }
 @media (max-width: 991px) {
  .page-uae { --uae-frame-inset: 8px; }
+ .page-uae .sec-uae-expansion__header .section-title, .page-uae .sec-uae__process-header .section-title { font-size: clamp(2.5rem, 8vw, 5rem) !important; overflow-wrap: anywhere; }
+ .page-uae .uae-process-word { max-width: 100%; white-space: normal; overflow-wrap: anywhere; }
  .page-uae .sec-uae-ecosystem > .site-container { width: calc(100% - var(--uae-frame-inset) * 2) !important; max-width: none !important; padding-inline: 0 !important; }
  .page-uae .sec-uae-ecosystem__panel, .page-uae .sec-uae-advantages__layout { grid-template-columns: 1fr; gap: 2rem; }
  .page-uae .sec-uae-ecosystem__panel { padding: 2rem; }
  .page-uae .sec-uae-results__card { padding: 1.5rem; }
  .page-uae .sec-uae-advantages__intro { position: static; }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+ .page-uae .sec-uae__step, .page-uae .sec-uae__step--right { grid-template-columns: minmax(0, 1fr); align-content: start; }
+ .page-uae .sec-uae__step-copy, .page-uae .sec-uae__step--right .sec-uae__step-copy { grid-column: 1; grid-row: 2; }
+ .page-uae .sec-uae__step-frame, .page-uae .sec-uae__step--right .sec-uae__step-frame { grid-column: 1; grid-row: 1; }
 }
 @media (max-width: 767px) {
  .page-uae .sec-uae-expansion__header { margin-bottom: 2rem; }
@@ -215,7 +223,7 @@
 }
 @media (max-width: 768px) {
  .page-uae { --uae-section-space: 4rem; }
- .page-uae .uae-bottom-blur { height: 72px; -webkit-backdrop-filter: blur(7px); backdrop-filter: blur(7px); }
+ .page-uae .uae-bottom-blur { height: 72px; -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
 }
 @media (max-width: 479px) {
  .page-uae { --uae-frame-inset: 6px; }

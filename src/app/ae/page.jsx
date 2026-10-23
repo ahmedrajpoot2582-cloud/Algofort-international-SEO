@@ -24,12 +24,22 @@ export const metadata = withSocialMetadata({
   description: content.description,
   keywords: content.keywords,
   alternates: { canonical: '/ae', languages: internationalAlternates() },
-  openGraph: { locale: 'en_AE' },
+  openGraph: { locale: 'en_AE', alternateLocale: ['en_PK'] },
 });
 
 const schema = {
   '@context': 'https://schema.org',
   '@graph': [
+    {
+      '@type': 'WebPage',
+      '@id': absoluteUrl('/ae#webpage'),
+      url: absoluteUrl('/ae'),
+      name: content.title,
+      description: content.description,
+      inLanguage: 'en-AE',
+      isPartOf: { '@id': absoluteUrl('/#website') },
+      about: { '@id': absoluteUrl('/#organization') },
+    },
     {
       '@type': 'ProfessionalService',
       '@id': absoluteUrl('/#organization'),
