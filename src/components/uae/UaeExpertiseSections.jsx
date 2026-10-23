@@ -2,6 +2,7 @@ import { SubtitleMarquee } from '../common/SubtitleMarquee';
 import { ProcessSection } from '../sections/ProcessSection';
 import { UaeEcosystemMotion } from './UaeEcosystemMotion';
 import { UaeAdvantagesMotion } from './UaeAdvantagesMotion';
+import { UaeResultsMotion } from './UaeResultsMotion';
 import { uaeSections as content } from '../../data/uae-sections';
 
 const asterisk = '/assets/68f7cadfd454c94c5b5251cb_grey-asterisk-icon.svg';
@@ -87,26 +88,17 @@ export function UaeAdvantagesSection() {
   );
 }
 
-export function UaeTechnologySection() {
-  return (
-    <section className="site-section sec-uae-expansion sec-uae-technology" id="uae-technology" aria-label="Our technology stack">
-      <div className="site-container container-large padding-global">
-        <SectionHeading badge="Our tech stack">Technologies we use<br /><span className="text-color-secondary">to build scalable products.</span></SectionHeading>
-        <div className="sec-uae-expansion__caption"><span>Built with modern tech</span></div>
-        <div className="section-content sec-uae-technology__list">
-          {content.technology.map((category) => <div className="sec-uae-technology__row" key={category.title}><h3 className="heading-style-h3 sec-uae-expansion__subtitle">{category.title}</h3><ul className="sec-uae-technology__tools" aria-label={category.title}>{category.tools.map((tool) => <li key={tool}>{tool}</li>)}</ul></div>)}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 export function UaeResultsSection() {
   return (
     <section className="site-section sec-uae-expansion sec-uae-results" id="uae-results" aria-label="Recent success stories">
+      <UaeResultsMotion />
       <div className="site-container container-large padding-global">
-        <SectionHeading badge="Proven results">How we help<br /><span className="text-color-secondary">brands scale.</span></SectionHeading>
-        <div className="sec-uae-expansion__caption"><span>Recent success stories</span></div>
+        <div className="sec-uae-results__stage">
+        <div className="sec-uae-results__intro">
+          <SectionHeading badge="Proven results">How we help<br /><span className="text-color-secondary">brands scale.</span></SectionHeading>
+          <div className="sec-uae-expansion__caption"><span>Recent success stories</span></div>
+          <div className="sec-uae-results__progress" aria-hidden="true">{content.results.map(result => <span key={result.number}>{result.number}</span>)}</div>
+        </div>
         <div className="section-content sec-uae-results__grid">
           {content.results.map((result) => <article className="content-card sec-uae-results__card" key={result.number}>
             <span className="sec-uae-expansion__number">({result.number})</span>
@@ -115,6 +107,7 @@ export function UaeResultsSection() {
             <p className="sec-uae-results__category">{result.category}</p>
             <p className="alg-text">{result.description}</p>
           </article>)}
+        </div>
         </div>
       </div>
     </section>

@@ -13,7 +13,7 @@ if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
 }
 
-export const AboutSection = () => {
+export const AboutSection = ({ description, id = 'sec-about', studioNote }) => {
   const sectionRef = useRef(null);
   const textRef = useRef(null);
 
@@ -54,7 +54,7 @@ export const AboutSection = () => {
     <section 
       ref={sectionRef} 
       className="site-section sec-about section_about-markeio forteve-about" 
-      id="sec-about"
+      id={id}
     >
       <div className="site-container container-large sec-about__container forteve-about__container">
         
@@ -65,13 +65,14 @@ export const AboutSection = () => {
           </div>
           <div className="section-description sec-about__desc sec-about__content about-markeio_content scrub_letter forteve-about__content" ref={textRef}>
             <p className="alg-text">
-              At Algofort, we believe technology isn't just about code — it's about connection and delivering measurable impact. We're a digital solutions agency built to help brands grow with purpose and engineering precision. From architecting intelligent software to executing digital strategies, we combine technology and creativity to deliver solutions that drive sustainable growth.
+              {description || "At Algofort, we believe technology isn't just about code — it's about connection and delivering measurable impact. We're a digital solutions agency built to help brands grow with purpose and engineering precision. From architecting intelligent software to executing digital strategies, we combine technology and creativity to deliver solutions that drive sustainable growth."}
             </p>
           </div>
         </div>
 
         {/* Fact Cards Grid (Inspired by Denzil Framer - 100% Localhost) */}
         <FactCardsGrid />
+        {studioNote && <p className="alg-text uae-studio-note">{studioNote}</p>}
 
       </div>
     </section>

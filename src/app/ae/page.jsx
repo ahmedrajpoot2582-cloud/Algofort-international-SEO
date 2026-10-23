@@ -3,14 +3,14 @@ import { Footer } from '../../components/common/Footer';
 import { PageBanner } from '../../components/common/PageBanner';
 import { Cursor } from '../../components/common/Cursor';
 import { BackToTop } from '../../components/common/BackToTop';
-import { SubtitleMarquee } from '../../components/common/SubtitleMarquee';
+import { AboutSection } from '../../components/sections/AboutSection';
 import { UaeProcessSection } from '../../components/uae/UaeProcessSection';
 import { ServicesSection } from '../../components/sections/ServicesSection';
 import { ShowreelSection } from '../../components/sections/ShowreelSection';
 import { TestimonialsSection } from '../../components/sections/TestimonialsSection';
 import { FaqSection } from '../../components/sections/FaqSection';
 import { CtaSection } from '../../components/sections/CtaSection';
-import { UaeIndustriesSection, UaeEcosystemSection, UaeAdvantagesSection, UaeTechnologySection, UaeResultsSection } from '../../components/uae/UaeExpertiseSections';
+import { UaeIndustriesSection, UaeEcosystemSection, UaeAdvantagesSection, UaeResultsSection } from '../../components/uae/UaeExpertiseSections';
 import { UaeMotion } from '../../components/uae/UaeMotion';
 import { UaeAccordionMotion } from '../../components/uae/UaeAccordionMotion';
 import { uaeContent as content } from '../../data/uae';
@@ -60,17 +60,7 @@ export default function UaePage() {
           <script type="application/ld+json">{JSON.stringify(schema).replace(/</g, '\\u003c')}</script>
           <PageBanner performanceMode animateEntrance title={content.heroTitle} eyebrow={content.heroBadge} services={content.marquee} breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'UAE', href: '/ae', active: true }]} />
 
-          <section className="site-section sec-uae-about" id="uae-about" aria-label="About Algofort">
-            <div className="site-container container-large padding-global">
-              <div className="section-header sec-uae__about-heading">
-                <div className="section-badge"><SubtitleMarquee text="About Algofort — " /></div>
-              </div>
-              <div className="sec-uae__about-copy">
-                <p className="alg-text section-description">{content.about}</p>
-                <p className="alg-text sec-uae__studio-note">Global engineering & delivery studio: Karachi. Serving Dubai, Abu Dhabi, the UAE and global markets.</p>
-              </div>
-            </div>
-          </section>
+          <AboutSection id="uae-about" description={content.about} studioNote="Global engineering & delivery studio: Karachi. Serving Dubai, Abu Dhabi, the UAE and global markets." />
 
           <ServicesSection deferMotion animateHeading={false} items={content.services} heading={<><span className="uae-services-title-line">Creative solutions</span>{' '}<span className="uae-services-title-line text-color-secondary">for UAE enterprises.</span></>} />
           <UaeIndustriesSection />
@@ -79,7 +69,6 @@ export default function UaePage() {
           <UaeProcessSection items={content.process} />
 
           <UaeAdvantagesSection />
-          <UaeTechnologySection />
           <ShowreelSection />
           <UaeResultsSection />
           <TestimonialsSection />
