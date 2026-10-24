@@ -23,6 +23,10 @@
 .page-uae .sec-uae-expansion .heading-style-h3, .page-uae .sec-uae__subtitle.heading-style-h3 { font-size: 1.5rem !important; line-height: 1.2 !important; font-weight: 600; letter-spacing: -.02em !important; text-transform: uppercase !important; }
 .page-uae .sec-page-banner__eyebrow { display: block; color: white; font-family: 'Mona Sans', sans-serif; font-size: .875rem; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 1.25rem; }
 .page-uae .sec-page-banner__title { max-width: 1200px; font-family: 'UAE Hero', 'Mona Sans Narrow', sans-serif !important; text-transform: uppercase !important; font-size: clamp(3rem, 7.5vw, 8rem) !important; }
+@media (min-width: 992px) {
+ /* Reserve the final two-line hero geometry while the font is decoded. */
+ .page-uae .sec-page-banner__title { height: 2.24em; }
+}
 .page-uae .sec-uae-process { padding-block: var(--uae-section-space); }
 .page-uae .uae-studio-note { margin: 2rem 0 0; color: #555; }
 .page-uae .sec-services { margin-inline: var(--uae-frame-inset); width: calc(100% - var(--uae-frame-inset) * 2); box-sizing: border-box; }

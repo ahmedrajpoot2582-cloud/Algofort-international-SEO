@@ -77,7 +77,7 @@ export const AboutSection = ({ description, id = 'sec-about', studioNote, deferM
         </div>
 
         {/* Fact Cards Grid (Inspired by Denzil Framer - 100% Localhost) */}
-        <FactCardsGrid />
+        <FactCardsGrid deferMotion={deferMotion} />
         {studioNote && <p className="alg-text uae-studio-note">{studioNote}</p>}
 
       </div>

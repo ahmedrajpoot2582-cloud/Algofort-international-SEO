@@ -3,11 +3,13 @@
 import { useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { observeNear } from '../../utils/observeNear';
 
 export function UaeResultsMotion() {
   useEffect(() => {
     const section = document.querySelector('#uae-results');
     if (!section) return;
+    return observeNear(section, () => {
     gsap.registerPlugin(ScrollTrigger);
     const cards = [...section.querySelectorAll('.sec-uae-results__card')];
     const grid = section.querySelector('.sec-uae-results__grid');
@@ -38,6 +40,7 @@ export function UaeResultsMotion() {
     });
     document.fonts?.ready.then(() => { if (active) ScrollTrigger.refresh(); });
     return () => { active = false; media.revert(); };
+    }, 400);
   }, []);
   return null;
 }

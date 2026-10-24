@@ -3,11 +3,13 @@
 import { useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { observeNear } from '../../utils/observeNear';
 
 export function UaeAdvantagesMotion() {
   useEffect(() => {
     const section = document.querySelector('#uae-advantages');
     if (!section) return;
+    return observeNear(section, () => {
     gsap.registerPlugin(ScrollTrigger);
     const route = section.querySelector('.sec-uae-advantages__route');
     const timeline = section.querySelector('.sec-uae-advantages__timeline');
@@ -76,6 +78,7 @@ export function UaeAdvantagesMotion() {
       route.setAttribute('viewBox', originalViewBox);
       paths.forEach((path, index) => path.setAttribute('d', originalPaths[index]));
     };
+    }, 400);
   }, []);
   return null;
 }

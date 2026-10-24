@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import { ViewportVideo } from './ViewportVideo';
 import { factVideoSources } from '../../utils/videoAssets';
+import { observeNear } from '../../utils/observeNear';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -67,7 +68,7 @@ function FactOdometerNumber({ value, suffix }) {
   );
 }
 
-export const FactCardsGrid = () => {
+export const FactCardsGrid = ({ deferMotion = false }) => {
   const containerRef = useRef(null);
   const card1Ref = useRef(null);
   const card2Ref = useRef(null);
@@ -75,7 +76,8 @@ export const FactCardsGrid = () => {
   const card4Ref = useRef(null);
 
   useGSAP(
-    () => {
+    (context, contextSafe) => {
+      const initialize = contextSafe(() => {
       if (containerRef.current) {
         const mm = gsap.matchMedia();
 
@@ -191,7 +193,10 @@ export const FactCardsGrid = () => {
             });
           }
         });
+        return () => mm.revert();
       }
+      });
+      return deferMotion ? observeNear(containerRef.current, initialize, 300) : initialize();
     },
     { scope: containerRef }
   );

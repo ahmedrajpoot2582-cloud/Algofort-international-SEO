@@ -240,7 +240,7 @@ export function PageBanner({
             desktopOnly={performanceMode}
             data-object-fit="cover"
             poster={bannerPoster}
-            style={{
+            style={posterOverride ? undefined : {
               backgroundImage: `url("${bannerPoster}")`,
             }}
           />
