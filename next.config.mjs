@@ -44,7 +44,7 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: '/uae',
+        source: '/:market(uae|usa|pakistan)',
         headers: [{
           key: 'Link',
           // The hero font/poster are embedded; preload the remaining UI fonts.

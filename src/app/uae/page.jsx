@@ -27,7 +27,7 @@ export const metadata = withSocialMetadata({
   description: content.description,
   keywords: content.keywords,
   alternates: { canonical: '/uae', languages: internationalAlternates() },
-  openGraph: { locale: 'en_AE', alternateLocale: ['en_PK'] },
+  openGraph: { locale: 'en_AE', alternateLocale: ['en_US', 'en_PK'] },
 });
 
 const schema = {

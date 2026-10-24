@@ -28,13 +28,16 @@ for (const path of paths) {
       assert.ok(links.some((link) => link.hreflang === locale && new URL(link.href).toString() === absoluteUrl(target)), `${path}: ${locale} alternate`);
     }
   }
-  if (path === '/uae') {
+  const regionalMarket = markets.find(market => market.path === path);
+  if (regionalMarket) {
     assert.match(html, /<meta name="viewport" content="width=device-width, initial-scale=1"/, 'Responsive viewport without zoom restrictions');
-    assert.match(html, /<meta property="og:locale" content="en_AE"/, 'UAE social locale');
-    assert.match(html, /<meta property="og:locale:alternate" content="en_PK"/, 'Regional social alternate');
+    assert.ok(html.includes(`<meta property="og:locale" content="${regionalMarket.locale.replace('-', '_')}"`), `${path}: regional social locale`);
+    for (const alternate of markets.filter(market => market.code !== regionalMarket.code)) {
+      assert.ok(html.includes(`<meta property="og:locale:alternate" content="${alternate.locale.replace('-', '_')}"`), `${path}: social alternate ${alternate.locale}`);
+    }
     const webPage = structuredData.find((node) => node['@type'] === 'WebPage');
-    assert.equal(webPage?.url, absoluteUrl('/uae'), 'UAE WebPage canonical URL');
-    assert.equal(webPage?.inLanguage, 'en-AE', 'UAE WebPage language');
+    assert.equal(webPage?.url, absoluteUrl(path), `${path}: WebPage canonical URL`);
+    assert.equal(webPage?.inLanguage, regionalMarket.locale, `${path}: WebPage language`);
     assert.equal(webPage?.isPartOf?.['@id'], absoluteUrl('/#website'), 'UAE WebPage belongs to main site');
     assert.ok(!html.includes('Find your location') && !html.includes('country-directory'), 'No unwanted directory section');
     assert.ok(html.includes('name="message"') && html.includes('id="sec-cta"'), 'Inline project enquiry form');
@@ -42,6 +45,16 @@ for (const path of paths) {
     assert.ok(!html.includes('Global engineering &amp; delivery studio: Karachi.'), 'Removed studio note stays absent');
     for (const section of ['uae-industries', 'uae-process', 'uae-advantages', 'uae-results']) {
       assert.ok(html.includes(`id="${section}"`), `Server-rendered UAE section: ${section}`);
+    }
+    assert.match(html, /USA SERVICES/);
+    assert.match(html, /PAKISTAN SERVICES/);
+    const organization = structuredData.find(node => node['@type'] === 'ProfessionalService');
+    assert.equal(organization?.address?.addressLocality, 'Karachi', `${path}: preserve actual office location`);
+    assert.ok(organization?.areaServed?.some(area => area.name === regionalMarket.name), `${path}: target market in structured data`);
+    if (path !== '/uae') {
+      assert.ok(html.includes(`Project country or region: ${regionalMarket.name}`), `${path}: enquiry country context`);
+      const main = html.split('<main')[1]?.split('</main>')[0];
+      assert.ok(!/Dubai|Abu Dhabi|AED|MENA|GCC/.test(main), `${path}: no UAE copy in page content`);
     }
   }
   if (newPaths.includes(path)) {

@@ -13,7 +13,7 @@ export const metadata = withSocialMetadata({
   description:
     'Algofort is a technology and digital solutions agency engineering custom software, intelligent AI solutions, and high-performance digital platforms.',
   alternates: { canonical: '/', languages: internationalAlternates() },
-  openGraph: { locale: 'en_PK', alternateLocale: ['en_AE'] },
+  openGraph: { locale: 'en_PK', alternateLocale: ['en_AE', 'en_US'] },
   icons: {
     icon: [
       { url: '/fav-icon.png', type: 'image/png' },

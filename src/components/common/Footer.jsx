@@ -187,6 +187,12 @@ export const Footer = ({ className = '', newsletterPreview = false } = {}) => {
                         <Link href="/uae" className="footer_nav_link nav-link">
                           <div className="nav-text-wrap"><div className="nav-text">UAE SERVICES</div><div className="nav-text">UAE SERVICES</div></div>
                         </Link>
+                        <Link href="/usa" className="footer_nav_link nav-link">
+                          <div className="nav-text-wrap"><div className="nav-text">USA SERVICES</div><div className="nav-text">USA SERVICES</div></div>
+                        </Link>
+                        <Link href="/pakistan" className="footer_nav_link nav-link">
+                          <div className="nav-text-wrap"><div className="nav-text">PAKISTAN SERVICES</div><div className="nav-text">PAKISTAN SERVICES</div></div>
+                        </Link>
                         <Link href="/insights" className="footer_nav_link nav-link">
                           <div className="nav-text-wrap"><div className="nav-text">INSIGHTS</div><div className="nav-text">INSIGHTS</div></div>
                         </Link>
