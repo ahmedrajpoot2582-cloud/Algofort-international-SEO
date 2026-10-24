@@ -39,15 +39,15 @@
 .page-uae .sec-services__header .button-item { flex-shrink: 0; }
 
 /* Connected delivery map, scoped to the UAE process. */
-.page-uae .sec-uae-process { overflow-x: clip; }
-.page-uae .sec-uae__process-scene { position: relative; width: 100%; padding: 0; border-radius: 32px; color: #05080c; background: #f4f4f2; border: 0; }
+.page-uae .sec-uae-process { overflow-x: clip; margin-inline: var(--uae-frame-inset); margin-bottom: var(--uae-section-space); width: calc(100% - var(--uae-frame-inset) * 2); border-radius: 32px; background: #101110; }
+.page-uae .sec-uae__process-scene { position: relative; width: 100%; padding: 0; border-radius: 32px; color: #fff; background: transparent; border: 0; }
 .page-uae .sec-uae__process-header { max-width: 100%; margin: 0 auto 3.5rem; text-align: center; }
 .page-uae .sec-uae__process-header .section-badge { justify-content: center; }
-.page-uae #uae-process .sec-uae__process-header .section-title { color: #05080c; margin: 0 !important; }
+.page-uae #uae-process .sec-uae__process-header .section-title { color: #fff; margin: 0 !important; }
 .page-uae .sec-uae__process-stage { position: relative; min-height: 620px; isolation: isolate; }
-.page-uae .sec-uae__process-connections { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; stroke: #05080c; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.page-uae .sec-uae__process-connections { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; stroke: #ffffff59; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .page-uae .sec-uae__process-connections path { vector-effect: non-scaling-stroke; }
-.page-uae .sec-uae__connection-flow { stroke: #05080c; stroke-width: 1.5; stroke-dasharray: 5 13; animation: uae-connection-flow 2.5s linear infinite; animation-play-state: paused; }
+.page-uae .sec-uae__connection-flow { stroke: #ffffff59; stroke-width: 1.5; stroke-dasharray: 5 13; animation: uae-connection-flow 2.5s linear infinite; animation-play-state: paused; }
 .page-uae #uae-process[data-process-visible] .sec-uae__connection-flow { animation-play-state: running; }
 @keyframes uae-connection-flow { to { stroke-dashoffset: -36; } }
 @property --uae-hub-border-angle { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
@@ -228,8 +228,8 @@ html.lenis-stopped:has(.page-uae) { overflow: clip; }
 }
 .page-uae main > :is(#uae-about, #uae-industries, #uae-process, #uae-results, #sec-testimonials) { padding-block: var(--uae-section-space) !important; }
 .page-uae main > #sec-testimonials, .page-uae main > #sec-faq { padding-inline: 0 !important; }
-.page-uae #uae-industries + #uae-process, .page-uae #uae-results + #sec-testimonials { padding-top: 0 !important; }
-.page-uae main > :is(.sec-services, .sec-uae-advantages) > .site-container,
+.page-uae #uae-results + #sec-testimonials { padding-top: 0 !important; }
+.page-uae main > :is(.sec-services, .sec-uae-process, .sec-uae-advantages) > .site-container,
 .page-uae #sec-cta .sec-cta__container {
  max-width: calc(var(--uae-content-max) - var(--uae-frame-inset) * 2) !important;
  padding-inline: calc(var(--uae-gutter) - var(--uae-frame-inset)) !important;

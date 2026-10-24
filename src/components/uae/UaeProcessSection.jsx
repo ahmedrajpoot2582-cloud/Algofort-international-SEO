@@ -16,7 +16,7 @@ export function UaeProcessSection({ items, market = 'UAE', highlight = `market-l
       <div className="site-container container-large padding-global">
         <div className="sec-uae__process-scene">
           <div className="section-header sec-uae__process-header">
-            <div className="section-badge"><SubtitleMarquee text="From Concept to Launch ✦ " /></div>
+            <div className="section-badge"><SubtitleMarquee text="From Concept to Launch ✦ " variant="light" /></div>
             <h2 id="uae-process-title" className="heading-style-h2 section-title">Your ideas into a<br /><span className="text-color-secondary">{highlight}</span></h2>
           </div>
           <div className="sec-uae__process-stage">
