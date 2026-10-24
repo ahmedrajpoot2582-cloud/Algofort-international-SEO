@@ -14,7 +14,7 @@ if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
 }
 
-export const AboutSection = ({ description, id = 'sec-about', studioNote, deferMotion = false }) => {
+export const AboutSection = ({ description, id = 'sec-about', deferMotion = false }) => {
   const sectionRef = useRef(null);
   const textRef = useRef(null);
 
@@ -78,7 +78,6 @@ export const AboutSection = ({ description, id = 'sec-about', studioNote, deferM
 
         {/* Fact Cards Grid (Inspired by Denzil Framer - 100% Localhost) */}
         <FactCardsGrid deferMotion={deferMotion} />
-        {studioNote && <p className="alg-text uae-studio-note">{studioNote}</p>}
 
       </div>
     </section>

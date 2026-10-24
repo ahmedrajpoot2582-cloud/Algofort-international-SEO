@@ -38,7 +38,9 @@ for (const path of paths) {
     assert.equal(webPage?.isPartOf?.['@id'], absoluteUrl('/#website'), 'UAE WebPage belongs to main site');
     assert.ok(!html.includes('Find your location') && !html.includes('country-directory'), 'No unwanted directory section');
     assert.ok(html.includes('name="message"') && html.includes('id="sec-cta"'), 'Inline project enquiry form');
-    for (const section of ['uae-industries', 'uae-ecosystem', 'uae-advantages', 'uae-results']) {
+    assert.ok(!html.includes('id="uae-ecosystem"'), 'Removed Global Engineering slider stays absent');
+    assert.ok(!html.includes('Global engineering &amp; delivery studio: Karachi.'), 'Removed studio note stays absent');
+    for (const section of ['uae-industries', 'uae-process', 'uae-advantages', 'uae-results']) {
       assert.ok(html.includes(`id="${section}"`), `Server-rendered UAE section: ${section}`);
     }
   }

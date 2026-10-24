@@ -26,7 +26,6 @@ export function UaeProcessSection({ items }) {
             <div className="sec-uae__process-hub" aria-hidden="true">
               <div className="sec-uae__process-hub-face">
                 <span className="sec-uae__process-hub-brand">Algofort / UAE</span>
-                <svg viewBox="0 0 80 80" fill="none"><path d="M40 8v64M8 40h64M17 17l46 46M17 63l46-46" stroke="currentColor" strokeWidth="3" /></svg>
                 <strong>From idea<br />to impact.</strong>
                 <span className="sec-uae__process-hub-caption">One connected process</span>
               </div>

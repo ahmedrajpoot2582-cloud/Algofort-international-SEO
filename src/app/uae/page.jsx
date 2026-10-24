@@ -10,7 +10,7 @@ import { ShowreelSection } from '../../components/sections/ShowreelSection';
 import { TestimonialsSection } from '../../components/sections/TestimonialsSection';
 import { FaqSection } from '../../components/sections/FaqSection';
 import { CtaSection } from '../../components/sections/CtaSection';
-import { UaeIndustriesSection, UaeEcosystemSection, UaeAdvantagesSection, UaeResultsSection } from '../../components/uae/UaeExpertiseSections';
+import { UaeIndustriesSection, UaeAdvantagesSection, UaeResultsSection } from '../../components/uae/UaeExpertiseSections';
 import { UaeMotion } from '../../components/uae/UaeMotion';
 import { UaeAccordionMotion } from '../../components/uae/UaeAccordionMotion';
 import { UaeSmoothScroll } from '../../components/uae/UaeSmoothScroll';
@@ -21,7 +21,6 @@ import { absoluteUrl } from '../../lib/site';
 import { uaeHeroPoster } from '../../data/uae-hero-poster';
 import '../../styles/uae-hero-font.css';
 import '../../styles/uae.css';
-import '../../styles/uae-market-slider.css';
 
 export const metadata = withSocialMetadata({
   title: content.title,
@@ -74,11 +73,10 @@ export default function UaePage() {
           <script type="application/ld+json">{JSON.stringify(schema).replace(/</g, '\\u003c')}</script>
           <PageBanner performanceMode posterOverride={uaeHeroPoster} animateEntrance title={content.heroTitle} eyebrow={content.heroBadge} services={content.marquee} breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'UAE', href: '/uae', active: true }]} />
 
-          <AboutSection deferMotion id="uae-about" description={content.about} studioNote="Global engineering & delivery studio: Karachi. Serving Dubai, Abu Dhabi, the UAE and global markets." />
+          <AboutSection deferMotion id="uae-about" description={content.about} />
 
           <ServicesSection deferMotion animateHeading={false} items={content.services} heading={<><span className="uae-services-title-line">Creative solutions</span>{' '}<span className="uae-services-title-line text-color-secondary">for UAE enterprises.</span></>} />
           <UaeIndustriesSection />
-          <UaeEcosystemSection />
 
           <UaeProcessSection items={content.process} />
 

@@ -1,7 +1,5 @@
 import { SubtitleMarquee } from '../common/SubtitleMarquee';
 import { ProcessSection } from '../sections/ProcessSection';
-import { UaeEcosystemMotion } from './UaeEcosystemMotion';
-import { UaeMarketSlider } from './UaeMarketSlider';
 import { UaeAdvantagesMotion } from './UaeAdvantagesMotion';
 import { UaeResultsMotion } from './UaeResultsMotion';
 import { uaeSections as content } from '../../data/uae-sections';
@@ -30,27 +28,11 @@ export function UaeIndustriesSection() {
       leftTitle={['Powering digital', <>across <span className="alg-process-brand-script brand-script">Dubai’s</span></>]}
       rightTitle={['transformation', 'key sectors.']}
       items={content.industries.map(({ number, title, description }) => ({ step: number, title, description }))}
-      footerDescription="We build tailored software, high-converting web platforms, and mobile apps designed for the fastest-growing industries in the UAE and wider GCC."
     />
   );
 }
 
-export function UaeEcosystemSection() {
-  return (
-    <section className="site-section sec-uae-expansion sec-uae-ecosystem" id="uae-ecosystem" aria-label="Built for the UAE market">
-      <UaeEcosystemMotion />
-      <div className="site-container container-large padding-global">
-        <SectionHeading badge="Built for the UAE market">Local knowledge.<br /><span className="text-color-secondary">Global engineering.</span></SectionHeading>
-        <div className="sec-uae-ecosystem__panel">
-          <UaeMarketSlider items={content.ecosystem} />
-        </div>
-      </div>
-    </section>
-  );
-}
-
 export function UaeAdvantagesSection() {
-  const labels = ['Aligned working hours', 'Clear project milestones', 'Your ideas. Your ownership.', 'A team that works with you'];
   return (
     <section className="site-section sec-uae-expansion sec-uae-advantages" id="uae-advantages" aria-label="Why choose Algofort">
       <UaeAdvantagesMotion />
@@ -65,10 +47,10 @@ export function UaeAdvantagesSection() {
               <path className="sec-uae-advantages__route-progress" d="" />
             </svg>
             <ol className="section-content sec-uae-advantages__list">
-              {content.advantages.map((item, index) => <li className="sec-uae-advantages__item" key={item.number} data-timeline-label={labels[index]}>
+              {content.advantages.map((item) => <li className="sec-uae-advantages__item" key={item.number}>
                 <span className="sec-uae-advantages__marker" aria-hidden="true" />
                 <div className="sec-uae-advantages__card">
-                  <div className="sec-uae-advantages__card-meta"><span aria-hidden="true">{item.number}</span><span className="sec-uae-advantages__card-label">{labels[index]}</span></div>
+                  <div className="sec-uae-advantages__card-meta"><span aria-hidden="true">{item.number}</span></div>
                   <h3 className="heading-style-h3 sec-uae-expansion__subtitle">{item.title}</h3><p className="alg-text">{item.description}</p>
                 </div>
               </li>)}

@@ -80,3 +80,11 @@ The market slider now uses a large feature image beside a readable text column, 
 The canonical landing page is now /uae. The former /ae URL permanently redirects to it and retains query parameters. Market navigation, breadcrumbs, canonical/social URLs, structured data, reciprocal language alternates and the sitemap all identify /uae. Regional font preload headers follow the new route.
 
 The slider has a solid black background, two directional controls and a slide count. The background photos, lower thumbnail strip and play/pause control are removed along with their reserved spacing. Slides advance on manual arrow, keyboard or swipe interaction; no automatic timer requires a pause control. The outgoing image turns from its spine with a directional 3D book-page motion, revealing the next image below it. Only one turn runs at a time, and reduced-motion visitors receive an immediate image change.
+
+## Consistent widths and section cleanup
+
+The Local Knowledge / Global Engineering market slider is now removed, superseding the slider revisions above. Its unused slider component, motion controller and stylesheet are removed from the route. The Industries footer sentence and About studio note are also removed. All timeline cards retain their numbers, headings and descriptions without the small descriptive badge labels.
+
+The process hub keeps its text and animated border with its orange star removed. Process headings are 32px with 128px illustration frames on desktop, and 28px headings with 104px illustration frames on narrow phones. Cards stack artwork above copy on narrow phones so their text remains readable. Other regional card headings use 28px on desktop and 24px on phones.
+
+All main content containers share a 1600px maximum and responsive 32px, 24px or 20px gutters. Framed sections compensate for their outer inset so their content aligns with unframed sections. Hero, Services, Advantages and CTA use the same responsive frame inset. Adjacent light sections use a single standard vertical gap; shared homepage defaults are unchanged.
