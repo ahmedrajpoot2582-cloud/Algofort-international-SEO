@@ -77,12 +77,11 @@ export default function UaePage() {
 
           <ServicesSection deferMotion animateHeading={false} items={content.services} heading={<><span className="uae-services-title-line">Creative solutions</span>{' '}<span className="uae-services-title-line text-color-secondary">for UAE enterprises.</span></>} />
           <UaeIndustriesSection />
-
-          <UaeProcessSection items={content.process} />
+          <UaeResultsSection />
 
           <UaeAdvantagesSection />
           <ShowreelSection />
-          <UaeResultsSection />
+          <UaeProcessSection items={content.process} />
           <TestimonialsSection />
           <FaqSection deferMotion items={content.faqs} />
           <CtaSection deferMotion title={<>Start a project<br /><span className="text-color-secondary">in the UAE.</span></>} description="Let us collaborate to build something extraordinary and elevate your brand across Dubai and the GCC." country="United Arab Emirates" phoneLabel="Phone Number (UAE / International)" />

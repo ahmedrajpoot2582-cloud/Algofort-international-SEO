@@ -46,6 +46,10 @@ for (const path of paths) {
     for (const section of ['uae-industries', 'uae-process', 'uae-advantages', 'uae-results']) {
       assert.ok(html.includes(`id="${section}"`), `Server-rendered UAE section: ${section}`);
     }
+    const sectionOrder = ['uae-industries', 'uae-results', 'uae-advantages', 'sec-showreel', 'uae-process', 'sec-testimonials'];
+    for (let index = 1; index < sectionOrder.length; index++) {
+      assert.ok(html.indexOf(`id="${sectionOrder[index - 1]}"`) < html.indexOf(`id="${sectionOrder[index]}"`), `${path}: swapped Results/Process order`);
+    }
     assert.match(html, /USA SERVICES/);
     assert.match(html, /PAKISTAN SERVICES/);
     const organization = structuredData.find(node => node['@type'] === 'ProfessionalService');
