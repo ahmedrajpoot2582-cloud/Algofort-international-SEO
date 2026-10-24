@@ -43,6 +43,19 @@ const nextConfig = {
   async headers() {
     return [
       {
+        source: '/ae',
+        headers: [{
+          key: 'Link',
+          // Start the hero image and fonts before the inlined stylesheet arrives.
+          value: [
+            '</assets/68ee74b7102caefef6ce7890_2F68f23d0b14d2158ab1fa8dea_14471915_3840_2160_30fps_20_281_29-poster-00001.jpg>; rel=preload; as=image; fetchpriority=high',
+            '</assets/68f24a7e02445111cfe6382d_Mona-Sans-BoldNarrow.woff2>; rel=preload; as=font; type="font/woff2"; crossorigin',
+            '</assets/68f243b1931a07b0823ded78_Mona-Sans-Regular.woff2>; rel=preload; as=font; type="font/woff2"; crossorigin',
+            '</assets/68f243c27b60d703ec78917e_Mona-Sans-Medium.woff2>; rel=preload; as=font; type="font/woff2"; crossorigin',
+          ].join(', '),
+        }],
+      },
+      {
         source: '/fonts/:path*',
         headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
       },
