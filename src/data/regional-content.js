@@ -74,6 +74,7 @@ export const pakistanContent = {
   heroTitle: 'Designing Your Digital World in Pakistan & Beyond',
   heroBadge: '® Algofort Pakistan',
   servicesLine: 'for Pakistani brands.',
+  processHighlight: 'leading Pakistani brand.',
   marquee: ['Web Development Pakistan', 'Brand Identity Pakistan', 'SaaS App Development', 'Mobile App Development Pakistan'],
   about: 'At Algofort, we turn ambitious ideas into digital products that help Pakistani businesses grow. We build websites, cloud platforms, mobile apps, and distinctive brands for Karachi, Lahore, and Islamabad. Our team combines local understanding with strategy, design, and engineering to take your business further.',
   services: services([

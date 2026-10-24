@@ -2,7 +2,7 @@ import { SubtitleMarquee } from '../common/SubtitleMarquee';
 import { UaeProcessArtwork } from './UaeProcessArtwork';
 import { UaeProcessMotion } from './UaeProcessMotion';
 
-export function UaeProcessSection({ items, market = 'UAE' }) {
+export function UaeProcessSection({ items, market = 'UAE', highlight = `market-leading ${market} brand.` }) {
   const connections = [
     'M600 235H484Q470 235 470 221V114Q470 100 456 100H440',
     'M600 235H716Q730 235 730 221V114Q730 100 744 100H760',
@@ -17,7 +17,7 @@ export function UaeProcessSection({ items, market = 'UAE' }) {
         <div className="sec-uae__process-scene">
           <div className="section-header sec-uae__process-header">
             <div className="section-badge"><SubtitleMarquee text="From Concept to Launch ✦ " /></div>
-            <h2 id="uae-process-title" className="heading-style-h2 section-title">Your ideas into a<br /><span className="text-color-secondary">market-leading {market} brand.</span></h2>
+            <h2 id="uae-process-title" className="heading-style-h2 section-title">Your ideas into a<br /><span className="text-color-secondary">{highlight}</span></h2>
           </div>
           <div className="sec-uae__process-stage">
             <svg className="sec-uae__process-connections" viewBox="0 0 1200 600" preserveAspectRatio="none" fill="none" aria-hidden="true">
