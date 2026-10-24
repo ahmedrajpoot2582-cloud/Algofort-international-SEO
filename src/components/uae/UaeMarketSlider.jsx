@@ -1,13 +1,12 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { SubtitleMarquee } from '../common/SubtitleMarquee';
 
 const visuals = [
-  { image: '/assets/services/service-web-development.webp', label: 'Two languages. One experience.', short: 'Bilingual experiences' },
-  { image: '/assets/uae-market/commerce.webp', label: 'Built for a seamless checkout.', short: 'Local payments' },
-  { image: '/assets/uae-market/logistics.webp', label: 'Every order. Connected.', short: 'Connected logistics' },
-  { image: '/assets/uae-market/cloud.webp', label: 'Closer to your customers.', short: 'Regional cloud' },
+  { image: '/assets/services/service-web-development.webp', heading: 'Bilingual by design.', short: 'Bilingual experiences' },
+  { image: '/assets/uae-market/commerce.webp', heading: 'Checkout without friction.', short: 'Local payments' },
+  { image: '/assets/uae-market/logistics.webp', heading: 'Logistics in sync.', short: 'Connected logistics' },
+  { image: '/assets/uae-market/cloud.webp', heading: 'Built closer to you.', short: 'Regional cloud' },
 ];
 
 export function UaeMarketSlider({ items }) {
@@ -45,14 +44,6 @@ export function UaeMarketSlider({ items }) {
     return () => window.clearInterval(timer);
   }, [playing, active, items.length]);
 
-  useEffect(() => {
-    const card = cardRefs.current[active];
-    const rail = card?.parentElement;
-    if (card && rail && rail.scrollWidth > rail.clientWidth) {
-      rail.scrollTo({ left: card.offsetLeft - (rail.clientWidth - card.clientWidth) / 2, behavior: reducedMotion ? 'instant' : 'smooth' });
-    }
-  }, [active, reducedMotion]);
-
   return (
     <div className="uae-market-slider" ref={rootRef} role="region" aria-roledescription="carousel" aria-label="UAE market capabilities"
       onMouseEnter={() => setInteracting(true)} onMouseLeave={() => setInteracting(false)}
@@ -61,27 +52,38 @@ export function UaeMarketSlider({ items }) {
         {visuals.map((visual, index) => <img key={visual.image} src={visual.image} alt="" loading="lazy" decoding="async" width="1200" height="1200" className={index === active ? 'is-active' : ''} />)}
       </div>
       <div className="uae-market-slider__shade" aria-hidden="true" />
-      <div className="uae-market-slider__layout">
+      <div className="uae-market-slider__stage"
+        onTouchStart={event => { touchStart.current = { x: event.touches[0].clientX, y: event.touches[0].clientY }; }}
+        onTouchEnd={event => {
+          if (!touchStart.current) return;
+          const distance = touchStart.current.x - event.changedTouches[0].clientX;
+          const vertical = touchStart.current.y - event.changedTouches[0].clientY;
+          if (Math.abs(distance) > 45 && Math.abs(distance) > Math.abs(vertical) * 1.2) {
+            swipeUntil.current = Date.now() + 500; setPaused(true); move(distance > 0 ? 1 : -1);
+          }
+          touchStart.current = null;
+        }}>
         <div className="uae-market-slider__intro">
-          <div className="section-badge"><SubtitleMarquee text="Built for the UAE market ✦ " variant="light" /></div>
-          <h2 className="heading-style-h2 section-title">Engineered for<br /><span className="text-color-secondary">the UAE.</span></h2>
           <div className="uae-market-slider__copy" aria-live={playing ? 'off' : 'polite'} aria-atomic="true">
             {items.map((item, index) => <article key={item.number} className={index === active ? 'is-active' : ''} aria-hidden={index !== active}>
-              <span className="uae-market-slider__eyebrow">{visuals[index].label}</span>
-              <h3 className="heading-style-h3">{item.title}</h3>
+              <span className="uae-market-slider__eyebrow">{item.number} / {visuals[index].short}</span>
+              <h3 className="heading-style-h3">{visuals[index].heading}</h3>
               <p className="alg-text">{item.description}</p>
             </article>)}
           </div>
+          <div className="uae-market-slider__controls">
+            <button type="button" aria-label="Previous UAE feature" onClick={() => { setPaused(true); move(-1); }}><span aria-hidden="true">←</span></button>
+            <button type="button" aria-label="Next UAE feature" onClick={() => { setPaused(true); move(1); }}><span aria-hidden="true">→</span></button>
+            {!reducedMotion && <button className="uae-market-slider__play" type="button" aria-label={paused ? 'Play UAE slides' : 'Pause UAE slides'} onClick={() => setPaused(value => !value)}><span aria-hidden="true">{paused ? '▷' : 'Ⅱ'}</span></button>}
+            <span className="uae-market-slider__count"><strong>{items[active].number}</strong><span> / {String(items.length).padStart(2, '0')}</span></span>
+          </div>
         </div>
-        <div className="uae-market-slider__gallery">
-          <div className="uae-market-slider__cards"
-            onTouchStart={event => { touchStart.current = event.touches[0].clientX; }}
-            onTouchEnd={event => {
-              if (touchStart.current === null) return;
-              const distance = touchStart.current - event.changedTouches[0].clientX;
-              if (Math.abs(distance) > 45) { swipeUntil.current = Date.now() + 500; setPaused(true); move(distance > 0 ? 1 : -1); }
-              touchStart.current = null;
-            }}>
+        <div className="uae-market-slider__scene" aria-hidden="true">
+          {visuals.map((visual, index) => <img key={visual.image} src={visual.image} alt="" loading="lazy" decoding="async" width="1200" height="1200" className={index === active ? 'is-active' : ''} />)}
+          <span className="uae-market-slider__scene-caption">UAE / GCC <span>Built around your business.</span></span>
+        </div>
+      </div>
+          <div className="uae-market-slider__cards" aria-label="Choose a UAE capability">
             {items.map((item, index) => <button key={item.number} type="button" ref={element => { cardRefs.current[index] = element; }}
               className={`uae-market-slider__card${index === active ? ' is-active' : ''}`} aria-pressed={index === active}
               aria-label={`Show ${visuals[index].short}`} onClick={() => { if (Date.now() >= swipeUntil.current) { setPaused(true); setActive(index); } }}
@@ -92,21 +94,10 @@ export function UaeMarketSlider({ items }) {
                 setPaused(true); setActive(next); cardRefs.current[next]?.focus({ preventScroll: true });
               }}>
               <img src={visuals[index].image} alt="" loading="lazy" decoding="async" width="1200" height="1200" />
-              <span className="uae-market-slider__card-number">{item.number}</span>
-              <span className="uae-market-slider__card-label">{visuals[index].short}<span aria-hidden="true">↗</span></span>
+              <span className="uae-market-slider__card-copy"><span className="uae-market-slider__card-number">{item.number}</span><span className="uae-market-slider__card-label">{visuals[index].short}</span></span>
+              <span className="uae-market-slider__card-arrow" aria-hidden="true">↗</span>
             </button>)}
           </div>
-          <div className="uae-market-slider__footer">
-            <div className="uae-market-slider__controls">
-              <button type="button" aria-label="Previous UAE feature" onClick={() => { setPaused(true); move(-1); }}><span aria-hidden="true">←</span></button>
-              <button type="button" aria-label="Next UAE feature" onClick={() => { setPaused(true); move(1); }}><span aria-hidden="true">→</span></button>
-              {!reducedMotion && <button type="button" aria-label={paused ? 'Play UAE slides' : 'Pause UAE slides'} onClick={() => setPaused(value => !value)}><span aria-hidden="true">{paused ? '▷' : 'Ⅱ'}</span></button>}
-            </div>
-            <div className="uae-market-slider__progress" aria-hidden="true">{items.map((item, index) => <span key={item.number} className={index === active ? 'is-active' : ''} />)}</div>
-            <span className="uae-market-slider__count"><strong>{items[active].number}</strong> / 04</span>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }

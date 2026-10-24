@@ -1,63 +1,75 @@
-/* Active image cards and the full canvas share one slide state. */
-.page-uae .sec-uae-ecosystem__panel { padding: 0; overflow: hidden; background: #141613; }
-.page-uae .uae-market-slider { position: relative; isolation: isolate; padding: clamp(2rem, 4vw, 4.5rem); min-height: 720px; display: flex; align-items: center; }
+/* One generous feature image, with a quiet matching backdrop and compact navigation. */
+.page-uae .sec-uae-ecosystem__panel { padding: 0; overflow: hidden; background: #101211; }
+.page-uae .uae-market-slider { position: relative; isolation: isolate; padding: clamp(1.5rem, 3.5vw, 4rem); color: #fff; }
 .page-uae .uae-market-slider__backgrounds, .page-uae .uae-market-slider__shade { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
-.page-uae .uae-market-slider__backgrounds { overflow: hidden; }
-.page-uae .uae-market-slider__backgrounds img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.045); transition: opacity .85s ease, transform 1.2s ease; }
-.page-uae .uae-market-slider__backgrounds img.is-active { opacity: 1; transform: scale(1); }
-.page-uae .uae-market-slider__shade { background: linear-gradient(90deg, #080c0cf0 0%, #080c0cde 30%, #080c0c70 72%, #080c0c45), linear-gradient(0deg, #080c0ca6, transparent 65%); }
-.page-uae .uae-market-slider__layout { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.35fr); align-items: center; gap: clamp(2rem, 4vw, 4.5rem); width: 100%; }
-.page-uae .uae-market-slider__intro { min-width: 0; }
-.page-uae .uae-market-slider__intro .section-badge { margin-bottom: 1.75rem; }
-.page-uae .uae-market-slider__intro h2.section-title { font-size: clamp(3rem, 4.4vw, 5rem) !important; line-height: 1.02 !important; color: #fff; margin: 0 0 2rem !important; }
+.page-uae .uae-market-slider__backgrounds { overflow: hidden; opacity: .16; }
+.page-uae .uae-market-slider__backgrounds img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .75s ease; }
+.page-uae .uae-market-slider__backgrounds img.is-active { opacity: 1; }
+.page-uae .uae-market-slider__shade { background: linear-gradient(90deg, #101211e6, #10121155); }
+.page-uae .uae-market-slider__stage { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.15fr); align-items: center; gap: clamp(2rem, 5vw, 5rem); touch-action: pan-y; }
+.page-uae .uae-market-slider__intro { min-width: 0; padding-block: 1rem; }
 .page-uae .uae-market-slider__copy { display: grid; }
-.page-uae .uae-market-slider__copy article { grid-area: 1 / 1; min-width: 0; visibility: hidden; opacity: 0; transform: translateY(12px); transition: opacity .45s ease, transform .6s ease, visibility .45s; }
+.page-uae .uae-market-slider__copy article { grid-area: 1 / 1; min-width: 0; visibility: hidden; opacity: 0; transform: translateY(14px); transition: opacity .4s ease, transform .6s ease, visibility .4s; }
 .page-uae .uae-market-slider__copy article.is-active { visibility: visible; opacity: 1; transform: translateY(0); }
-.page-uae .uae-market-slider__eyebrow { display: block; margin-bottom: 1rem; font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; color: #ffb16d; }
-.page-uae .uae-market-slider__copy h3 { color: #fff; max-width: 29ch; }
-.page-uae .uae-market-slider__copy p { color: #ecece8; font-size: .9375rem; line-height: 1.65; margin: 0; max-width: 55ch; }
-.page-uae .uae-market-slider__gallery { min-width: 0; padding-top: 7rem; }
-.page-uae .uae-market-slider__cards { position: relative; display: flex; align-items: center; gap: .8rem; touch-action: pan-y; }
-.page-uae .uae-market-slider__card { position: relative; flex: 1; min-width: 0; height: clamp(260px, 24vw, 370px); padding: 0; border: 0; border-radius: 14px; overflow: hidden; cursor: pointer; text-align: left; color: #fff; background: #20251f; transform: translateY(0); transition: flex .65s cubic-bezier(.22, 1, .36, 1), transform .65s ease; }
-.page-uae .uae-market-slider__card::after { content: ''; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(0deg, #060b0bec, transparent 70%); box-shadow: inset 0 0 0 1px #ffffff30; transition: box-shadow .4s; }
-.page-uae .uae-market-slider__card.is-active { flex: 1.3; transform: translateY(-16px); }
-.page-uae .uae-market-slider__card.is-active::after { box-shadow: inset 0 0 0 2px #fa7c18; }
-.page-uae .uae-market-slider__card img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s ease; }
-.page-uae .uae-market-slider__card:hover img { transform: scale(1.04); }
-.page-uae .uae-market-slider__card-number { position: absolute; z-index: 1; top: 1rem; left: 1rem; font-size: .7rem; background: #070b0b90; padding: .35rem .5rem; border-radius: 100px; }
-.page-uae .uae-market-slider__card-label { position: absolute; z-index: 1; left: 1rem; right: 1rem; bottom: 1.25rem; font-family: 'Mona Sans Narrow', sans-serif; text-transform: uppercase; font-size: clamp(1.15rem, 1.5vw, 1.65rem); font-weight: 600; line-height: 1.05; }
-.page-uae .uae-market-slider__card-label > span { display: block; margin-top: .75rem; font-family: 'Mona Sans', sans-serif; color: #ff9b4e; font-size: 1.125rem; }
-.page-uae .uae-market-slider__footer { display: flex; align-items: center; gap: 1.5rem; padding-top: 2rem; }
-.page-uae .uae-market-slider__controls { display: flex; gap: .5rem; }
-.page-uae .uae-market-slider__controls button { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid #ffffff50; border-radius: 50%; background: #080c0c55; color: #fff; cursor: pointer; transition: background .25s; font-size: 1rem; }
-.page-uae .uae-market-slider__controls button:hover { background: #f47a1f; }
-.page-uae .uae-market-slider button:focus-visible { outline: 3px solid #ffab63; outline-offset: 5px; }
-.page-uae .uae-market-slider__progress { display: flex; flex: 1; gap: .35rem; }
-.page-uae .uae-market-slider__progress span { height: 2px; flex: 1; background: #ffffff40; transition: background .4s; }
-.page-uae .uae-market-slider__progress span.is-active { background: #fa7c18; }
-.page-uae .uae-market-slider__count { color: #d2d4ce; font-size: .75rem; white-space: nowrap; }
-.page-uae .uae-market-slider__count strong { font-size: 1.75rem; color: #fff; font-family: 'Mona Sans Narrow', sans-serif; text-transform: uppercase; }
+.page-uae .uae-market-slider__eyebrow { display: block; margin-bottom: 1.5rem; font-size: .6875rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: #ffac65; }
+.page-uae #uae-ecosystem .uae-market-slider__copy h3 { color: #fff; font-size: clamp(3rem, 4.6vw, 5rem) !important; line-height: 1.02 !important; letter-spacing: -.02em !important; margin: 0 0 1.5rem; max-width: 14ch; }
+.page-uae .uae-market-slider__copy p { color: #c5c7c1; font-size: 1rem; line-height: 1.7; margin: 0; max-width: 49ch; }
+.page-uae .uae-market-slider__scene { position: relative; height: clamp(380px, 36vw, 540px); min-width: 0; overflow: hidden; border-radius: 20px; background: #262a26; }
+.page-uae .uae-market-slider__scene img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: translateX(5%) scale(1.025); transition: opacity .65s ease, transform .9s cubic-bezier(.2, .75, .25, 1); }
+.page-uae .uae-market-slider__scene img.is-active { opacity: 1; transform: translateX(0) scale(1); }
+.page-uae .uae-market-slider__scene::after { content: ''; position: absolute; inset: 50% 0 0; background: linear-gradient(transparent, #050805b3); pointer-events: none; }
+.page-uae .uae-market-slider__scene-caption { position: absolute; z-index: 1; bottom: 1.5rem; left: 1.5rem; right: 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; font-size: .625rem; font-weight: 500; letter-spacing: .1em; }
+.page-uae .uae-market-slider__scene-caption > span { letter-spacing: 0; font-size: .75rem; }
+.page-uae .uae-market-slider__controls { display: flex; align-items: center; gap: .625rem; margin-top: 2rem; }
+.page-uae .uae-market-slider__controls button { display: grid; place-items: center; width: 46px; height: 46px; padding: 0; border: 1px solid #ffffff40; border-radius: 50%; background: transparent; color: #fff; cursor: pointer; transition: background .25s, border-color .25s; font-size: 1.125rem; }
+.page-uae .uae-market-slider__controls button:hover { background: #f47a1f; border-color: #f47a1f; }
+.page-uae .uae-market-slider__count { display: flex; align-items: baseline; gap: .35rem; margin-left: auto; color: #a0a49c; font-size: .75rem; }
+.page-uae .uae-market-slider__count strong { font-size: 2.75rem; color: #fff; font-family: 'Mona Sans Narrow', sans-serif; text-transform: uppercase; line-height: 1; }
+.page-uae .uae-market-slider__cards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .75rem; margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid #ffffff1c; }
+.page-uae .uae-market-slider__card { position: relative; display: grid; grid-template-columns: 52px minmax(0, 1fr) 16px; align-items: center; gap: .875rem; min-width: 0; padding: .75rem; border: 0; border-radius: 12px; overflow: hidden; cursor: pointer; text-align: left; color: #c7cac3; background: #ffffff05; transition: background .3s, color .3s; }
+.page-uae .uae-market-slider__card::after { content: ''; position: absolute; bottom: 0; left: .75rem; right: .75rem; height: 2px; background: #f47a1f; transform: scaleX(0); transform-origin: left; transition: transform .45s; }
+.page-uae .uae-market-slider__card.is-active { background: #ffffff0e; color: #fff; }
+.page-uae .uae-market-slider__card.is-active::after { transform: scaleX(1); }
+.page-uae .uae-market-slider__card:hover { background: #ffffff14; color: #fff; }
+.page-uae .uae-market-slider__card img { width: 52px; height: 64px; object-fit: cover; border-radius: 6px; }
+.page-uae .uae-market-slider__card-copy { display: block; min-width: 0; }
+.page-uae .uae-market-slider__card-number { display: block; margin-bottom: .4rem; color: #93998e; font-size: .625rem; }
+.page-uae .uae-market-slider__card-label { display: block; font-family: 'Mona Sans Narrow', sans-serif; text-transform: uppercase; font-size: 1.25rem; font-weight: 500; line-height: 1.05; }
+.page-uae .uae-market-slider__card-arrow { color: #fa963f; font-size: 1rem; }
+.page-uae .uae-market-slider button:focus-visible { outline: 3px solid #ffad65; outline-offset: 4px; }
 @media (max-width: 991px) {
- .page-uae .sec-uae-ecosystem__panel { padding: 0; }
- .page-uae .uae-market-slider { min-height: 0; padding: 2.5rem; }
- .page-uae .uae-market-slider__layout { grid-template-columns: 1fr; gap: 2.5rem; }
- .page-uae .uae-market-slider__gallery { padding-top: 1rem; }
- .page-uae .uae-market-slider__card { height: 300px; }
- .page-uae .uae-market-slider__intro h2.section-title { font-size: clamp(3rem, 8vw, 5rem) !important; }
- .page-uae .uae-market-slider__copy h3 { max-width: none; }
- .page-uae .uae-market-slider__copy p { max-width: 70ch; }
+ .page-uae .sec-uae-ecosystem > .site-container > .sec-uae-expansion__header { padding-inline: 1.25rem; }
+}
+@media (max-width: 1100px) and (min-width: 768px) {
+ .page-uae .uae-market-slider__stage { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2rem; }
+ .page-uae #uae-ecosystem .uae-market-slider__copy h3 { font-size: 3rem !important; }
+ .page-uae .uae-market-slider__copy p { font-size: .9375rem; }
+ .page-uae .uae-market-slider__scene { height: 440px; }
+ .page-uae .uae-market-slider__card { grid-template-columns: 40px minmax(0, 1fr); gap: .625rem; padding: .625rem; }
+ .page-uae .uae-market-slider__card img { width: 40px; height: 56px; }
+ .page-uae .uae-market-slider__card-arrow { display: none; }
+ .page-uae .uae-market-slider__card-label { font-size: 1.0625rem; }
 }
 @media (max-width: 767px) {
- .page-uae .uae-market-slider { padding: 2rem 1.25rem; }
- .page-uae .uae-market-slider__shade { background: linear-gradient(180deg, #080c0ce8, #080c0cb0 60%, #080c0caa); }
- .page-uae .uae-market-slider__intro h2.section-title { margin-bottom: 1.5rem !important; }
- .page-uae .uae-market-slider__cards { overflow-x: auto; padding-block: 16px 4px; scrollbar-width: none; }
- .page-uae .uae-market-slider__cards::-webkit-scrollbar { display: none; }
- .page-uae .uae-market-slider__card, .page-uae .uae-market-slider__card.is-active { flex: 0 0 60%; min-width: 160px; height: 245px; }
- .page-uae .uae-market-slider__card-label { font-size: 1.4rem; }
- .page-uae .uae-market-slider__footer { gap: .8rem; padding-top: 1rem; }
- .page-uae .uae-market-slider__progress { gap: .2rem; }
- .page-uae .uae-market-slider__count strong { font-size: 1.4rem; }
+ .page-uae .uae-market-slider__stage { grid-template-columns: 1fr; gap: 1.5rem; }
+ .page-uae .uae-market-slider__intro { padding: 0; }
+ .page-uae #uae-ecosystem .uae-market-slider__copy h3 { font-size: clamp(2.75rem, 11vw, 3.5rem) !important; max-width: 100%; }
+ .page-uae .uae-market-slider__eyebrow { margin-bottom: 1.25rem; font-size: .625rem; }
+ .page-uae .uae-market-slider__copy p { font-size: .9375rem; line-height: 1.65; }
+ .page-uae .uae-market-slider__controls { margin-top: 1.5rem; }
+ .page-uae .uae-market-slider__scene { height: auto; aspect-ratio: 1.12; border-radius: 14px; }
+ .page-uae .uae-market-slider__scene-caption { bottom: 1rem; left: 1rem; right: 1rem; }
+ .page-uae .uae-market-slider__scene-caption > span { font-size: .625rem; }
+ .page-uae .uae-market-slider__cards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .625rem; margin-top: 1.5rem; padding-top: 1.5rem; }
+ .page-uae .uae-market-slider__card { grid-template-columns: 32px minmax(0, 1fr); gap: .5rem; padding: .625rem; }
+ .page-uae .uae-market-slider__card img { width: 32px; height: 48px; }
+ .page-uae .uae-market-slider__card-label { font-size: 1.0625rem; }
+ .page-uae .uae-market-slider__card-arrow { display: none; }
+}
+@media (max-width: 360px) {
+ .page-uae .uae-market-slider__cards { grid-template-columns: 1fr; }
+ .page-uae .uae-market-slider__card { grid-template-columns: 32px minmax(0, 1fr) 16px; }
+ .page-uae .uae-market-slider__card-arrow { display: block; }
 }
 @media (prefers-reduced-motion: reduce) {
  .page-uae .uae-market-slider *, .page-uae .uae-market-slider *::after { transition: none !important; }

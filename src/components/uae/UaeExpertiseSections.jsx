@@ -23,7 +23,6 @@ function SectionHeading({ badge, children, description, dark = false, titleId })
 export function UaeIndustriesSection() {
   return (
     <ProcessSection
-      staticTitles
       id="uae-industries"
       className="uae-industries-home-process"
       badge="Industries we serve ✦ "
@@ -41,6 +40,7 @@ export function UaeEcosystemSection() {
     <section className="site-section sec-uae-expansion sec-uae-ecosystem" id="uae-ecosystem" aria-label="Built for the UAE market">
       <UaeEcosystemMotion />
       <div className="site-container container-large padding-global">
+        <SectionHeading badge="Built for the UAE market">Local knowledge.<br /><span className="text-color-secondary">Global engineering.</span></SectionHeading>
         <div className="sec-uae-ecosystem__panel">
           <UaeMarketSlider items={content.ecosystem} />
         </div>
