@@ -28,12 +28,12 @@ for (const path of paths) {
       assert.ok(links.some((link) => link.hreflang === locale && new URL(link.href).toString() === absoluteUrl(target)), `${path}: ${locale} alternate`);
     }
   }
-  if (path === '/ae') {
+  if (path === '/uae') {
     assert.match(html, /<meta name="viewport" content="width=device-width, initial-scale=1"/, 'Responsive viewport without zoom restrictions');
     assert.match(html, /<meta property="og:locale" content="en_AE"/, 'UAE social locale');
     assert.match(html, /<meta property="og:locale:alternate" content="en_PK"/, 'Regional social alternate');
     const webPage = structuredData.find((node) => node['@type'] === 'WebPage');
-    assert.equal(webPage?.url, absoluteUrl('/ae'), 'UAE WebPage canonical URL');
+    assert.equal(webPage?.url, absoluteUrl('/uae'), 'UAE WebPage canonical URL');
     assert.equal(webPage?.inLanguage, 'en-AE', 'UAE WebPage language');
     assert.equal(webPage?.isPartOf?.['@id'], absoluteUrl('/#website'), 'UAE WebPage belongs to main site');
     assert.ok(!html.includes('Find your location') && !html.includes('country-directory'), 'No unwanted directory section');
@@ -56,10 +56,15 @@ for (const invalidPath of ['/international/not-a-market', '/insights/not-a-guide
 const sitemapXml = await (await fetch(new URL('/sitemap.xml', origin))).text();
 assert.equal((sitemapXml.match(/<loc>/g) || []).length, paths.length);
 assert.ok(sitemapXml.includes('hreflang="en-AE"'));
-for (const legacyPath of ['/uae', '/dubai', '/international', '/international/united-arab-emirates']) {
+for (const legacyPath of ['/ae', '/dubai', '/international', '/international/united-arab-emirates']) {
   const response = await fetch(new URL(legacyPath, origin), { redirect: 'manual' });
   assert.equal(response.status, 308, `${legacyPath}: permanent redirect`);
-  assert.equal(new URL(response.headers.get('location'), origin).pathname, '/ae');
+  assert.equal(new URL(response.headers.get('location'), origin).pathname, '/uae');
 }
+const oldCampaign = await fetch(new URL('/ae?utm_source=legacy', origin), { redirect: 'manual' });
+assert.equal(oldCampaign.status, 308, 'Old UAE campaign URL permanently redirects');
+const campaignTarget = new URL(oldCampaign.headers.get('location'), origin);
+assert.equal(campaignTarget.pathname, '/uae');
+assert.equal(campaignTarget.searchParams.get('utm_source'), 'legacy', 'Preserve campaign parameters on the UAE redirect');
 assert.equal((await fetch(new URL('/international/canada', origin))).status, 404, 'Retired market guide');
 console.log(`Rendered SEO checks passed: ${paths.length} pages, ${internalTargets.size} internal destinations, valid JSON-LD, regional alternates and unknown-route 404s.`);

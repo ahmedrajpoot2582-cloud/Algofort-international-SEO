@@ -13,8 +13,9 @@ assert.equal(markets.length, 1, 'Publish the UAE landing page first');
 assert.equal(new Set(markets.map((market) => market.locale)).size, markets.length);
 const urls = new Set(sitemap().map((entry) => entry.url));
 assert.equal(urls.size, sitemap().length, 'No duplicate sitemap URLs');
+assert.ok(!urls.has(absoluteUrl('/ae')), 'The former UAE URL must not remain in the sitemap');
 for (const market of markets) {
-  assert.equal(marketPath(market), '/ae');
+  assert.equal(marketPath(market), '/uae');
   const metadata = withSocialMetadata({ title: market.title, description: market.description, alternates: { canonical: marketPath(market), languages: internationalAlternates() } });
   assert.equal(metadata.alternates.languages[market.locale], marketPath(market));
   assert.equal(metadata.openGraph.url, absoluteUrl(marketPath(market)));

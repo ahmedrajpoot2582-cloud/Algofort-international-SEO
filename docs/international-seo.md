@@ -4,10 +4,10 @@
 
 Country priority: UAE, then UK, then USA. Build and review the UAE page first. The worldwide directory, country search and generic market guides have been removed.
 
-- /ae uses the owner-supplied Dubai/UAE copy: regional hero and social strip, about, four home-style services, six illustrated delivery steps, showreel, five testimonials, seven FAQs and the existing project form.
+- /uae uses the owner-supplied Dubai/UAE copy: regional hero and social strip, about, four home-style services, six illustrated delivery steps, showreel, five testimonials, seven FAQs and the existing project form.
 - Additional owner-supplied content covers six industries, four expandable UAE integration topics, four collaboration advantages and three success stories (the technology stack section was removed). Content and result metrics are in src/data/uae-sections.js; styles remain scoped to the UAE page.
-- /uae and /dubai permanently redirect to /ae, preserving previous entry URLs while keeping one canonical UAE page.
-- /international and /international/united-arab-emirates permanently redirect to /ae.
+- /ae and /dubai permanently redirect to /uae, preserving previous entry URLs while keeping one canonical UAE page.
+- /international and /international/united-arab-emirates permanently redirect to /uae.
 - Other retired market-guide URLs return 404 and are excluded from the sitemap.
 - UK and USA pages follow the UAE review; no placeholder pages are published.
 
@@ -24,7 +24,7 @@ Run npm run check:seo, npm run lint and npm run build. For a running indexable l
 Source snapshot: https://github.com/algofort/algofort at 8f04c25d853cb30c11bd6fb96f4955845d1b0ab3.
 Destination: https://github.com/ahmedrajpoot2582-cloud/Algofort-international-SEO.
 Vercel project: addiztech/algofort-international-seo.
-Live preview: https://algofort-international-seo.vercel.app/ae.
+Live preview: https://algofort-international-seo.vercel.app/uae.
 
 GitHub is connected to Vercel. Main pushes run build/SEO checks and create preview deployments. The mirror remains noindex through NEXT_PUBLIC_SITE_INDEXABLE=false in the Vercel Production environment. Canonicals identify algofort.com. The original domain has not been repointed.
 
@@ -74,3 +74,9 @@ UAE section headings use the same character slide-up reveal as the Clients headi
 The removed `staticTitles` option had stopped the industry-title scroll handler while leaving the stylesheet's initial 235px offsets in place. Restoring the existing handler lets both columns reach zero translation before cards pass their sticky positions. At 900px and below the original stacked layout uses static headings and no transforms. Browser checks cover the reported 1077px width and both sides of the 900px breakpoint, including card/heading rectangle intersection checks during scrolling.
 
 The market slider now uses a large feature image beside a readable text column, a subdued matching background, and four compact image selectors below. The section heading sits above the panel in normal flow. Active image, backdrop, copy, number and selector update together. Phones stack copy above the image; the narrowest phones use one selector per row to keep complete labels readable. Directional swipes distinguish horizontal from vertical movement, while autoplay pause and keyboard controls are retained.
+
+## UAE URL and book-page slider revision
+
+The canonical landing page is now /uae. The former /ae URL permanently redirects to it and retains query parameters. Market navigation, breadcrumbs, canonical/social URLs, structured data, reciprocal language alternates and the sitemap all identify /uae. Regional font preload headers follow the new route.
+
+The slider has a solid black background, two directional controls and a slide count. The background photos, lower thumbnail strip and play/pause control are removed along with their reserved spacing. Slides advance on manual arrow, keyboard or swipe interaction; no automatic timer requires a pause control. The outgoing image turns from its spine with a directional 3D book-page motion, revealing the next image below it. Only one turn runs at a time, and reduced-motion visitors receive an immediate image change.

@@ -15,6 +15,7 @@ const nextConfig = {
         destination: 'https://algofort.com/:path*',
         permanent: true,
       },
+      { source: '/ae', destination: '/uae', permanent: true },
       { source: '/contact-us', destination: '/contact', permanent: true },
       { source: '/our-services', destination: '/services', permanent: true },
       { source: '/projects', destination: '/portfolio', permanent: true },
@@ -43,7 +44,7 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: '/ae',
+        source: '/uae',
         headers: [{
           key: 'Link',
           // The hero font/poster are embedded; preload the remaining UI fonts.

@@ -184,7 +184,7 @@ export const Footer = ({ className = '', newsletterPreview = false } = {}) => {
                             <div className="nav-text">CONTACT US</div>
                           </div>
                         </Link>
-                        <Link href="/ae" className="footer_nav_link nav-link">
+                        <Link href="/uae" className="footer_nav_link nav-link">
                           <div className="nav-text-wrap"><div className="nav-text">UAE SERVICES</div><div className="nav-text">UAE SERVICES</div></div>
                         </Link>
                         <Link href="/insights" className="footer_nav_link nav-link">
