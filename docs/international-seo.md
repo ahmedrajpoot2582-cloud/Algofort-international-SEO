@@ -52,6 +52,13 @@ A UAE-only Lenis controller synchronizes desktop wheel/anchor scrolling with Scr
 The measured pre-change PageSpeed mobile performance score was 76 (FCP 2.3s, LCP 4.4s, TBT 240ms, CLS 0); desktop was 98. The report identified seven render-blocking CSS requests. Next's inlineCss option now removes those initial stylesheet requests. Trade-off: shared CSS travels with HTML and cannot be cached independently on a full reload; client navigation still uses CSS assets. Recheck the deployed revision with PageSpeed; no perfect score is asserted without a matching measurement.
 ## Hero stability and deferred motion (24 October 2026)
 
-The UAE hero uses byte-identical embedded versions of its existing poster and Mona Sans BoldNarrow font. Its desktop title reserves two lines while the font decodes; the poster is no longer duplicated as an inline background style. This increases HTML size but removes separate critical poster/font downloads. The font alias remains uppercase and the visible design is unchanged. The remaining regular/medium UI fonts receive response-header preload hints.
+The UAE hero uses byte-identical embedded versions of its existing poster and Mona Sans BoldNarrow font. Its title now follows its actual wrapped height, with the breadcrumb in the normal flow below it; the poster is no longer duplicated as an inline background style. This increases HTML size but removes separate critical poster/font downloads. The font alias remains uppercase and the visible design is unchanged. The remaining regular/medium UI fonts receive response-header preload hints.
 
 The UAE About counters, Advantages timeline and Results cards initialize near their sections. Homepage defaults still initialize as before. Browser checks confirmed that counters start, side markers meet the timeline, and Results cards settle at zero translation then reverse on scrolling up. Production build and rendered SEO checks still pass. Google lab scores are measured observations, not a guarantee of 100 on every device or run; the preview remains noindex as described above.
+## Final layout corrections (24 October 2026)
+
+The UAE About introduction is shortened into six editorial lines on desktop widths of 1200px and above, with natural wrapping on smaller screens. The homepage copy and layout retain their defaults.
+
+The ecosystem section no longer pins or animates background width/height. It keeps its frame dimensions and reveals from below with a restrained perspective tilt controlled by scrolling; reduced-motion visitors receive static content. Hover accordions remain exclusive and smooth.
+
+The hero no longer forces its title into a fixed two-line height. Wide screens allow a 1600px content area, while the title and breadcrumb stack naturally at every breakpoint. This supersedes the previous fixed-height optimization because content must remain unclipped across screen sizes.

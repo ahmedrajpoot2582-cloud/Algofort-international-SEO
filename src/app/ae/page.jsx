@@ -73,7 +73,7 @@ export default function UaePage() {
           <script type="application/ld+json">{JSON.stringify(schema).replace(/</g, '\\u003c')}</script>
           <PageBanner performanceMode posterOverride={uaeHeroPoster} animateEntrance title={content.heroTitle} eyebrow={content.heroBadge} services={content.marquee} breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'UAE', href: '/ae', active: true }]} />
 
-          <AboutSection deferMotion id="uae-about" description={content.about} studioNote="Global engineering & delivery studio: Karachi. Serving Dubai, Abu Dhabi, the UAE and global markets." />
+          <AboutSection deferMotion id="uae-about" description={content.about} descriptionLines={content.aboutLines} studioNote="Global engineering & delivery studio: Karachi. Serving Dubai, Abu Dhabi, the UAE and global markets." />
 
           <ServicesSection deferMotion animateHeading={false} items={content.services} heading={<><span className="uae-services-title-line">Creative solutions</span>{' '}<span className="uae-services-title-line text-color-secondary">for UAE enterprises.</span></>} />
           <UaeIndustriesSection />

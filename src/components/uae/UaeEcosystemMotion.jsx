@@ -3,71 +3,38 @@
 import { useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { observeNear } from '../../utils/observeNear';
 
 export function UaeEcosystemMotion() {
   useEffect(() => {
     const section = document.querySelector('#uae-ecosystem');
     const panel = section?.querySelector('.sec-uae-ecosystem__panel');
-    const background = section?.querySelector('.sec-uae-ecosystem__background');
-    const services = document.querySelector('.page-uae #sec-services');
-    if (!panel || !background || !services) return;
+    if (!panel) return;
 
-    gsap.registerPlugin(ScrollTrigger);
-    const media = gsap.matchMedia();
-    let active = true;
-
-    media.add('(min-width: 992px) and (prefers-reduced-motion: no-preference)', () => {
-      const frameWidth = () => services.getBoundingClientRect().width;
-      const frameHeight = () => Math.max(panel.clientHeight, window.innerHeight - services.getBoundingClientRect().left * 2);
-      const timeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: panel,
-          start: () => panel.offsetHeight < window.innerHeight - 48 ? 'center center' : 'top 24px',
-          end: () => `+=${Math.round(window.innerHeight * 0.65)}`,
-          pin: true,
-          pinSpacing: true,
-          scrub: 0.6,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-        },
+    return observeNear(section, () => {
+      gsap.registerPlugin(ScrollTrigger);
+      const media = gsap.matchMedia();
+      let active = true;
+      media.add({ motion: '(prefers-reduced-motion: no-preference)', wide: '(min-width: 992px)' }, ({ conditions }) => {
+        if (!conditions.motion) return;
+        // The frame keeps its layout dimensions and scrolls in normal flow.
+        gsap.fromTo(panel, {
+          y: conditions.wide ? 100 : 48,
+          rotationX: conditions.wide ? 10 : 5,
+          transformPerspective: 1400,
+          transformOrigin: '50% 100%',
+          opacity: .15,
+        }, {
+          y: 0, rotationX: 0, opacity: 1, ease: 'none',
+          scrollTrigger: {
+            trigger: section, start: 'top 95%', end: 'top 25%',
+            scrub: .6, invalidateOnRefresh: true,
+          },
+        });
       });
-      timeline.fromTo(background, {
-        width: () => panel.clientWidth,
-        height: () => panel.clientHeight,
-        x: 0,
-        y: 0,
-      }, {
-        width: frameWidth,
-        height: frameHeight,
-        x: () => (panel.clientWidth - frameWidth()) / 2,
-        y: () => (panel.clientHeight - frameHeight()) / 2,
-        duration: 0.8,
-        ease: 'none',
-      });
-      // Keep the completed frame pinned briefly before normal scrolling resumes.
-      timeline.to({}, { duration: 0.2 });
-
-      let refreshFrame;
-      const refresh = event => {
-        // The accordion controller refreshes once its height transition settles.
-        if (event?.target?.hasAttribute('data-uae-accordion')) return;
-        cancelAnimationFrame(refreshFrame);
-        refreshFrame = requestAnimationFrame(() => ScrollTrigger.refresh());
-      };
-      const details = section.querySelectorAll('details');
-      details.forEach(detail => detail.addEventListener('toggle', refresh));
-      document.fonts?.ready.then(() => { if (active) refresh(); });
-
-      return () => {
-        cancelAnimationFrame(refreshFrame);
-        details.forEach(detail => detail.removeEventListener('toggle', refresh));
-      };
-    });
-
-    return () => {
-      active = false;
-      media.revert();
-    };
+      document.fonts?.ready.then(() => { if (active) ScrollTrigger.refresh(); });
+      return () => { active = false; media.revert(); };
+    }, 400);
   }, []);
 
   return null;
