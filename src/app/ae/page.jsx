@@ -18,6 +18,8 @@ import { uaeContent as content } from '../../data/uae';
 import { internationalAlternates } from '../../data/markets';
 import { withSocialMetadata } from '../../lib/seo';
 import { absoluteUrl } from '../../lib/site';
+import { uaeHeroPoster } from '../../data/uae-hero-poster';
+import '../../styles/uae-hero-font.css';
 import '../../styles/uae.css';
 
 export const metadata = withSocialMetadata({
@@ -69,7 +71,7 @@ export default function UaePage() {
         <Cursor /><Header prefetch={false} /><BackToTop /><UaeSmoothScroll /><UaeMotion /><UaeAccordionMotion />
         <main id="main-content">
           <script type="application/ld+json">{JSON.stringify(schema).replace(/</g, '\\u003c')}</script>
-          <PageBanner performanceMode animateEntrance title={content.heroTitle} eyebrow={content.heroBadge} services={content.marquee} breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'UAE', href: '/ae', active: true }]} />
+          <PageBanner performanceMode posterOverride={uaeHeroPoster} animateEntrance title={content.heroTitle} eyebrow={content.heroBadge} services={content.marquee} breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'UAE', href: '/ae', active: true }]} />
 
           <AboutSection deferMotion id="uae-about" description={content.about} studioNote="Global engineering & delivery studio: Karachi. Serving Dubai, Abu Dhabi, the UAE and global markets." />
 

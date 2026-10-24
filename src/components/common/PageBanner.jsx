@@ -66,6 +66,7 @@ export function PageBanner({
   eyebrow,
   services = marqueeItems,
   performanceMode = false,
+  posterOverride,
   animateEntrance = !performanceMode,
   breadcrumbs,
   showBottomBar = true,
@@ -74,9 +75,9 @@ export function PageBanner({
 }) {
   const containerRef = useRef(null);
   const htmlEntrance = performanceMode && animateEntrance && typeof title === 'string';
-  const bannerPoster = performanceMode
+  const bannerPoster = posterOverride || (performanceMode
     ? '/assets/68ee74b7102caefef6ce7890_2F68f23d0b14d2158ab1fa8dea_14471915_3840_2160_30fps_20_281_29-poster-00001.jpg'
-    : 'https://res.cloudinary.com/vfsp1egd/image/upload/w_1920,c_limit,q_auto:best,f_auto/v1792145856/algofort/assets/68ee74b7102caefef6ce7890_2F68f23d0b14d2158ab1fa8dea_14471915_3840_2160_30fps_20_281_29-poster-00001';
+    : 'https://res.cloudinary.com/vfsp1egd/image/upload/w_1920,c_limit,q_auto:best,f_auto/v1792145856/algofort/assets/68ee74b7102caefef6ce7890_2F68f23d0b14d2158ab1fa8dea_14471915_3840_2160_30fps_20_281_29-poster-00001');
 
   // Default breadcrumbs if not explicitly provided
   const breadcrumbList = breadcrumbs && breadcrumbs.length > 0
@@ -221,8 +222,8 @@ export function PageBanner({
       data-entrance={animateEntrance && !htmlEntrance ? 'gsap' : 'html'}
       className={`alg-hero site-section section-home-header sec-banner sec-page-banner ${className}`}
     >
-      {performanceMode && <link rel="preload" as="image" href={bannerPoster} fetchPriority="high" />}
-      {performanceMode && <link rel="preload" as="font" href="/assets/68f24a7e02445111cfe6382d_Mona-Sans-BoldNarrow.woff2" type="font/woff2" crossOrigin="anonymous" />}
+      {performanceMode && !posterOverride && <link rel="preload" as="image" href={bannerPoster} fetchPriority="high" />}
+      {performanceMode && !posterOverride && <link rel="preload" as="font" href="/assets/68f24a7e02445111cfe6382d_Mona-Sans-BoldNarrow.woff2" type="font/woff2" crossOrigin="anonymous" />}
       {breadcrumbList.length >= 2 && breadcrumbList.every((crumb) => crumb.href) && (
         <script
           type="application/ld+json"
