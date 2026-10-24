@@ -1,6 +1,7 @@
 import { SubtitleMarquee } from '../common/SubtitleMarquee';
 import { ProcessSection } from '../sections/ProcessSection';
 import { UaeEcosystemMotion } from './UaeEcosystemMotion';
+import { UaeMarketSlider } from './UaeMarketSlider';
 import { UaeAdvantagesMotion } from './UaeAdvantagesMotion';
 import { UaeResultsMotion } from './UaeResultsMotion';
 import { uaeSections as content } from '../../data/uae-sections';
@@ -22,6 +23,7 @@ function SectionHeading({ badge, children, description, dark = false, titleId })
 export function UaeIndustriesSection() {
   return (
     <ProcessSection
+      staticTitles
       id="uae-industries"
       className="uae-industries-home-process"
       badge="Industries we serve ✦ "
@@ -40,16 +42,7 @@ export function UaeEcosystemSection() {
       <UaeEcosystemMotion />
       <div className="site-container container-large padding-global">
         <div className="sec-uae-ecosystem__panel">
-          <div className="sec-uae-ecosystem__background" aria-hidden="true" />
-          <div className="sec-uae-ecosystem__intro">
-            <SectionHeading dark badge="Built for the UAE market">Engineered specifically<br /><span className="text-color-secondary">for UAE business standards.</span></SectionHeading>
-          </div>
-          <div className="section-content sec-uae-ecosystem__list">
-            {content.ecosystem.map((item, index) => <details className="sec-uae-ecosystem__item" key={item.number} open={index === 0}>
-              <summary><span className="sec-uae-expansion__number">{item.number}</span><h3 className="heading-style-h3 sec-uae-expansion__subtitle">{item.title}</h3><span className="sec-uae-ecosystem__toggle" aria-hidden="true" /></summary>
-              <div className="sec-uae-ecosystem__body"><p className="alg-text">{item.description}</p></div>
-            </details>)}
-          </div>
+          <UaeMarketSlider items={content.ecosystem} />
         </div>
       </div>
     </section>

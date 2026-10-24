@@ -1,13 +1,4 @@
 // UAE content supplied by the site owner. Empty counters are intentionally omitted.
-const aboutLines = [
-  'At Algofort, we turn ambitious ideas into',
-  'digital products that help UAE businesses grow.',
-  'We build websites, cloud platforms, mobile apps,',
-  'and distinctive brands for Dubai and Abu Dhabi.',
-  'Our team blends strategy, design, and engineering',
-  'to connect your business with the UAE and GCC.',
-];
-
 export const uaeContent = {
   "title": "Algofort Dubai | Web, SaaS & Mobile App Development Agency UAE",
   "description": "Leading digital solutions & software agency serving Dubai & UAE. We specialize in custom Web Development, SaaS Platforms, Mobile Apps & Brand Identity.",
@@ -26,8 +17,7 @@ export const uaeContent = {
     "SaaS App Development",
     "Mobile App Development Dubai"
   ],
-  "about": aboutLines.join(' '),
-  "aboutLines": aboutLines,
+  "about": "At Algofort, we turn ambitious ideas into digital products that help UAE businesses grow. We build websites, cloud platforms, mobile apps, and distinctive brands for Dubai and Abu Dhabi. Our team blends strategy, design, and engineering to connect your business with the UAE and GCC.",
   "services": [
     {
       "id": "01",

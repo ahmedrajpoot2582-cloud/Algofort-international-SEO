@@ -57,8 +57,14 @@ The UAE hero uses byte-identical embedded versions of its existing poster and Mo
 The UAE About counters, Advantages timeline and Results cards initialize near their sections. Homepage defaults still initialize as before. Browser checks confirmed that counters start, side markers meet the timeline, and Results cards settle at zero translation then reverse on scrolling up. Production build and rendered SEO checks still pass. Google lab scores are measured observations, not a guarantee of 100 on every device or run; the preview remains noindex as described above.
 ## Final layout corrections (24 October 2026)
 
-The UAE About introduction is shortened into six editorial lines on desktop widths of 1200px and above, with natural wrapping on smaller screens. The homepage copy and layout retain their defaults.
+The UAE About introduction is shortened. Its earlier forced six-line treatment is superseded by the natural paragraph wrapping described below. The homepage copy and layout retain their defaults.
 
-The ecosystem section no longer pins or animates background width/height. It keeps its frame dimensions and reveals from below with a restrained perspective tilt controlled by scrolling; reduced-motion visitors receive static content. Hover accordions remain exclusive and smooth.
+The ecosystem section no longer pins or animates background width/height. It keeps its frame dimensions and reveals from below with a restrained perspective tilt controlled by scrolling; reduced-motion visitors receive static content. The former accordion is now replaced by the image carousel described below.
 
 The hero no longer forces its title into a fixed two-line height. Wide screens allow a 1600px content area, while the title and breadcrumb stack naturally at every breakpoint. This supersedes the previous fixed-height optimization because content must remain unclipped across screen sizes.
+
+## UAE image carousel and consistent heading motion (24 October 2026)
+
+The market section now has four image cards using existing local service imagery. Selecting a card, using the previous/next controls, or swiping on a phone updates its description and crossfades the same image into the background. Automatic advance runs only while the section is visible, pauses during hover/focus and on hidden tabs, and stops after manual navigation. A play/pause control is available; reduced-motion users receive manual navigation without transitions or autoplay. All four descriptions remain server-rendered. The carousel keeps its height as content changes and stays in normal document flow.
+
+UAE section headings use the same character slide-up reveal as the Clients heading, initialized near the viewport. The previous process-heading word reveal and industry-heading sideways motion no longer compete with it. Homepage animation defaults remain unchanged. About now wraps as one continuous paragraph at every screen size, and Results cards have no outer borders or internal metric dividers.

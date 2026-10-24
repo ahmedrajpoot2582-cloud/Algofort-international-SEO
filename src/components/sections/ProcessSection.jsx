@@ -52,6 +52,7 @@ export function ProcessSection({
   headingLabel,
   footerDescription,
   className = '',
+  staticTitles = false,
 } = {}) {
   const sectionRef = useRef(null);
   const titleLeftRef = useRef(null);
@@ -61,6 +62,7 @@ export function ProcessSection({
     const section = sectionRef.current;
     const titleLeft = titleLeftRef.current;
     const titleRight = titleRightRef.current;
+    if (staticTitles) return;
 
     const START_OFFSET_X = 235;
 
@@ -102,7 +104,7 @@ export function ProcessSection({
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);
     };
-  }, []);
+  }, [staticTitles]);
 
   return (
     <>

@@ -2,6 +2,8 @@
 
 import { useEffect } from 'react';
 import gsap from 'gsap';
+import { initTitleAnimation } from '../../utils/titleAnimation';
+import { observeNear } from '../../utils/observeNear';
 
 export function UaeMotion() {
   useEffect(() => {
@@ -11,29 +13,20 @@ export function UaeMotion() {
     const media = gsap.matchMedia();
 
     media.add('(prefers-reduced-motion: no-preference)', () => {
-      const context = gsap.context(() => {}, root);
-      const timelines = new Map();
-      const visible = new Set();
-      const targets = [...root.querySelectorAll('.sec-uae-ecosystem__item')];
-      const observer = new IntersectionObserver(entries => {
-        entries.forEach(({ target, isIntersecting, intersectionRatio }) => {
-          if (!isIntersecting) {
-            visible.delete(target);
-            if (timelines.get(target)?.isActive()) timelines.get(target).progress(1);
-            return;
-          }
-          if (intersectionRatio < .12 || visible.has(target)) return;
-          visible.add(target);
-          if (!timelines.has(target)) context.add(() => {
-            timelines.set(target, gsap.fromTo(target, { y: 24, opacity: 0 }, {
-              y: 0, opacity: 1, duration: .65, ease: 'power3.out', paused: true,
-            }));
-          });
-          timelines.get(target).restart(true);
-        });
-      }, { threshold: .12, rootMargin: '0px 0px -24px 0px' });
-      targets.forEach(target => observer.observe(target));
-      return () => { observer.disconnect(); context.revert(); };
+      const headings = [...root.querySelectorAll('main h2.section-title, #uae-industries .heading-text')]
+        .filter(heading => !heading.closest('#sec-testimonials'));
+      const stops = headings.map(heading => observeNear(heading, () => {
+        const original = heading.innerHTML;
+        const animation = initTitleAnimation(heading, { regional: true, start: 'top 85%', stagger: .02 });
+        return () => {
+          animation?.scrollTrigger?.kill();
+          animation?.kill();
+          heading.innerHTML = original;
+          delete heading.dataset.titleAnimated;
+          delete heading.dataset.splitDone;
+        };
+      }, 300));
+      return () => stops.forEach(stop => stop());
     });
 
     const loops = [...root.querySelectorAll('.subtitle-marquee-track, .service-marquee-track, .sonar-wave')];

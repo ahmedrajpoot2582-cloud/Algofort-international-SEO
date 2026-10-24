@@ -70,8 +70,9 @@ export function splitTextIntoChars(el) {
  */
 export function initTitleAnimation(titleEl, options = {}) {
   if (!titleEl || titleEl.dataset.titleAnimated) return null;
-  // Regional headings have their own GSAP entry timelines; clients retain home motion.
-  if (titleEl.closest('[data-section-motion]') || (titleEl.closest('[data-uae-gsap]') && !titleEl.closest('#sec-testimonials')) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  // A single regional controller owns these headings, using the home reveal.
+  if (titleEl.closest('[data-uae-gsap]') && !titleEl.closest('#sec-testimonials') && !options.regional) return null;
+  if (titleEl.closest('[data-section-motion]') || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     titleEl.dataset.splitDone = 'true';
     titleEl.dataset.titleAnimated = 'true';
     return null;

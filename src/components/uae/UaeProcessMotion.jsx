@@ -48,7 +48,6 @@ export function UaeProcessMotion() {
         await document.fonts?.ready;
         if (!active) return;
         context.add(() => {
-          const heading = section.querySelector('.sec-uae__process-header h2');
           const hub = section.querySelector('.sec-uae__process-hub');
           const steps = [...section.querySelectorAll('.sec-uae__step')];
           const flows = [...section.querySelectorAll('.sec-uae__connection-flow')];
@@ -70,7 +69,6 @@ export function UaeProcessMotion() {
             reveals.set(target, timeline);
             return timeline;
           };
-          revealWords(createReveal(heading), words(heading));
           const zoomHub = timeline => {
             timeline.fromTo(hub, {
               x: 0, y: 0, xPercent: conditions.wide ? -50 : 0,

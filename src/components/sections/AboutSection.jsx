@@ -14,7 +14,7 @@ if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
 }
 
-export const AboutSection = ({ description, descriptionLines, id = 'sec-about', studioNote, deferMotion = false }) => {
+export const AboutSection = ({ description, id = 'sec-about', studioNote, deferMotion = false }) => {
   const sectionRef = useRef(null);
   const textRef = useRef(null);
 
@@ -71,9 +71,7 @@ export const AboutSection = ({ description, descriptionLines, id = 'sec-about', 
           </div>
           <div className="section-description sec-about__desc sec-about__content about-markeio_content scrub_letter forteve-about__content" ref={textRef}>
             <p className="alg-text">
-              {descriptionLines?.length ? descriptionLines.map((line, index) => (
-                <React.Fragment key={line}>{index > 0 && ' '}<span className="uae-about-line">{line}</span></React.Fragment>
-              )) : description || "At Algofort, we believe technology isn't just about code — it's about connection and delivering measurable impact. We're a digital solutions agency built to help brands grow with purpose and engineering precision. From architecting intelligent software to executing digital strategies, we combine technology and creativity to deliver solutions that drive sustainable growth."}
+              {description || "At Algofort, we believe technology isn't just about code — it's about connection and delivering measurable impact. We're a digital solutions agency built to help brands grow with purpose and engineering precision. From architecting intelligent software to executing digital strategies, we combine technology and creativity to deliver solutions that drive sustainable growth."}
             </p>
           </div>
         </div>
