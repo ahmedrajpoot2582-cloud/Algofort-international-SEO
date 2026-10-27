@@ -42,6 +42,10 @@ export function UaeAdvantagesSection({ items = content.advantages, intro = 'Sili
             <SectionHeading dark badge="Why choose Algofort">{intro}<br /><span className="text-color-secondary">{highlight}</span></SectionHeading>
           </div>
           <div className="sec-uae-advantages__timeline">
+            <svg className="sec-uae-advantages__route" viewBox="0 0 1200 1800" preserveAspectRatio="none" fill="none" aria-hidden="true">
+              <path className="sec-uae-advantages__route-base" d="" />
+              <path className="sec-uae-advantages__route-progress" d="" />
+            </svg>
             <ol className="section-content sec-uae-advantages__list">
               {items.map((item) => <li className="sec-uae-advantages__item" key={item.number}>
                 <span className="sec-uae-advantages__marker" aria-hidden="true" />
