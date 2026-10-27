@@ -73,7 +73,7 @@ export function RegionalLandingPage({ content }) {
         <ServicesSection deferMotion animateHeading={false} items={content.services} heading={<><span className="uae-services-title-line">Creative solutions</span>{' '}<span className="uae-services-title-line text-color-secondary">{content.servicesLine}</span></>} />
         <UaeIndustriesSection items={content.industries} place={content.industryPlace} />
         <UaeResultsSection items={content.results} badge="Built for growth" caption="What we can build together" />
-        <UaeAdvantagesSection items={content.advantages} intro={content.advantagesIntro} highlight={content.advantagesHighlight} description={content.advantagesDescription} />
+        <UaeAdvantagesSection items={content.advantages} intro={content.advantagesIntro} highlight={content.advantagesHighlight} />
         <ShowreelSection />
         <UaeProcessSection items={content.process} market={content.shortName} highlight={content.processHighlight} />
         <TestimonialsSection />

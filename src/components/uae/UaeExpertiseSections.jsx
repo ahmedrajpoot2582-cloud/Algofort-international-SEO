@@ -32,20 +32,16 @@ export function UaeIndustriesSection({ items = content.industries, place = 'Duba
   );
 }
 
-export function UaeAdvantagesSection({ items = content.advantages, intro = 'Silicon Valley engineering.', highlight = 'Seamless Dubai collaboration.', description = 'Four ways we make cross-border projects work.' } = {}) {
+export function UaeAdvantagesSection({ items = content.advantages, intro = 'Silicon Valley engineering.', highlight = 'Seamless Dubai collaboration.' } = {}) {
   return (
     <section className="site-section sec-uae-expansion sec-uae-advantages" id="uae-advantages" aria-label="Why choose Algofort">
       <UaeAdvantagesMotion />
       <div className="site-container container-large padding-global">
         <div className="sec-uae-advantages__layout">
           <div className="sec-uae-advantages__intro">
-            <SectionHeading dark badge="Why choose Algofort" description={description}>{intro}<br /><span className="text-color-secondary">{highlight}</span></SectionHeading>
+            <SectionHeading dark badge="Why choose Algofort">{intro}<br /><span className="text-color-secondary">{highlight}</span></SectionHeading>
           </div>
           <div className="sec-uae-advantages__timeline">
-            <svg className="sec-uae-advantages__route" viewBox="0 0 1200 1800" preserveAspectRatio="none" fill="none" aria-hidden="true">
-              <path className="sec-uae-advantages__route-base" d="" />
-              <path className="sec-uae-advantages__route-progress" d="" />
-            </svg>
             <ol className="section-content sec-uae-advantages__list">
               {items.map((item) => <li className="sec-uae-advantages__item" key={item.number}>
                 <span className="sec-uae-advantages__marker" aria-hidden="true" />
@@ -70,12 +66,11 @@ export function UaeResultsSection({ items = content.results, badge = 'Proven res
         <div className="sec-uae-results__stage">
         <div className="sec-uae-results__intro">
           <SectionHeading badge={badge}>How we help<br /><span className="text-color-secondary">brands scale.</span></SectionHeading>
-          <div className="sec-uae-expansion__caption"><span>{caption}</span></div>
         </div>
         <div className="section-content sec-uae-results__grid">
           {items.map((result) => <article className="content-card sec-uae-results__card" key={result.number}>
             <span className="sec-uae-expansion__number">({result.number})</span>
-            <div className="sec-uae-results__outcome"><strong>{result.metric}</strong><span>{result.metricLabel}</span></div>
+            <div className="sec-uae-results__outcome"><strong>{result.metric}</strong></div>
             <h3 className="heading-style-h3 sec-uae-expansion__subtitle">{result.title}</h3>
             <p className="sec-uae-results__category">{result.category}</p>
             <p className="alg-text">{result.description}</p>
